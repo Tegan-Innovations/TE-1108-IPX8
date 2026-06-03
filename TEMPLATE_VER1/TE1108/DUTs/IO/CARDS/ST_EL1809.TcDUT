@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="ST_EL1809" Id="{75a73e5d-4ca3-4f42-b76f-6978af3e18bb}">
     <Declaration><![CDATA[TYPE ST_EL1809 :
 STRUCT
@@ -13,8 +13,8 @@ STRUCT
 	iUS_OK		   							AT %I*	 		: 	BOOL;	// EL1809 channel 4
 	iPartPresentNest1         				AT %I*	 		: 	BOOL;	// EL1809 channel 5 		     			
 	iPartPresentNest2 						AT %I*			: 	BOOL;	// EL1809 channel 6
-	iEL1809_Ch7               				AT %I*          :   BOOL;   // EL1809 channel 7 
-    iEL1809_Ch8          					AT %I*          :   BOOL;   // EL1809 channel 8
+	iSlideNestRetracted    					AT %I*          :   BOOL;   // EL1809 channel 7 
+    iSlideNestExtended         				AT %I*          :   BOOL;   // EL1809 channel 8
     iEL1809_Ch9           					AT %I*          :   BOOL;   // EL1809 channel 9
 	iProcessCylinderExtended              	AT %I*          :   BOOL;   // EL1809 channel 10
 	iRejectSensor              				AT %I*          :   BOOL;   // EL1809 channel 11

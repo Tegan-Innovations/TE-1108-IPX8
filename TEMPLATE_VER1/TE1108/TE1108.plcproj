@@ -19,9 +19,6 @@
     <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\COMPONENTS\CAMERA\ST_Camera.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\COMPONENTS\GENERIC\ST_GeneralStationCMD.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -55,6 +52,15 @@
     <Compile Include="DUTs\COMPONENTS\PROCESS DOOR\ST_ProcessDoor_CMD.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\COMPONENTS\SLIDE NEST\E_SlideNest_State.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\COMPONENTS\SLIDE NEST\ST_SlideNest.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\COMPONENTS\SLIDE NEST\ST_SlideNest_CMD.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\HMI\ST_Animations.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -65,9 +71,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\HMI\ST_Timers.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\IO\CAMERA\ST_KeyenceCamera_I_O.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\IO\CARDS\ST_EL1918_C.TcDUT">
@@ -145,12 +148,6 @@
     <Compile Include="DUTs\MASTER\ST_ButtonsLamps.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\MASTER\ST_HMI_IO.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\MASTER\ST_MACHINE.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\MASTER\ST_MachineStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -170,15 +167,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\PDFMaker\ST_PDFMaker.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\COMPONENTS\CAMERA\E_Camera_State.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\COMPONENTS\CAMERA\ST_Camera_CycleData.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\COMPONENTS\CAMERA\ST_Camera_CMD.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\COMPONENTS\LEAK TESTER\E_LeakTester_State.TcDUT">
@@ -268,13 +256,13 @@
     <Compile Include="POUs\B_STATIONS\B_2_HEIGHT_TEST\B_2_1_PRG_Master_Height_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B_STATIONS\B_3_CAMERA\B_3_1_PRG_Master_Camera.TcPOU">
+    <Compile Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR_SLIDE_NEST\B_4_1_PRG_Master_ProcessCylinder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR\B_4_1_PRG_Master_ProcessCylinder.TcPOU">
+    <Compile Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR_SLIDE_NEST\B_4_2_PRG_Master_ProcessDoor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR\B_4_2_PRG_Master_ProcessDoor.TcPOU">
+    <Compile Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR_SLIDE_NEST\B_4_3_PRG_Master_SlideNest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\C_HMI\C_1_PRG_MainHMI.TcPOU">
@@ -315,9 +303,9 @@
     <Folder Include="DUTs" />
     <Folder Include="DUTs\COMPONENTS\GENERIC" />
     <Folder Include="DUTs\COMPONENTS\PROCESS DOOR" />
+    <Folder Include="DUTs\COMPONENTS\SLIDE NEST" />
     <Folder Include="DUTs\IO\CARDS" />
     <Folder Include="DUTs\IO\LEAK_TESTERS" />
-    <Folder Include="DUTs\IO\CAMERA" />
     <Folder Include="DUTs\IO\PROBES" />
     <Folder Include="DUTs\MASTER" />
     <Folder Include="DUTs\IO" />
@@ -329,7 +317,6 @@
     <Folder Include="DUTs\COMPONENTS\LEAK TESTER" />
     <Folder Include="DUTs\COMPONENTS\HEIGHT TEST" />
     <Folder Include="DUTs\COMPONENTS\MAIN CYLINDER" />
-    <Folder Include="DUTs\COMPONENTS\CAMERA" />
     <Folder Include="DUTs\USER_ALARMS_EVENTS" />
     <Folder Include="DUTs\USER_ALARMS_EVENTS\EVENTS" />
     <Folder Include="GVLs" />
@@ -337,8 +324,7 @@
     <Folder Include="POUs\B_STATIONS" />
     <Folder Include="POUs\B_STATIONS\B_1_LEAK_TEST" />
     <Folder Include="POUs\B_STATIONS\B_2_HEIGHT_TEST" />
-    <Folder Include="POUs\B_STATIONS\B_3_CAMERA" />
-    <Folder Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR" />
+    <Folder Include="POUs\B_STATIONS\B_4_PROCESS_CYLINDER__SLIDE_DOOR_SLIDE_NEST" />
     <Folder Include="POUs\C_HMI" />
     <Folder Include="POUs\D_CSV" />
     <Folder Include="POUs\Utilities" />

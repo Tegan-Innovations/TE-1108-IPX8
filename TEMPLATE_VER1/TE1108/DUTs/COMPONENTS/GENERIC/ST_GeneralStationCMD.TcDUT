@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="ST_GeneralStationCMD" Id="{ff78f0ef-9fa8-4e6f-9d5c-03e88c7448b6}">
     <Declaration><![CDATA[TYPE ST_GeneralStationCMD :
 STRUCT
@@ -15,11 +15,11 @@ STRUCT
 	nTaskID       			:UINT;	// Request a Task by its ID	
     bManualMode   			:BOOL;	// Request Manual Mode(jog mode)
 	
-	CameraCMD				: ST_Camera_CMD;
 	ProcessCylinderCMD		: ST_ProcessCylinder_CMD;
 	ProcessDoorCMD			: ST_ProcessDoor_CMD;
 	LeakTestersCMD			: ST_LeakTester_CMD;
 	HeightTest_CMD			: ST_HeightTest_CMD;
+	SlideCylinderCMD		: ST_SlideNest_CMD;
 	
 	
 END_STRUCT

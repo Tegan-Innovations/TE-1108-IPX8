@@ -1,26 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
-  <DUT Name="E_Camera_State" Id="{1f427bb6-b000-49ab-b9fe-b41ba2f3f5a8}">
+  <DUT Name="E_SlideNest_State" Id="{bebd36fe-a8e0-4ba4-a698-4f514c6128fc}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE E_Camera_State :
+TYPE E_SlideNest_State :
 (
 	//GENERIC
 	ABORTED				,
-	RESET_ERROR			,
-	READY				,
-	RESET_CMD			,
-	//MANUAL_MODE			:=50, /manual mode not needed.
-	ERROR				,
-	//SPECIFIC FOR EVERY STATION
 	HOMING				,
-	
-	TAKING_PICTURE_CAP	,
-	TAKING_PICTURE_FPB	,
-	COMPARING_RESULTS	,
+	READY				,
+	MANUAL_MODE			,
+	STOPPING			,
+	//SPECIFIC FOR EVERY STATION
+	MOVE_RIGHT			,
+	MOVE_LEFT			,
 	DONE				,
-	RESULTS_CAP			,
-	RESULTS_FPB				
+	RESET				
 );
 END_TYPE
 ]]></Declaration>

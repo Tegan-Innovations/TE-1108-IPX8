@@ -57,16 +57,14 @@
 	
 	stMachineStatus					: ST_MachineStatus;	
 	stMasterCtrl					: ST_MasterCTRL;
-	bStatisticsTest					: ARRAY[0..6] OF  BOOL;
+	bStatisticsTest					: ARRAY[0..5] OF  BOOL;
 	
 	
 ////////////////////////////////////////////////////////////////////////////////////SYSTEM////////////////////////////////////////////////////////////////////////////
+
 	stSystemTime				: TIMESTRUCT;
 	sSystemTime					: STRING(255);
 	sSystemDate					: STRING(255);
-	
-	bResetTest					: BOOL;
-	bTestFlag					: ARRAY[0..10] OF BOOL;
 
 ////////////////////////////////////////////////////////////////////////////////////SAFETY////////////////////////////////////////////////////////////////////////////
 
@@ -77,19 +75,6 @@
 	bProcessCylinderSafetyPosition	: BOOL;
 	bProcessDoorUpInitialising		: BOOL;
 	
-END_VAR
-VAR_GLOBAL PERSISTENT
-	
-	stMACHINE						: ST_MACHINE;	//THIS STRUCTURE WILL DEFINDE THE PROCESS IN AUTO CYCLE DEPENDING OF WHAT MACHINE YOU ARE WORKING WITH
-													//THE bMachine boolean array will define the machine			//1. LT-WH-VC LEAK TEST: FLUID PATH, HEIGHT TEST: FPB WELDING, VISION CHECK: EWIS FOAM
-																													//2. WH: HEIGHT TEST: FPB WELDING
-																													//3. LT: LEAK TEST: RESERVOIR 
-																													
-
-
-
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

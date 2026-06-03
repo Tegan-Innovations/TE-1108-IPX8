@@ -22,12 +22,6 @@
 	
 	LeakTester1_IO														: ST_General_LeakTester_I_O;
 	LeakTester2_IO														: ST_General_LeakTester_I_O;
-	
-	Camera1_IO															: ST_KeyenceCamera_I_O;
-	Camera2_IO															: ST_KeyenceCamera_I_O;
-	Camera3_IO															: ST_KeyenceCamera_I_O;
-	Camera4_IO															: ST_KeyenceCamera_I_O;
-	
 	Probes																: ST_Probes_I_O;
 
 	dw_T06_EL2904_Reading												: ST_SafeOutputsReading;

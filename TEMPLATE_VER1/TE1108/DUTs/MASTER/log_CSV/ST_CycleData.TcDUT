@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="ST_CycleData" Id="{55f28d2e-fb51-4eb3-b909-a265f2991986}">
     <Declaration><![CDATA[TYPE ST_CycleData :
 STRUCT
@@ -10,9 +10,6 @@ STRUCT
 	bFail				: BOOL;	
 	sDate				: STRING;	
 	sTime				: STRING;
-	
-	Camera_Pass			: BOOL;
-	Camera_Fail			: BOOL;
 	
 	LeakTest_Pass		: BOOL;
 	LeakTest_Fail		: BOOL;
@@ -29,7 +26,6 @@ STRUCT
 	
 	//HMI, CSV
 	sGeneralResult		: STRING;
-	sCameraResult		: STRING;
 	sHeightTestResult	: STRING;
 	sLeakTesterResult	: STRING;
 	

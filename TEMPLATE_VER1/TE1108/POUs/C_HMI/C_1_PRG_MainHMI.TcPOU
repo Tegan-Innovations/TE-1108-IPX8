@@ -16,21 +16,7 @@ b_ACT_Timers();
 c_ACT_IO();
 
 bEnableSettings				:= (stMachineStatus.eMachineState = E_MachineState.STOPPED);
-
-stStatisticsWH[0]			:= stStatisticsHMI[0];
-stStatisticsWH[1]			:= stStatisticsHMI[1];
-stStatisticsWH[2]			:= stStatisticsHMI[4];
-stStatisticsWH[3]			:= stStatisticsHMI[5];
-stStatisticsWH[4]			:= stStatisticsHMI[6];
-stStatisticsWH[5]			:= stStatisticsHMI[7];
-
-stStatisticsLT[0]			:= stStatisticsHMI[0];
-stStatisticsLT[1]			:= stStatisticsHMI[1];
-stStatisticsLT[2]			:= stStatisticsHMI[2];
-stStatisticsLT[3]			:= stStatisticsHMI[3];
-
 bOpenRejectDialog			:= bRejectPartDialog[0] OR bRejectPartDialog[1] OR bRejectPartDialog[2];
-
 bProcessCylinderDownEnable	:= dw_T08_EL1809.iPartPresentNest1 AND dw_T08_EL1809.iPartPresentNest2 AND dw_T05_EL1918.iProcessDoorFB;]]></ST>
     </Implementation>
     <Action Name="a_ACT_MachineStatusBaner" Id="{0dc7bcd3-753a-4f06-be0f-fec0a8964021}">

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_SlideNest" Id="{debfdd41-1b73-4a9a-b2a9-bfd204198dad}">
+    <Declaration><![CDATA[TYPE ST_SlideNest :
+STRUCT
+	
+	State					: E_SlideNest_State;
+	CMD						: ST_GeneralStationCMD;
+	Status					: ST_StationStatus;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

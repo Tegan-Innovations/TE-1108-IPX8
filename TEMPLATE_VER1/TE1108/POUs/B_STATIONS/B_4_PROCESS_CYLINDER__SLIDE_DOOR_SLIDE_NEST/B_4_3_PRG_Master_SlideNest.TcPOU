@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="B_4_3_PRG_Master_SlideNest" Id="{23f0e1e1-7563-491f-bb2c-a8937b7ea92f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM B_4_3_PRG_Master_SlideNest
+
+VAR
+
+
+/////////////////////////////////////////////////////////////////////////////////////I O/////////////////////////////////////////////////////////////////////////////////////	
+	
+	bNestRight							: BOOL;
+	bNestLeft							: BOOL;
+	bNestRightHMI						: BOOL;
+	bLeftRightHMI						: BOOL;
+	bNestInLeftPos						: BOOL;
+	bNestInRightPos						: BOOL;
+	
+	bProcessCylinderUp					: BOOL;
+
+	
+
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[d_ACT_Set_Events_Station_4B();
+a_ACT_Ctrl_Station_4B();
+b_ACT_IO_B();
+
+]]></ST>
+    </Implementation>
+    <Action Name="a_ACT_Ctrl_Station_4B" Id="{4fcc76fc-a9f9-4009-ab38-1acad5f7752c}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+
+
+IF stSlideNest.CMD.bAbort THEN
+	
+	stSlideNest.State												:= E_SlideNest_State.RESET;
+	
+ELSIF stSlideNest.CMD.bEndCycle THEN
+	
+	stSlideNest.State												:= E_SlideNest_State.STOPPING;
+
+END_IF
+
+CASE stSlideNest.State OF
+	
+	E_SlideNest_State.ABORTED:
+	
+								IF stSlideNest.CMD.bEnable AND bProcessCylinderUp THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.HOMING;
+								
+								END_IF
+								
+	E_SlideNest_State.HOMING: 
+	
+								bNestLeft							:= TRUE;
+								
+								IF bNestInLeftPos THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.READY;									
+									bNestLeft						:= FALSE;
+																	
+								END_IF
+	
+	
+	E_SlideNest_State.READY:
+	
+								IF stSlideNest.CMD.bExecute AND 	stSlideNest.CMD.SlideCylinderCMD.MoveRight	THEN
+
+									stSlideNest.State				:= E_SlideNest_State.MOVE_RIGHT;
+									
+								ELSIF stSlideNest.CMD.bExecute AND 	stSlideNest.CMD.SlideCylinderCMD.MoveLeft	THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.MOVE_LEFT;									
+																		
+								END_IF
+	
+
+	E_SlideNest_State.MOVE_RIGHT:
+	
+								bNestRight							:= TRUE;
+								
+								IF bNestInRightPos	THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.DONE;
+								
+								END_IF
+								
+	E_SlideNest_State.MOVE_LEFT:
+	
+								bNestLeft							:= TRUE;
+								
+								IF bNestInLeftPos THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.DONE;
+								
+								END_IF
+								
+	E_SlideNest_State.DONE:
+	
+	
+								IF stSlideNest.CMD.bAcknowledge THEN
+									
+									stSlideNest.CMD.bAcknowledge	:= FALSE;
+									stSlideNest.State				:= E_SlideNest_State.RESET;
+								
+								END_IF
+	
+	
+	E_SlideNest_State.RESET:	
+	
+								bNestRight							:= FALSE;
+								bNestLeft							:= FALSE;
+								
+								IF NOT stSlideNest.CMD.bAbort AND NOT stSlideNest.CMD.bEndCycle THEN
+									
+									stSlideNest.State				:= E_SlideNest_State.READY;
+									
+								ELSE stSlideNest.State			:= E_SlideNest_State.ABORTED;
+								END_IF
+									
+
+ELSE stSlideNest.State		:= E_SlideNest_State.ABORTED;
+	
+END_CASE
+/////////////////////////////////////////////////////////////////////////////////////STATUS/////////////////////////////////////////////////////////////////////////////////////
+
+stSlideNest.Status.bBusy			:= 	stSlideNest.State	= E_SlideNest_State.MOVE_RIGHT OR
+										stSlideNest.State	= E_SlideNest_State.MOVE_LEFT OR 
+										stSlideNest.State	= E_SlideNest_State.STOPPING;
+								
+stSlideNest.Status.bDone			:=	stSlideNest.State	= E_SlideNest_State.DONE;
+
+stSlideNest.Status.bReady			:= 	stSlideNest.State	= E_SlideNest_State.READY;
+
+stSlideNest.Status.bStopped		:= 	NOT stSlideNest.Status.bBusy;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="b_ACT_IO_B" Id="{7592d3e9-dd86-422c-8792-e5f14744b8ea}">
+      <Implementation>
+        <ST><![CDATA[
+bNestInLeftPos									:= dw_T08_EL1809.iSlideNestRetracted;
+bNestInRightPos									:= dw_T08_EL1809.iSlideNestExtended; 
+
+dw_T09_EL2809.qExtendSlideNest					:= bNestRight OR bSlideNestRight;	
+dw_T09_EL2809.qRetractSlideNest					:= bNestLeft OR bSlideNestLeft;
+
+bProcessCylinderUp								:= stTwinSAFE.qProcessCylinderRetracted;
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="d_ACT_Set_Events_Station_4B" Id="{938e0a0a-091d-495e-86ce-4b8a012a211a}">
+      <Implementation>
+        <ST><![CDATA[//IMMEDIATE FAULTS
+
+stStationEvents[4].aEvents[0].bEventTimer( IN :=  (bNestRight OR bSlideNestLeft) AND NOT bNestInLeftPos, PT := T#5S);
+stStationEvents[4].aEvents[0].bFault						:= TRUE;
+stStationEvents[4].aEvents[0].bEventFlag					:= stStationEvents[4].aEvents[0].bEventTimer.Q;
+stStationEvents[4].aEvents[0].bEventText					:= 'Process Door extend timeout';
+stStationEvents[4].aEvents[0].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+stStationEvents[4].aEvents[1].bEventTimer( IN :=  (bNestLeft OR bSlideNestRight) AND NOT bNestInRightPos, PT := T#5S);
+stStationEvents[4].aEvents[1].bFault						:= TRUE;
+stStationEvents[4].aEvents[1].bEventFlag					:= stStationEvents[4].aEvents[1].bEventTimer.Q;
+stStationEvents[4].aEvents[1].bEventText					:= 'Process Door Retract timeout';
+stStationEvents[4].aEvents[1].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>
