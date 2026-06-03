@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_Timers" Id="{9021a1a9-aac4-4fae-9346-03545d78fd35}">
+    <Declaration><![CDATA[TYPE ST_Timers :
+STRUCT
+	
+	nAutoCycleTimeOut					: DINT;
+	nStation1TimeOut					: DINT;
+	nStation2TimeOut					: DINT;
+	nStation3TimeOut					: DINT;
+	nDoorOpenedSignal					: DINT;
+	nTwoHandsSignal						: DINT;
+	nHeightTest							: DINT;
+	nAutoCycleIDLETimeOut				: DINT;
+	
+	tAutoCycleTimeOut					: TIME;
+	tStation1TimeOut					: TIME;
+	tStation2TimeOut					: TIME;
+	tStation3TimeOut					: TIME;
+	tDoorOpenedSignal					: TIME;
+	tTwoHandsSignal						: TIME;
+	tHeightTest							: TIME;
+	tAutoCycleIDLETimeOut				: TIME;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

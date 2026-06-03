@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="B_4_1_PRG_Master_ProcessCylinder" Id="{d0145914-e9cd-4253-a0f6-814edf8d9943}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM B_4_1_PRG_Master_ProcessCylinder
+
+VAR
+
+	
+	
+/////////////////////////////////////////////////////////////////////////////////////I O/////////////////////////////////////////////////////////////////////////////////////	
+	bExtended							: BOOL;
+	bRetracted							: BOOL;
+	bExtend								: BOOL;
+	bRetract							: BOOL;
+
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[d_ACT_Set_Events_Station_4A();
+a_ACT_Ctrl_Station_4A();
+b_ACT_IO_A();
+c_Manual();
+]]></ST>
+    </Implementation>
+    <Action Name="a_ACT_Ctrl_Station_4A" Id="{d4b732ce-22fe-4ec8-9a8f-7db7188e9535}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+
+
+IF stProcessCylinder.CMD.bAbort THEN
+	
+	stProcessCylinder.State				:= E_ProcessCylinder_State.RESET;
+
+END_IF
+
+CASE stProcessCylinder.State OF
+	
+	E_ProcessCylinder_State.ABORTED:
+	
+								IF stProcessCylinder.CMD.bEnable THEN
+									
+									stProcessCylinder.State				:= E_ProcessCylinder_State.HOMING;
+								
+								END_IF
+								
+	E_ProcessCylinder_State.HOMING:
+	
+								bRetract								:= TRUE;
+								
+								IF bRetracted THEN
+									
+									bRetract							:= FALSE;
+									stProcessCylinder.State				:= E_ProcessCylinder_State.READY;
+									
+								
+								END_IF
+	
+	E_ProcessCylinder_State.READY:
+	
+								IF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1 THEN
+
+									stProcessCylinder.State				:= E_ProcessCylinder_State.EXTEND;
+									
+								ELSIF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1 THEN
+									
+									stProcessCylinder.State				:= E_ProcessCylinder_State.RETRACT;;									
+																		
+								END_IF
+	
+	E_ProcessCylinder_State.EXTEND:
+	
+								bExtend									:= stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1;
+								
+								IF bExtend THEN
+									
+									IF bExtended THEN
+
+										stProcessCylinder.State			:= E_ProcessCylinder_State.DONE;
+									
+									END_IF						
+	
+								END_IF
+								
+	E_ProcessCylinder_State.RETRACT:
+	
+								bRetract								:= stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1;
+								
+								
+								IF bRetract THEN
+									
+									IF bRetracted THEN
+
+										stProcessCylinder.State				:= E_ProcessCylinder_State.DONE;
+									
+									END_IF					
+	
+								END_IF
+								
+	E_ProcessCylinder_State.DONE:
+	
+								IF stProcessCylinder.CMD.bAcknowledge THEN
+									
+									stProcessCylinder.CMD.bAcknowledge		:= FALSE;
+									stProcessCylinder.State					:= E_ProcessCylinder_State.RESET;
+								
+								END_IF
+	
+	
+	E_ProcessCylinder_State.RESET:	
+	
+								bExtend										:= FALSE;								
+								bRetract									:= FALSE;
+								
+								
+								IF NOT stProcessCylinder.CMD.bAbort AND NOT stProcessCylinder.CMD.bEndCycle THEN
+									
+									stProcessCylinder.State					:= E_ProcessCylinder_State.READY;
+									
+								ELSE stProcessCylinder.State					:= E_ProcessCylinder_State.ABORTED;
+								END_IF
+									
+
+ELSE stProcessCylinder.State	:= E_ProcessCylinder_State.ABORTED;
+	
+END_CASE
+/////////////////////////////////////////////////////////////////////////////////////STATUS/////////////////////////////////////////////////////////////////////////////////////
+
+stProcessCylinder.Status.bBusy		:= 	stProcessCylinder.State	= E_ProcessCylinder_State.EXTEND OR
+										stProcessCylinder.State	= E_ProcessCylinder_State.RETRACT OR 
+										stProcessCylinder.State	= E_ProcessCylinder_State.STOPPING;
+								
+stProcessCylinder.Status.bDone		:=	stProcessCylinder.State	= E_ProcessCylinder_State.DONE;
+
+stProcessCylinder.Status.bReady		:= 	stProcessCylinder.State	= E_ProcessCylinder_State.READY;
+
+stProcessCylinder.Status.bStopped	:= 	NOT stProcessCylinder.Status.bBusy;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="b_ACT_IO_A" Id="{29d1f0f3-bcef-4a52-aeb7-dd0a6b1253cf}">
+      <Implementation>
+        <ST><![CDATA[
+bExtended								:= dw_T08_EL1809.iProcessCylinderExtended;
+bRetracted								:= stTwinSAFE.qProcessCylinderRetracted;
+
+IF bExtend OR bProcessCylinder_Down2 THEN
+	
+	dw_T09_EL2809.qExtendProcessCylinder	:= TRUE ;
+	dw_T09_EL2809.qRetractProcessCylinder	:= FALSE;
+
+ELSIF bRetract OR bProcessCylinder_Up OR stTwinSAFE.iInitSafety THEN
+	
+	dw_T09_EL2809.qExtendProcessCylinder	:= FALSE;
+	dw_T09_EL2809.qRetractProcessCylinder	:= TRUE;
+
+END_IF
+
+
+IF stStationEvents[3].aEvents[0].bEventTimer.Q THEN
+	
+	bRetract := FALSE;
+
+END_IF
+
+IF stStationEvents[3].aEvents[1].bEventTimer.Q THEN
+	
+	bExtended := FALSE;
+
+END_IF
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="c_Manual" Id="{0d3727e7-45d5-4409-b537-12f65f0f5507}">
+      <Implementation>
+        <ST><![CDATA[(*
+IF bProcessCylinder1_Up THEN
+	
+	bRetract[0] := TRUE;
+	
+ELSIF bRetracted[0] THEN
+	
+	bRetract[0] := FALSE;
+
+END_IF
+
+IF bProcessCylinder1_Down THEN
+	
+	bExtend[0] := TRUE;
+	
+ELSIF bExtended[0] THEN
+	
+	bExtend[0] := FALSE;
+
+END_IF
+
+IF bProcessCylinder2_Up THEN
+	
+	bRetract[1] := TRUE;
+	
+ELSIF bRetracted[1] THEN
+	
+	bRetract[1] := FALSE;
+
+END_IF
+
+IF bProcessCylinder2_Down THEN
+	
+	bExtend[1] := TRUE;
+	
+ELSIF bExtended[1] THEN
+	
+	bExtend[1] := FALSE;
+
+END_IF
+*)]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="d_ACT_Set_Events_Station_4A" Id="{d00bfd1e-e9ca-4865-8264-d52001d7fb58}">
+      <Implementation>
+        <ST><![CDATA[//FAULTS
+
+stStationEvents[3].aEvents[0].bEventTimer( IN := (bExtend AND NOT bExtended), PT := T#10S);
+stStationEvents[3].aEvents[0].bFault						:= TRUE;
+stStationEvents[3].aEvents[0].bEventFlag					:= stStationEvents[3].aEvents[0].bEventTimer.Q;
+stStationEvents[3].aEvents[0].bEventText					:= 'Process Cylinder 1 extend timeout';
+stStationEvents[3].aEvents[0].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+stStationEvents[3].aEvents[1].bEventTimer( IN := (bRetract AND NOT bRetracted), PT := T#3S);
+stStationEvents[3].aEvents[1].bFault						:= TRUE;
+stStationEvents[3].aEvents[1].bEventFlag					:= stStationEvents[3].aEvents[1].bEventTimer.Q;
+stStationEvents[3].aEvents[1].bEventText					:= 'Process Cylinder retract timeout';
+stStationEvents[3].aEvents[1].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+
+//CYCLE STOP REQUEST
+
+(*stStationEvents[3].aEvents[2].bCycleStopRequest			:= TRUE;
+stStationEvents[3].aEvents[2].bEventFlag					:= ;
+stStationEvents[3].aEvents[2].bEventText					:= 'ST1 EVENT 7';*)]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

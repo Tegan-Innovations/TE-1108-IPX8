@@ -1,0 +1,1335 @@
+{
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.14.3.431/runtimes/native1.12-tchmi/Schema/TchmiConfig.Schema.json",
+  "basePath": "./Beckhoff.TwinCAT.HMI.Framework",
+  "scaleMode": "None",
+  "startupView": "Desktop.view",
+  "loginPage": "",
+  "splash": {
+    "versionSource": "Framework"
+  },
+  "projectVersion": "1.0.0.0",
+  "tcHmiServer": {
+    "websocketIntervalTime": 500,
+    "websocketTimeout": 20000,
+    "websocketSystemTimeout": 60000,
+    "websocketSubscriptionMode": null,
+    "disableOptionalSystemSubscriptions": false
+  },
+  "activeTheme": "Base",
+  "themes": {
+    "Base-Dark": {
+      "resources": [
+        {
+          "name": "Themes/Base-Dark/Base-DarkStyle.css",
+          "description": "",
+          "type": "Stylesheet"
+        },
+        {
+          "name": "Themes/Base-Dark/Base-Dark.theme",
+          "description": "",
+          "type": "ThemedValues"
+        }
+      ],
+      "replacesThemeForControls": [],
+      "replacesThemeForPackageComponents": []
+    },
+    "Base": {
+      "resources": [
+        {
+          "name": "Themes/Base/Base.theme",
+          "description": "",
+          "type": "ThemedValues"
+        },
+        {
+          "name": "Themes/Base/BaseStyle.css",
+          "description": "",
+          "type": "Stylesheet"
+        }
+      ],
+      "replacesThemeForControls": [],
+      "replacesThemeForPackageComponents": []
+    }
+  },
+  "dependencyFiles": [
+    {
+      "name": "Fonts/Fonts.css",
+      "description": "",
+      "type": "Stylesheet"
+    },
+    {
+      "name": "Contents/CSS_JAVA/CssBehind1.css",
+      "description": "",
+      "type": "Stylesheet"
+    },
+    {
+      "name": "Contents/CSS_JAVA/PDF Maker/relatori.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "Contents/CSS_JAVA/PDF Maker/jspdf.min.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "Contents/CSS_JAVA/RowClassesProvider.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "Contents/CSS_JAVA/Enable buttons.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "Contents/CSS_JAVA/UserManagerControl/userManagerScript 1.js",
+      "description": "",
+      "type": "JavaScript"
+    },
+    {
+      "name": "Contents/CSS_JAVA/Heartbeat.js",
+      "description": "",
+      "type": "JavaScript"
+    }
+  ],
+  "userControls": [
+    {
+      "url": "Contents/UserControl/08CH_Dig_IO_CARD.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/16CH_Dig_IO_CARD.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/4CH_Dig_IO_CARD.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/8CH_Analog_Input_CARD.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/Green_Red_Rectangle.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/HeightTest/HeightTestManual.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/LED_Green.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/led_Red.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/led_RedAndGreen_1In.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/led_RedAndGreen_1In_IO.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/led_RedAndGreen_2In.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/PopUp/Acknowledge.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/PopUp/RejectPart.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/PopUp/YesNo.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/PopUp/YesNo_ver2.usercontrol"
+    },
+    {
+      "url": "Contents/UserControl/ProbeLevel_V2.usercontrol"
+    }
+  ],
+  "controls": [],
+  "content": [
+    {
+      "url": "Contents/Events/CycleStopFaults.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Events/History.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Events/ImmediateFaults.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Events/Messages_CycleStopReq.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/C6010-0010.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/EL9188.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/EL9189.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/Keyence_Probe_Set.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/KeyenceCamera1.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/KeyenceCamera2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/KeyenceCamera3.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/KeyenceCamera4.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/LeakTester1.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/LeakTester2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T01_EK1100.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T02_EL6070.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T03_EL6910.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T04_EL1918.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T05_EL1918.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T06_EL2904.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T07_EL9410.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T08_EL1809.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T09_EL2809.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T10_EL3058.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T11-EL1918.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Hardware/T12_EL6633.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/M/HeadMenu.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Cameras/CameraInterface.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Cameras/CameraTriggerPopup.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Cameras_CAP.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Cameras_FPB.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Height_Test.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/Leak_Test.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Manual/MessageBox.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/popup/popup1_RejectedPart.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/popup/popup5_UserManagement.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/popup/popup6_ChangeSettings_ver2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/1_Main_HW.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/1_Main_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/1_Main_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/1_Main_LT_HW_VC_ver2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/10_Manage_Users.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/13_Develop.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/2_Menu.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/3_IO_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/3_IO_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/3_IO_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/4_Events.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/5_Manual_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/5_Manual_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/5_Manual_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/6_Settings_NoProbes.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/6_Settings_Probes.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/7_Statistics_HW.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/7_Statistics_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/7_Statistics_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/8_Info.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest1_HW.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest1_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest1_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest2_HW.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest2_LT.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Screens/9_Data_HistoryNest2_LT_HW_VC.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/Calibration_Set1.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/Calibration_Set2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/Distances.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/EnableNests.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/ProbePositions1.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/ProbePositions2.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/Settings/Tolerances.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    }
+  ],
+  "views": [
+    {
+      "url": "Desktop.view",
+      "preload": false,
+      "keepAlive": false,
+      "preloadBindings": false
+    }
+  ],
+  "userFunctions": [
+    {
+      "url": "Contents/CSS_JAVA/RowClassesProvider.js"
+    }
+  ],
+  "symbols": {
+    "internal": {
+      "MainFrame": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "nEventsScreen": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/INT",
+        "persist": false,
+        "readonly": false
+      },
+      "UserToChange": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "PasswordField": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "AddGroupID": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "RemGroupID": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "CreateUserEnable": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
+        "persist": false,
+        "readonly": false
+      },
+      "UserList": {
+        "type": "tchmi:general#/definitions/Array",
+        "persist": false,
+        "readonly": false
+      },
+      "Groups": {
+        "type": "tchmi:general#/definitions/Array",
+        "persist": false,
+        "readonly": false
+      },
+      "delaytest": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
+        "persist": false,
+        "readonly": false
+      },
+      "CameraZIndex": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "IO_Screen": {
+        "value": "Contents/Hardware/C6010-0010.content",
+        "type": "tchmi:framework#/definitions/Path",
+        "persist": false,
+        "readonly": false
+      },
+      "CameraFrame": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "Settings_Screen": {
+        "value": "Contents/Settings/Calibration.content",
+        "type": "tchmi:framework#/definitions/Path",
+        "persist": false,
+        "readonly": false
+      },
+      "FixedByCalibration1": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "FixedByCalibration2": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "FixedByCalibration3": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "ExpectedByDrawing1": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "ExpectedByDrawing2": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "ExpectedByDrawing3": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/REAL",
+        "persist": false,
+        "readonly": false
+      },
+      "HeightTolerance1": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "HeightTolerance2": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "HeightTolerance3": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "test": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "EventFilter": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/INT",
+        "persist": false,
+        "readonly": false
+      },
+      "UserName": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "UserGroups": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "SelectedUser": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "UserManager_Action": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "UserManager_PopupHeader": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "UserManager_PopupText": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "DisableHeadButtons": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
+        "persist": false,
+        "readonly": false
+      },
+      "YESNOpopup_setting_in": {
+        "value": 0,
+        "type": "tchmi:general#/definitions/DINT",
+        "persist": false,
+        "readonly": false
+      },
+      "YESNOpopup_close": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
+        "persist": false,
+        "readonly": false
+      },
+      "YESNOpopup_Header": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "YESNOpopup_Text": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "LogOut": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
+        "persist": false,
+        "readonly": false
+      },
+      "PopupRejectPart_Header": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "PopupRejectPart_Text": {
+        "value": "",
+        "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      }
+    },
+    "themedResources": {},
+    "timer": {},
+    "package": {}
+  },
+  "intervals": {},
+  "trigger": [
+    {
+      "event": "%s%Diagnostics::UPTIME%/s%",
+      "actions": [
+        {
+          "objectType": "WriteToSymbol",
+          "active": true,
+          "symbolExpression": "%s%PLC1.GVL_HMI.sUserGroupIn%/s%",
+          "value": {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/STRING%2880%29",
+            "symbolExpression": "%s%TcHmiSrv.GetCurrentUser.groups%/s%"
+          },
+          "asyncWait": true
+        },
+        {
+          "objectType": "WriteToSymbol",
+          "active": true,
+          "symbolExpression": "%s%PLC1.GVL_HMI.nMainRegion%/s%",
+          "value": {
+            "objectType": "Symbol",
+            "valueType": "tchmi:general#/definitions/DINT",
+            "symbolExpression": "%i%MainFrame%/i%"
+          },
+          "asyncWait": true
+        },
+        {
+          "objectType": "Condition",
+          "active": true,
+          "parts": [
+            {
+              "if": [
+                {
+                  "compare1": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/STRING%2880%29",
+                    "symbolExpression": "%s%PLC1.GVL_HMI.sUserGroupOut%/s%"
+                  },
+                  "compare2": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/STRING%2880%29",
+                    "value": "Operator"
+                  },
+                  "compareOperator": "==",
+                  "logic": null
+                }
+              ],
+              "then": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%i%DisableHeadButtons%/i%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": false
+                  },
+                  "asyncWait": true
+                }
+              ]
+            },
+            {
+              "else": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%i%DisableHeadButtons%/i%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": true
+                  },
+                  "asyncWait": true
+                }
+              ]
+            }
+          ],
+          "asyncWait": true
+        },
+        {
+          "objectType": "Condition",
+          "active": true,
+          "parts": [
+            {
+              "if": [
+                {
+                  "compare1": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bSetDistances%/s%"
+                  },
+                  "compare2": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": true
+                  },
+                  "compareOperator": "==",
+                  "logic": null
+                }
+              ],
+              "then": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.0%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%ExpectedByDrawing1%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.1%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%ExpectedByDrawing2%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.2%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%ExpectedByDrawing3%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anDistanceCalibrationBlock.0%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%FixedByCalibration1%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anDistanceCalibrationBlock.1%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%FixedByCalibration2%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anDistanceCalibrationBlock.2%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%FixedByCalibration3%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bSetDistances%/s%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": false
+                  },
+                  "asyncWait": true
+                }
+              ]
+            },
+            {
+              "else": []
+            }
+          ],
+          "asyncWait": true
+        },
+        {
+          "objectType": "Condition",
+          "active": true,
+          "parts": [
+            {
+              "if": [
+                {
+                  "compare1": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bSetTolerances%/s%"
+                  },
+                  "compare2": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": true
+                  },
+                  "compareOperator": "==",
+                  "logic": null
+                }
+              ],
+              "then": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anTolerances.0%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%HeightTolerance1%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anTolerances.1%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%HeightTolerance2%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anTolerances.2%/s%",
+                  "value": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/REAL",
+                    "symbolExpression": "%i%HeightTolerance3%/i%"
+                  },
+                  "asyncWait": true
+                },
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bSetTolerances%/s%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": false
+                  },
+                  "asyncWait": true
+                }
+              ]
+            },
+            {
+              "else": []
+            }
+          ],
+          "asyncWait": true
+        },
+        {
+          "objectType": "Condition",
+          "active": true,
+          "parts": [
+            {
+              "if": [
+                {
+                  "compare1": {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "symbolExpression": "%s%PLC1.GVL_HMI.bShutDown%/s%"
+                  },
+                  "compare2": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": true
+                  },
+                  "compareOperator": "==",
+                  "logic": null
+                }
+              ],
+              "then": [
+                {
+                  "objectType": "Function",
+                  "active": true,
+                  "fn": "TcHmi.Functions.Beckhoff.Logout",
+                  "fnParams": [
+                    {
+                      "objectType": "StaticValue",
+                      "valueType": "tchmi:general#/definitions/Boolean",
+                      "value": true
+                    }
+                  ],
+                  "asyncWait": true
+                }
+              ]
+            },
+            {
+              "else": []
+            }
+          ],
+          "asyncWait": true
+        }
+      ]
+    },
+    {
+      "event": "onInitialized",
+      "actions": [
+        {
+          "objectType": "Condition",
+          "active": true,
+          "parts": [
+            {
+              "if": [
+                {
+                  "compare1": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "value": null
+                  },
+                  "compare2": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "value": null
+                  },
+                  "compareOperator": "==",
+                  "logic": null
+                }
+              ],
+              "then": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bHMIInitialized%/s%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": true
+                  },
+                  "asyncWait": true
+                }
+              ]
+            },
+            {
+              "else": [
+                {
+                  "objectType": "WriteToSymbol",
+                  "active": true,
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bHMIInitialized%/s%",
+                  "value": {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/BOOL",
+                    "value": false
+                  },
+                  "asyncWait": true
+                }
+              ]
+            }
+          ],
+          "asyncWait": true
+        }
+      ]
+    }
+  ],
+  "actionTemplates": [],
+  "languages": {
+    "de": "Localization/de.localization",
+    "en": "Localization/en.localization"
+  },
+  "languageFallback": "",
+  "disableLoadingOptimization": false,
+  "creatorSettings": {
+    "viewport": {
+      "defaultWidth": 800,
+      "defaultHeight": 600
+    }
+  },
+  "binding": {
+    "symbolError": "Ignore",
+    "symbolWriteError": "ReadBack"
+  },
+  "packages": [
+    {
+      "name": "Beckhoff.TwinCAT.HMI.Controls",
+      "basePath": "/Beckhoff.TwinCAT.HMI.Controls",
+      "symbols": {
+        "package": {}
+      }
+    },
+    {
+      "name": "Beckhoff.TwinCAT.HMI.Framework",
+      "basePath": "/Beckhoff.TwinCAT.HMI.Framework",
+      "symbols": {
+        "package": {}
+      }
+    },
+    {
+      "name": "Beckhoff.TwinCAT.HMI.Functions",
+      "basePath": "/Beckhoff.TwinCAT.HMI.Functions",
+      "symbols": {
+        "package": {}
+      }
+    },
+    {
+      "name": "Beckhoff.TwinCAT.HMI.PDFViewer",
+      "basePath": "/Beckhoff.TwinCAT.HMI.PDFViewer",
+      "symbols": {
+        "package": {}
+      }
+    }
+  ],
+  "keyboardLayouts": [
+    {
+      "url": "KeyboardLayouts/German - compact.keyboard.json"
+    },
+    {
+      "url": "KeyboardLayouts/Numpad (plusminus).keyboard.json"
+    },
+    {
+      "url": "KeyboardLayouts/US - compact.keyboard.json"
+    }
+  ],
+  "systemKeyboard": {
+    "providerName": "Beckhoff.TcHmiKeyboard",
+    "autoOpen": true,
+    "projectKeyboardMapping": {
+      "de": {
+        "text": "KeyboardLayouts/German - compact.keyboard.json",
+        "decimal": "KeyboardLayouts/Numpad (plusminus).keyboard.json",
+        "numeric": "KeyboardLayouts/Numpad (plusminus).keyboard.json"
+      },
+      "en": {
+        "text": "KeyboardLayouts/US - compact.keyboard.json",
+        "decimal": "KeyboardLayouts/Numpad (plusminus).keyboard.json",
+        "numeric": "KeyboardLayouts/Numpad (plusminus).keyboard.json"
+      }
+    },
+    "layout": {
+      "position": "popup"
+    }
+  },
+  "systemPopups": {
+    "providerName": "Beckhoff.TcHmiPopups"
+  }
+}

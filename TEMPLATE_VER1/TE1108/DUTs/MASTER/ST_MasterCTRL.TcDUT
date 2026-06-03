@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_MasterCTRL" Id="{0cf524b1-b3b8-486a-882b-6a9427e24a47}">
+    <Declaration><![CDATA[TYPE ST_MasterCTRL :
+STRUCT
+	
+
+	// Request Flags
+	bManualModeRequest					:BOOL;
+	
+	bCycleStopRequest					:BOOL;
+	
+	bNoFault							:BOOL;
+	
+	// Feedback Flags
+	bAllStationsReady					:BOOL;
+	bAllStationsStopped					:BOOL;
+	
+	bPowerUpTimerComplete				:BOOL;
+
+	
+//-------------------------------------------------------------------------------oldschoo1
+		
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

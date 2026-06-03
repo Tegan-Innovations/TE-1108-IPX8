@@ -1,0 +1,5 @@
+<div id="Camera1" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="748" data-tchmi-height="660">
+
+<div id="TcHmiIFrame_3" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiIFrame" data-tchmi-height="660" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="748" data-tchmi-width-unit="px" data-tchmi-src="http://192.168.7.31/iv4-wa.html">
+</div>
+</div>

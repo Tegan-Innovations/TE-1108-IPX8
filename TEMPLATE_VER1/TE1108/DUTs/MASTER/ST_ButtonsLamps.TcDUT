@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_ButtonsLamps" Id="{b4f8e141-c263-489f-b3ac-dfd99951ad7b}">
+    <Declaration><![CDATA[TYPE ST_ButtonsLamps :
+STRUCT
+		
+	bStartButtonRisingEdge			: 	BOOL;
+	bStartButtonFallingEdge			:	BOOL;
+	bResetButtonRisingEdge			: 	BOOL;
+	bResetButtonFallingEdge			: 	BOOL;
+	bStopButtonRisingEdge			:	BOOL;
+	bStopButtonFallingEdge			:	BOOL;
+	
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

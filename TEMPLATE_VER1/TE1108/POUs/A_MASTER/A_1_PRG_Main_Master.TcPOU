@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="A_1_PRG_Main_Master" Id="{f5cadd41-0b0d-4992-977e-5b237965be89}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM A_1_PRG_Main_Master
+VAR
+	
+	
+	fbStringFormatter       				: Tc2_Utilities.FB_FormatString;
+	fbEventsManager							: FB_EventsManager;
+	bResetEvents							: BOOL;
+	
+	ntShutdown								: TC2_Utilities.NT_Shutdown;
+	closeChrome 							: NT_StartProcess;
+	bCloseChromeBusy						: BOOL;
+	tonCloseChromeBusy						: TON;
+	//fbUserLog								: FB_UserLog;
+	
+	
+	nFindAdm								: INT;
+	nFindEng								: INT;
+	nFindOpe								: INT;
+	sUserGroupName							: STRING (255);
+	sAdmGroup								: STRING (255)							:= 'Administrator';
+	sEngGroup								: STRING (255)							:= 'Engineer';
+	sOpeGroup								: STRING (255)							:= 'Operator';
+	
+	rEfficency								: STRING(510);
+	
+	fbSystemTime							: NT_GetTime;
+	
+	fbScaleAirSupply						: FB_Scale;
+	
+	fMessageReset							: F_TRIG;
+	j										: DINT;
+	i										: DINT;
+	b										: DINT; //index quit HMI
+	
+	rGoodStatistics							: ARRAY [0..1] OF R_TRIG;
+	rBadStatistics							: ARRAY [0..1] OF R_TRIG;
+	
+	cuRejectCounter							: CTU;
+
+
+				
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////GENERAL/////////////////////////////////////////////////////////////////////////////////////
+A_3_PRG_FaultHandling();
+b_ACT_UserLogout();
+a_ACT_ButtonsLamps();
+d_ACT_ShutdownAndQuit();
+f_ACT_TerminalInfo();
+g_ACT_Manual();
+h_ACT_Statistics();
+i_ACT_TwinSAFE();
+j_ACT_MachineDefinition();
+
+C_1_PRG_MainHMI();
+//D_1_1_PROG_Write_Data_To_CSV();
+//D_2_1_PROG_Write_Data_To_CSV();
+
+PRG_Puls();
+
+// System PowerUP CTRL
+tonSystemPowerUP(IN:=bSystemPoweringUP, PT:=tSystemPowerUP_Time);
+IF tonSystemPowerUP.Q THEN 
+bSystemPoweringUP:=FALSE;
+END_IF
+
+/////////////////////////////////////////////////////////////////////////////////////STATIONS/////////////////////////////////////////////////////////////////////////////////////
+
+IF stMACHINE.bHeightTest  THEN
+	
+	B_2_1_PRG_Master_Height_Test();
+
+END_IF
+
+IF stMACHINE.bLeakTest  THEN
+	
+	B_1_1_PRG_Master_Leak_Test();
+
+END_IF
+
+IF stMACHINE.bVisionTest THEN
+	
+	B_3_1_PRG_Master_Camera();
+
+END_IF
+
+B_4_1_PRG_Master_ProcessCylinder();
+B_4_2_PRG_Master_ProcessDoor();
+
+/////////////////////////////////////////////////////////////////////////////////////PROCESS/////////////////////////////////////////////////////////////////////////////////////
+
+A_2_PRG_MachineCtrl();
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////EVENT LOG/////////////////////////////////////////////////////////////////////////////////////
+
+fbEventsManager	(			//INPUTS
+							bPulse 							:= stPuls.bFlash10Hz, 
+							bResetFaults 					:= dw_T04_EL1918.iResetButton, 
+							stStationEvents 				:= stStationEvents,
+							sSystemTime						:= sSystemTime,
+							sSystemDate						:= sSystemDate,
+ 							stEventsAssigment				:= stEventsAssigment,
+							bDataWritedInCSV				:= ,
+							nArraySize						:= 4,
+							bMachineMessage					:= sMachineMessage,
+							
+							//OUTPUTS
+							astActiveEvents 				=> astActiveEvents,
+							astEventsHistory				=> astEventsHistory,
+							);
+
+
+
+////////////////////////////////////////////////////////////////////////////////////SYSTEM DATE & TIME/////////////////////////////////////////////////////////////////////////////////////
+
+fbSystemTime( START := stPuls.bFlash10Hz, TIMESTR => stSystemTime);
+	
+
+sSystemTime					:= 	CONCAT( STR1 := WORD_TO_STRING(stSystemTime.wHour), STR2 := CONCAT( STR1 := ':', STR2 := 
+								CONCAT( STR1 := WORD_TO_STRING(stSystemTime.wMinute), STR2 := 
+								CONCAT(STR1 := ':', STR2 := WORD_TO_STRING(stSystemTime.wSecond)))));
+								
+sSystemDate					:= 	CONCAT( STR1 := WORD_TO_STRING(stSystemTime.wDay), STR2 := 
+								CONCAT(STR1 := '_', STR2 := CONCAT(STR1 := WORD_TO_STRING(stSystemTime.wMonth), STR2 := 
+								CONCAT(STR1 := '_', STR2 := WORD_TO_STRING(stSystemTime.wYear)))));
+
+
+stCycleDataNest1.nNest		:= 1;
+stCycleDataNest2.nNest		:= 2;
+
+////////////////////////////////////////////////////////////////////////////////////CSV////////////////////////////////////////////////////////////////////////////	
+
+	
+
+D_1_PRG_CycleDataCSV( 	stCycleDataNest1 	:= stCycleDataNest1,
+						stCycleDataNest2 	:= stCycleDataNest2,
+						bWriteNest1			:= bWriteNest1,
+						bWriteNest2			:= bWriteNest2,
+						bCSVDone			=> bCSVDone,
+						bReady				=> bCSVReady);
+	
+fbGetLocalAMSNetID(
+					bExecute	:= bReadAMSNetID,
+					AddrString => NetAmsIdLocal);	
+
+fbGetDeviceNetId(	START		:= 	bReadAMSNetID,
+					DEVICEID	:= 3,
+					DeviceNetId	=> 	NetAmsIdDevice);	
+]]></ST>
+    </Implementation>
+    <Action Name="a_ACT_ButtonsLamps" Id="{bc3442d0-b536-4f84-a62c-f220009c35e9}">
+      <Implementation>
+        <ST><![CDATA[//===================================================================
+stButtonsLamps.bStartButtonFallingEdge 		:= ftrigButton[1].Q ;
+stButtonsLamps.bStartButtonRisingEdge 		:= rtrigButton[1].Q ;
+stButtonsLamps.bStopButtonFallingEdge 		:= ftrigButton[2].Q ; 
+stButtonsLamps.bStopButtonRisingEdge 		:= rtrigButton[2].Q ;  
+stButtonsLamps.bResetButtonFallingEdge 		:= ftrigButton[3].Q ;
+stButtonsLamps.bResetButtonRisingEdge 		:= rtrigButton[3].Q ;
+
+
+
+ftrigButton[1](CLK 							:= dw_T08_EL1809.iStartButoon);
+rtrigButton[1](CLK							:= dw_T08_EL1809.iStartButoon);
+ftrigButton[2](CLK							:= NOT dw_T08_EL1809.iStopButton);
+rtrigButton[2](CLK							:= NOT dw_T08_EL1809.iStopButton);
+ftrigButton[3](CLK							:= dw_T04_EL1918.iResetButton);
+rtrigButton[3](CLK							:= dw_T04_EL1918.iResetButton);
+
+dw_T09_EL2809.qResetButtonLED				:= (stMachineStatus.bFault AND stPuls.bFlash1Hz) OR (stMachineStatus.bStopped AND stPuls.bFlash2Hz) OR stMachineStatus.bManualMode;
+dw_T09_EL2809.qStartButtonLED				:= (stMachineStatus.bReadyToStart AND stPuls.bFlash1Hz) OR stMachineStatus.bAutoCycle OR stMachineStatus.bManualMode;
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="b_ACT_UserLogout" Id="{6c319716-c530-4af6-9e7d-f889bd5a56ed}">
+      <Implementation>
+        <ST><![CDATA[tonHMIAliveOn(IN := bHMIAlive, PT:= T#2S);
+
+tonHMIAliveOff(IN := NOT bHMIAlive, PT:= T#2S);
+
+bOutHMI := tonHMIAliveOn.Q OR tonHMIAliveOff.Q;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="d_ACT_ShutdownAndQuit" Id="{b7dac9a1-fefc-426e-a57f-b21e21205edc}">
+      <Implementation>
+        <ST><![CDATA[tonCloseChromeBusy( IN := bQuitHmi, PT := T#5S);
+IF  tonCloseChromeBusy.Q THEN
+	
+	bQuitHmi			:= FALSE;
+
+END_IF
+
+closeChrome(
+    NetId := NetAmsIdLocal,
+    PathStr := 'C:\Windows\System32\mshta vbscript:Execute("CreateObject(""WScript.Shell"").Run ""powershell -c',
+    DirName := 'C:\Windows\System32\WindowsPowerShell\v1.0',
+    ComndLine := 'taskkill /F /IM msedge.exe /T"", 0: window.close")',
+    Start := bQuitHmi,
+    TmOut := DEFAULT_ADS_TIMEOUT,
+	BUSY => bCloseChromeBusy
+);
+
+
+ntShutdown(NETID := NetAmsIdLocal, DELAY := 5, START := bShutDown);
+
+IF dw_T08_EL1809.iStartButoon THEN
+	IF ftrigButton[2].Q THEN
+		b:= b+1;
+	END_IF
+	IF b>=3 THEN;
+		bQuitHmi:=TRUE;
+	END_IF
+ELSE
+	b:=0;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="f_ACT_TerminalInfo" Id="{8299d142-9ce5-4d1b-9f3f-121127d1dbfb}">
+      <Implementation>
+        <ST><![CDATA[dw_T01_EK1100.stTerminalInfo.fbTerminalInfo( 	nTerminalState						:= dw_T01_EK1100.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T01_EK1100.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T01_EK1100.stTerminalInfo.bTerminalOperational);
+									
+dw_T02_EL6070.stTerminalInfo.fbTerminalInfo( 	nTerminalState						:= dw_T02_EL6070.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T02_EL6070.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T02_EL6070.stTerminalInfo.bTerminalOperational);
+
+dw_T03_EL6910.stTerminalInfo.fbTerminalInfo( 	nTerminalState						:= dw_T03_EL6910.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T03_EL6910.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T03_EL6910.stTerminalInfo.bTerminalOperational);
+												
+dw_T04_EL1918.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T04_EL1918.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T04_EL1918.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T04_EL1918.stTerminalInfo.bTerminalOperational);
+												
+dw_T05_EL1918.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T05_EL1918.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T05_EL1918.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T05_EL1918.stTerminalInfo.bTerminalOperational);
+												
+dw_T06_EL2904.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T06_EL2904.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T06_EL2904.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T06_EL2904.stTerminalInfo.bTerminalOperational);
+												
+dw_T07_EL9410.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T07_EL9410.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T07_EL9410.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T07_EL9410.stTerminalInfo.bTerminalOperational);
+											
+dw_T08_EL1809.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T08_EL1809.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T08_EL1809.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T08_EL1809.stTerminalInfo.bTerminalOperational);
+												
+dw_T09_EL2809.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T09_EL2809.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T09_EL2809.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T09_EL2809.stTerminalInfo.bTerminalOperational);
+												
+												
+dw_T10_EL3058.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T10_EL3058.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T10_EL3058.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T10_EL3058.stTerminalInfo.bTerminalOperational);
+												
+dw_T11_EL1918.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T11_EL1918.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T11_EL1918.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T11_EL1918.stTerminalInfo.bTerminalOperational);
+												
+dw_T12_EL6633.stTerminalInfo.fbTerminalInfo(	nTerminalState						:= dw_T12_EL6633.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> dw_T12_EL6633.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> dw_T12_EL6633.stTerminalInfo.bTerminalOperational);
+												
+//add boxes
+
+Probes.stTerminalInfo.fbTerminalInfo(			nTerminalState						:= Probes.stTerminalInfo.nTerminal_State,
+												sTerminalState						=> Probes.stTerminalInfo.sTerminalInfo,
+												bTerminalOperational				=> Probes.stTerminalInfo.bTerminalOperational);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="g_ACT_Manual" Id="{87b8b019-9eb6-46b9-b781-3301c89600c8}">
+      <Implementation>
+        <ST><![CDATA[tonManualMode( IN := bManualScreen, PT := T#100MS);
+
+IF stMachineStatus.bReadyToStart THEN
+	bEnableManual											:= TRUE;
+ELSE bEnableManual											:= FALSE;
+END_IF
+	
+bManualModeOffFlag										:= FALSE;
+
+
+
+IF bManualScreen  THEN
+	
+	stMasterCtrl.bManualModeRequest							:= TRUE;
+	
+	IF (stMachineStatus.eMachineState <> E_MachineState.MANUAL_MODE) AND tonManualMode.Q THEN
+				
+		stMasterCtrl.bManualModeRequest							:= FALSE; 
+		bManualModeOffFlag										:= TRUE;
+		
+	END_IF
+	
+ELSE 
+	stMasterCtrl.bManualModeRequest							:= FALSE; 
+												
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="h_ACT_Statistics" Id="{00b1c5d7-138a-4e5a-aad9-c5f6ae987c75}">
+      <Implementation>
+        <ST><![CDATA[
+stStatisticsHMI[0].sName			:= 'TEST ZONE - LH';
+stStatisticsHMI[1].sName			:= 'TEST ZONE - RH';
+
+
+
+rGoodStatistics[0]( CLK := stCycleDataNest1.bPass);
+rBadStatistics[0]( CLK := stCycleDataNest1.bFail);
+rGoodStatistics[1]( CLK := stCycleDataNest2.bPass);
+rBadStatistics[1]( CLK := stCycleDataNest2.bFail);
+
+IF 	rGoodStatistics[0].Q  THEN
+	
+	stStatisticsHMI[0].nGood		:= stStatisticsHMI[0].nGood + 1;
+
+ELSIF 	rBadStatistics[0].Q  THEN
+	
+	stStatisticsHMI[0].nBad			:= stStatisticsHMI[0].nBad + 1;
+		
+END_IF
+								
+
+
+IF stStatisticsHMI[0].bResetGood THEN
+	stStatisticsHMI[0].nGood		:= 0;
+END_IF
+
+IF stStatisticsHMI[0].bResetBad THEN
+	stStatisticsHMI[0].nBad			:= 0;
+END_IF
+
+
+
+IF 	rGoodStatistics[1].Q  THEN
+	
+	stStatisticsHMI[1].nGood		:= stStatisticsHMI[1].nGood + 1;
+
+ELSIF 	rBadStatistics[1].Q  THEN
+	
+	stStatisticsHMI[1].nBad			:= stStatisticsHMI[1].nBad + 1;
+		
+END_IF
+								
+
+
+IF stStatisticsHMI[1].bResetGood THEN
+	stStatisticsHMI[1].nGood		:= 0;
+END_IF
+
+IF stStatisticsHMI[1].bResetBad THEN
+	stStatisticsHMI[1].nBad			:= 0;
+END_IF
+
+
+
+IF (( stStatisticsHMI[0].nGood + stStatisticsHMI[0].nBad) <> 0) THEN
+	
+	rEfficency							:= LREAL_TO_FMTSTR(in := (DINT_TO_REAL(stStatisticsHMI[0].nGood) /( DINT_TO_REAL(stStatisticsHMI[0].nGood) + DINT_TO_REAL(stStatisticsHMI[0].nBad))) * 100.0,iPrecision := 2, bRound := TRUE);
+	stStatisticsHMI[0].nEfficency		:= CONCAT(STR1 := '%', STR2 := (rEfficency));
+
+ELSE stStatisticsHMI[0].nEfficency		:= CONCAT(STR1 := '%', STR2 := (DINT_TO_STRING(0)));
+	
+END_IF
+
+IF (( stStatisticsHMI[1].nGood + stStatisticsHMI[1].nBad) <> 0) THEN
+	
+	rEfficency							:= LREAL_TO_FMTSTR(in := (DINT_TO_REAL(stStatisticsHMI[1].nGood) /( DINT_TO_REAL(stStatisticsHMI[1].nGood) + DINT_TO_REAL(stStatisticsHMI[1].nBad))) * 100.0,iPrecision := 2, bRound := TRUE);
+	stStatisticsHMI[1].nEfficency		:= CONCAT(STR1 := '%', STR2 := (rEfficency));
+
+ELSE stStatisticsHMI[1].nEfficency		:= CONCAT(STR1 := '%', STR2 := (DINT_TO_STRING(0)));
+	
+END_IF
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="i_ACT_TwinSAFE" Id="{0ecb0e06-5557-4943-b4e7-d2562aeb50f9}">
+      <Implementation>
+        <ST><![CDATA[	
+stTwinSAFE.iSafetyErrorAcknowledge		:= dw_T04_EL1918.iResetButton;
+
+fbScaleAirSupply( 			nRawValue						:= UINT_TO_REAL(GVL_IO.dw_T10_EL3058.iMainPressure),
+							X1								:= 0,
+							X2								:= 32768,
+							Y1								:= 0,
+							Y2								:= 10,
+							
+							nOutPut							=> stTwinSAFE.iAirSupplyMeasurement);
+
+stTwinSAFE.iAirPressureMaxValue			:= nAirPressureMaxValue;
+stTwinSAFE.iAirPressureMinValue			:= nAirPressureMinValue;
+stTwinSAFE.iProcessDoorClosing			:= bDoorClosingFlag;
+					
+
+////////////////////////////////////////////////////////////TwinSAFE Outputs reading//////////////////////////////////////////////////////////
+
+dw_T06_EL2904.qEnableAirSupply_PSR1								:= SEL((dw_T06_EL2904_Reading.bResult[1]=1),FALSE,TRUE);
+dw_T06_EL2904.qResetAirSupply_PSR2								:= SEL((dw_T06_EL2904_Reading.bResult[2]=1),FALSE,TRUE);
+dw_T06_EL2904.qLockMainDoor										:= SEL((dw_T06_EL2904_Reading.bResult[3]=1),FALSE,TRUE);
+dw_T06_EL2904.qLockProcessCylinder								:= SEL((dw_T06_EL2904_Reading.bResult[4]=1),FALSE,TRUE);
+
+dw_T06_EL2904_Reading.fbReadOutSafety06[1]( 	sNetId 			:=NetAmsIdDevice,
+	                					 		nSlaveAddr 		:=1006,
+					 							nSubIndex 		:=0001,
+					 							nIndex 			:=16#7001 ,
+					 							pDstBuf 		:=ADR(dw_T06_EL2904_Reading.bResult[1]),
+					 							cbBufLen 		:=SIZEOF(dw_T06_EL2904_Reading.bResult[1]),
+					 							bExecute 		:= stPuls.bFlash4Hz,
+					 							tTimeout 		:= T#500MS,
+					 							bBusy 			=> dw_T06_EL2904_Reading.bBusy[1],
+					 							bError 			=> dw_T06_EL2904_Reading.berror[1]);
+												
+dw_T06_EL2904_Reading.fbReadOutSafety06[2]( 	sNetId 			:= NetAmsIdDevice,
+	                					 		nSlaveAddr 		:=1006,
+					 							nSubIndex 		:=0002,
+					 							nIndex 			:=16#7001 ,
+					 							pDstBuf 		:=ADR(dw_T06_EL2904_Reading.bResult[2]),
+					 							cbBufLen 		:=SIZEOF(dw_T06_EL2904_Reading.bResult[2]),
+					 							bExecute 		:= stPuls.bFlash4Hz,
+					 							tTimeout 		:= T#500MS,
+					 							bBusy 			=> dw_T06_EL2904_Reading.bBusy[2],
+					 							bError 			=> dw_T06_EL2904_Reading.berror[2]);
+												
+dw_T06_EL2904_Reading.fbReadOutSafety06[3]( 	sNetId 			:=NetAmsIdDevice,
+	                					 		nSlaveAddr 		:=1006,
+					 							nSubIndex 		:=0003,
+					 							nIndex 			:=16#7001 ,
+					 							pDstBuf 		:=ADR(dw_T06_EL2904_Reading.bResult[3]),
+					 							cbBufLen 		:=SIZEOF(dw_T06_EL2904_Reading.bResult[3]),
+					 							bExecute 		:= stPuls.bFlash4Hz,
+					 							tTimeout 		:= T#500MS,
+					 							bBusy 			=> dw_T06_EL2904_Reading.bBusy[3],
+					 							bError 			=> dw_T06_EL2904_Reading.berror[3]);
+											
+dw_T06_EL2904_Reading.fbReadOutSafety06[4]( 	sNetId 			:= NetAmsIdDevice,
+	                					 		nSlaveAddr 		:=1006,
+					 							nSubIndex 		:=0004,
+					 							nIndex 			:=16#7001 ,
+					 							pDstBuf 		:=ADR(dw_T06_EL2904_Reading.bResult[4]),
+					 							cbBufLen 		:=SIZEOF(dw_T06_EL2904_Reading.bResult[4]),
+					 							bExecute 		:= stPuls.bFlash4Hz,
+					 							tTimeout 		:= T#500MS,
+					 							bBusy 			=> dw_T06_EL2904_Reading.bBusy[4],
+					 							bError 			=> dw_T06_EL2904_Reading.berror[4]);
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="j_ACT_MachineDefinition" Id="{d060be37-8904-4e66-8914-eb7f14b7082a}">
+      <Implementation>
+        <ST><![CDATA[rMachineDefinitionSet2(CLK := bMachineDefinitionSet1);
+fMachineDefinitionSet2(CLK := bMachineDefinitionSet1);
+
+IF rMachineDefinitionSet2.Q THEN
+	
+	abMachineDefinition[1]								:= FALSE;
+	abMachineDefinition[2]								:= FALSE;
+	abMachineDefinition[3]								:= FALSE;
+	
+	stMACHINE.bHeightTest								:= FALSE;
+	stMACHINE.bLeakTest									:= FALSE;
+	stMACHINE.bVisionTest								:= FALSE;
+	stMACHINE.sName										:= '';
+	stMACHINE.bMachine[1]								:= FALSE;
+	stMACHINE.bMachine[2]								:= FALSE;
+	stMACHINE.bMachine[3]								:= FALSE;
+
+END_IF
+
+IF fMachineDefinitionSet2.Q THEN
+
+	FOR i := 1 TO 3 DO
+	
+		IF 	nMachineDefinitionIndex2 = i THEN
+			
+			abMachineDefinition[i] 						:= TRUE;
+		
+		END_IF
+	
+	END_FOR
+ELSE i													:= 0;
+	
+END_IF
+
+
+IF abMachineDefinition[1] THEN
+	
+	stMACHINE.bHeightTest								:= TRUE;
+	stMACHINE.bLeakTest									:= TRUE;
+	stMACHINE.bVisionTest								:= TRUE;
+	stMACHINE.sName										:= 'LT-WH-VI LEAK TEST: FLUID PATH , HEIGHT TEST: FPB WELDING, VISION INSPECTION: EWIS FOAM';
+	stMACHINE.bMachine[1]								:= TRUE;
+	stMACHINE.bMachine[2]								:= FALSE;
+	stMACHINE.bMachine[3]								:= FALSE;
+	
+	sAplication                     					:= ' Leak Test - Weld Height - Vision Inspection ';
+	sSystemName											:= ' LT-WH-VI - FLUID PATH CAP ' ;
+
+END_IF
+
+IF abMachineDefinition[2] THEN
+	
+	stMACHINE.bHeightTest								:= TRUE;
+	stMACHINE.bLeakTest									:= FALSE;
+	stMACHINE.bVisionTest								:= TRUE;
+	stMACHINE.sName										:= 'WH: HEIGHT TEST: FPB WELDING';
+	stMACHINE.bMachine[1]								:= FALSE;
+	stMACHINE.bMachine[2]								:= TRUE;
+	stMACHINE.bMachine[3]								:= FALSE;
+	
+	sAplication                     					:= ' Weld Height';
+	sSystemName											:= ' WH - FLUID PATH BODY ' ;
+	
+END_IF
+
+IF abMachineDefinition[3] THEN
+	
+	stMACHINE.bHeightTest								:= FALSE;
+	stMACHINE.bLeakTest									:= TRUE;
+	stMACHINE.bVisionTest								:= FALSE;
+	stMACHINE.sName										:= 'LT LEAK TEST: RESERVOIR ';
+	stMACHINE.bMachine[1]								:= FALSE;
+	stMACHINE.bMachine[2]								:= FALSE;
+	stMACHINE.bMachine[3]								:= TRUE;
+	
+	sAplication                     					:= ' Leak Test';
+	sSystemName											:= ' LT - RESERVOIR ' ;
+	
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

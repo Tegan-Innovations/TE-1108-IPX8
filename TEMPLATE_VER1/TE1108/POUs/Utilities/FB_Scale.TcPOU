@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <POU Name="FB_Scale" Id="{bdc4d815-36f7-41e1-b021-f44f95528378}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Scale
+VAR_INPUT
+	
+	nRawValue									: REAL;	//Input value to scale
+	X1											: REAL; // x => first point
+	X2											: REAL; // x => second point
+	Y1											: REAL; // y => first point
+	Y2											: REAL; // y => second point
+	n											: REAL; // intersection point. if there no point it will be 0
+
+
+END_VAR
+VAR_OUTPUT
+	
+	m											: REAL; // slope
+	nOutPut										: UINT; // output
+
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Y points are from the signal that i'm scaling
+	
+m						:= (Y2-Y1)/(X2-X1);
+
+nOutPut						:= REAL_TO_UINT((m*nRawValue) +n);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

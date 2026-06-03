@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="B_4_2_PRG_Master_ProcessDoor" Id="{53a11cee-2388-4375-a004-26a2c48b086a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM B_4_2_PRG_Master_ProcessDoor
+
+VAR
+
+	bEventsFlag							: ARRAY [0..100] OF BOOL;
+/////////////////////////////////////////////////////////////////////////////////////I O/////////////////////////////////////////////////////////////////////////////////////	
+	
+	bOpenDoor							: BOOL;
+	bCloseDoor							: BOOL;
+	bCloseDoorHMI						: BOOL;
+	bOpenDoorHMI						: BOOL;
+	bDoorClosed							: BOOL;
+	tonDoorOpened						: TON;
+	bDoorOpened							: BOOL;
+	
+
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[d_ACT_Set_Events_Station_4B();
+a_ACT_Ctrl_Station_4B();
+b_ACT_IO_B();
+c_Manual();
+]]></ST>
+    </Implementation>
+    <Action Name="a_ACT_Ctrl_Station_4B" Id="{08b1d871-01b9-45fa-bb18-30d558502fc6}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+
+
+IF stProcessDoor.CMD.bAbort THEN
+	
+	stProcessDoor.State				:= E_ProcessDoor_State.RESET;
+	
+ELSIF stProcessDoor.CMD.bEndCycle THEN
+	
+	stProcessDoor.State				:= E_ProcessDoor_State.STOPPING;
+
+END_IF
+
+CASE stProcessDoor.State OF
+	
+	E_ProcessDoor_State.ABORTED:
+	
+								IF stProcessDoor.CMD.bEnable THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.HOMING;
+								
+								END_IF
+								
+		E_ProcessDoor_State.HOMING: 
+	
+								bOpenDoor							:= TRUE;
+								
+								IF bDoorOpened THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.READY;									
+									bOpenDoor						:= FALSE;
+																	
+								END_IF
+	
+	
+	E_ProcessDoor_State.READY:
+	
+								IF stProcessDoor.CMD.bExecute AND 	stProcessDoor.CMD.ProcessDoorCMD.OpenDoor	THEN
+
+									stProcessDoor.State				:= E_ProcessDoor_State.OPEN;
+									
+								ELSIF stProcessDoor.CMD.bExecute AND 	stProcessDoor.CMD.ProcessDoorCMD.CloseDoor	THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.CLOSE;									
+																		
+								END_IF
+	
+
+	E_ProcessDoor_State.OPEN:
+	
+								bOpenDoor							:= TRUE;
+								
+								IF bDoorOpened	THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.DONE;
+								
+								END_IF
+								
+	E_ProcessDoor_State.CLOSE:
+	
+								bCloseDoor							:= TRUE;
+								
+								IF bDoorClosed THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.DONE;
+								
+								END_IF
+								
+	E_ProcessDoor_State.DONE:
+	
+	
+								IF stProcessDoor.CMD.bAcknowledge THEN
+									
+									stProcessDoor.CMD.bAcknowledge	:= FALSE;
+									stProcessDoor.State				:= E_ProcessDoor_State.RESET;
+								
+								END_IF
+	
+	
+	E_ProcessDoor_State.RESET:	
+	
+								bOpenDoor							:= FALSE;
+								bCloseDoor							:= FALSE;
+								
+								IF NOT stProcessDoor.CMD.bAbort AND NOT stProcessDoor.CMD.bEndCycle THEN
+									
+									stProcessDoor.State				:= E_ProcessDoor_State.READY;
+									
+								ELSE stProcessDoor.State			:= E_ProcessDoor_State.ABORTED;
+								END_IF
+	
+					
+	E_ProcessDoor_State.STOPPING:					
+									
+								bOpenDoor							:= TRUE;
+									
+								IF bDoorOpened THEN
+									
+									bOpenDoor						:= FALSE;
+									stProcessDoor.State				:= E_ProcessDoor_State.RESET;
+								
+								END_IF
+								
+							
+														
+									
+
+ELSE stProcessDoor.State		:= E_ProcessDoor_State.ABORTED;
+	
+END_CASE
+/////////////////////////////////////////////////////////////////////////////////////STATUS/////////////////////////////////////////////////////////////////////////////////////
+
+stProcessDoor.Status.bBusy			:= 	stProcessDoor.State	= E_ProcessDoor_State.CLOSE OR
+										stProcessDoor.State	= E_ProcessDoor_State.OPEN OR 
+										stProcessDoor.State	= E_ProcessDoor_State.STOPPING;
+								
+stProcessDoor.Status.bDone			:=	stProcessDoor.State	= E_ProcessDoor_State.DONE;
+
+stProcessDoor.Status.bReady			:= 	stProcessDoor.State	= E_ProcessDoor_State.READY;
+
+stProcessDoor.Status.bStopped		:= 	NOT stProcessDoor.Status.bBusy;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="b_ACT_IO_B" Id="{7a24ac88-21cc-4219-af73-2aba76419ebf}">
+      <Implementation>
+        <ST><![CDATA[tonDoorOpened( IN := NOT bDoorClosed, PT := stTimers.tDoorOpenedSignal);
+
+
+bDoorClosed								:= dw_T05_EL1918.iProcessDoorClosed1 AND dw_T05_EL1918.iProcessDoorClosed2 AND dw_T05_EL1918.iProcessDoorFB;
+bDoorOpened								:= tonDoorOpened.Q; 
+
+bDoorOpenedFlag							:= bDoorOpened;
+
+dw_T09_EL2809.qOpenProcessDoor	:= bOpenDoor OR bOpenDoorHMI OR stTwinSAFE.iInitSafety OR bOpenDoorCycleFault;	
+dw_T09_EL2809.qCloseProcessDoor	:= bCloseDoor OR bCloseDoorHMI;
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="c_Manual" Id="{af74f668-26ed-493a-861d-9af0f131bf72}">
+      <Implementation>
+        <ST><![CDATA[
+
+IF bProcessDoor_Down AND stTwinSAFE.qTwoHandsSafe THEN
+	
+	bCloseDoorHMI					:= TRUE;
+	bProcessDoor_Down				:= FALSE;
+	
+ELSIF bDoorClosed  OR NOT stMachineStatus.bManualMode THEN
+
+	 bCloseDoorHMI					:= FALSE;
+	 bProcessDoor_Down				:= FALSE;
+
+END_IF
+
+IF bProcessDoor_UP2 THEN
+	
+	bOpenDoorHMI					:= TRUE;
+	
+	
+ELSIF bDoorOpened OR  NOT stMachineStatus.bManualMode THEN
+
+	bOpenDoorHMI					:= FALSE;	 
+	
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="d_ACT_Set_Events_Station_4B" Id="{6917e64e-8f14-430a-8afe-2820b830fd4d}">
+      <Implementation>
+        <ST><![CDATA[//IMMEDIATE FAULTS
+
+stStationEvents[4].aEvents[0].bEventTimer( IN :=  (bCloseDoor OR bCloseDoorHMI) AND NOT bDoorClosed, PT := T#2S);
+stStationEvents[4].aEvents[0].bFault						:= TRUE;
+stStationEvents[4].aEvents[0].bEventFlag					:= stStationEvents[4].aEvents[0].bEventTimer.Q;
+stStationEvents[4].aEvents[0].bEventText					:= 'Process Door extend timeout';
+stStationEvents[4].aEvents[0].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+stStationEvents[4].aEvents[1].bEventTimer( IN :=  (bOpenDoor OR bOpenDoorHMI) AND NOT bDoorOpened, PT := T#2S);
+stStationEvents[4].aEvents[1].bFault						:= TRUE;
+stStationEvents[4].aEvents[1].bEventFlag					:= stStationEvents[4].aEvents[1].bEventTimer.Q;
+stStationEvents[4].aEvents[1].bEventText					:= 'Process Door Retract timeout';
+stStationEvents[4].aEvents[1].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+
+
+
+
+
+//CYCLE STOP REQUEST
+
+(*stStationEvents[4].aEvents[2].bCycleStopRequest			:= TRUE;
+stStationEvents[4].aEvents[2].bEventFlag					:= bEventsFlag[2];
+stStationEvents[4].aEvents[2].bEventText					:= 'ST1 EVENT 7';*)]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

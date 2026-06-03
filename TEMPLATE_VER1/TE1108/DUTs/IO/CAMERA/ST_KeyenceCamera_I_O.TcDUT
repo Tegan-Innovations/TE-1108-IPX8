@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_KeyenceCamera_I_O" Id="{f2763bf4-56dd-4a76-be51-069a8d5425ff}">
+    <Declaration><![CDATA[TYPE ST_KeyenceCamera_I_O :
+STRUCT
+	
+///////////////////////////////////////////////////////////////INPUTS////////////////////////////////////////////////////////////////////
+
+	bResultReady							AT %I*			: BOOL;	
+	bTriggerFail							AT %I*			: BOOL;	
+	bError									AT %I*			: BOOL;	
+	bAlarm									AT %I*			: BOOL;	
+	bBusy									AT %I*			: BOOL;	
+	bRun									AT %I*			: BOOL;	
+	bReady									AT %I*			: BOOL;	
+	bTotalResult							AT %I*			: BOOL;	
+	nScore									AT %I*			: UINT;	
+
+///////////////////////////////////////////////////////////////OUTPUTS////////////////////////////////////////////////////////////////////
+
+	bTrigger								AT %Q*			: BOOL;				
+	bReset									AT %Q*			: BOOL;	
+	bSetTreshold							AT %Q*			: BOOL;	
+	bResultReadyAck							AT %Q*			: BOOL;	
+	bSettingNo								AT %Q*			: UINT;	
+	bSettingVal								AT %Q*			: UDINT;	
+	bResetStatistics						AT %Q*			: BOOL;	
+	bClearBuffer							AT %Q*			: BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

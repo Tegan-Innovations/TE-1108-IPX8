@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EventsPdfConstants" Id="{35db5430-7699-49af-91f8-ffb447b70edb}">
+    <Declaration><![CDATA[TYPE ST_EventsPdfConstants :
+STRUCT
+	
+	sMachineName			: STRING(255);
+	sUser					: STRING(255);
+	sGroup					: STRING(255);
+	sFileName				: STRING(255);
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

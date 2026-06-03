@@ -1,0 +1,29 @@
+<div id="EL1801_36" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1080" data-tchmi-height="480" data-tchmi-zindex="1">
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+<div id="TcHmiContainer_32" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="383" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="37" data-tchmi-top-unit="px" data-tchmi-width="1060" data-tchmi-width-unit="px" data-tchmi-zindex="0">
+<div id="TcHmiTextblock_962" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="493" data-tchmi-left-unit="px" data-tchmi-text="Ready" data-tchmi-top="25" data-tchmi-top-unit="px" data-tchmi-width="160" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="1">
+</div>
+
+<div id="TcHmiLine_21" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiLine" data-tchmi-height="383" data-tchmi-height-unit="px" data-tchmi-left="473" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="10" data-tchmi-width-unit="px" data-tchmi-x2="0" data-tchmi-y2="383">
+</div>
+<div id="TcHmiTextblock_963" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="493" data-tchmi-left-unit="px" data-tchmi-text="Error" data-tchmi-top="85" data-tchmi-top-unit="px" data-tchmi-width="160" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Left" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiImage_49" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="225" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-src="Images/keyence camera.png" data-tchmi-top="69" data-tchmi-top-unit="px" data-tchmi-width="203" data-tchmi-width-unit="px">
+</div>
+<div id="TcHmiImage_50" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="225" data-tchmi-height-unit="px" data-tchmi-left="233" data-tchmi-left-unit="px" data-tchmi-src="Images/camera amplifier.png" data-tchmi-top="69" data-tchmi-top-unit="px" data-tchmi-width="225" data-tchmi-width-unit="px">
+</div>
+<div id="TcHmiTextblock_964" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="IV4-G600CA" data-tchmi-top="304" data-tchmi-top-unit="px" data-tchmi-width="203" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_965" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="233" data-tchmi-left-unit="px" data-tchmi-text="IV4-G120" data-tchmi-top="304" data-tchmi-top-unit="px" data-tchmi-width="225" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="1">
+</div>
+<div id="Led_154" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="663" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_Red.usercontrol" data-tchmi-top="85" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.GVL_IO.Camera3_IO.bError%/s%">
+</div>
+<div id="Led_155" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="663" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="25" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.GVL_IO.Camera3_IO.bReady%/s%">
+</div>
+</div>
+</div>

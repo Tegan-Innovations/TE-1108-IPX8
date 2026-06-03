@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="E_LeakTester_State" Id="{5b10c3d3-fd3b-49e5-b6cb-e01f459b546a}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_LeakTester_State :
+(
+	//GENERIC
+	ABORTED				,
+	READY				,
+	HOMING				,
+	//MANUAL_MODE		, /manual mode not needed.
+	ERROR				,
+	STOPPING			,
+	//SPECIFIC FOR EVERY STATION
+	RUN_LEAK_TESTERS	,
+	WAIT_LEAK_TESTERS	,
+	DONE				,
+	WAIT_RESULTS		,
+	RESULTS				,
+	RESET			
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

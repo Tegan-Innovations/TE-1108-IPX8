@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EL6633" Id="{98f9bc9d-d8a8-480d-9373-00c6fa321ef2}">
+    <Declaration><![CDATA[TYPE ST_EL6633 :
+STRUCT
+	
+	// TERMINAL - EL66633	Profinet Protocol	 (Term 12)
+	sTerminalName                                           :   STRING(200):= 'EL6633 | Profinet Protocol';
+	stTerminalInfo											: 	ST_Terminal_Info;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

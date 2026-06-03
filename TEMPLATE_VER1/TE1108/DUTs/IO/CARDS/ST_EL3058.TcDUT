@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EL3058" Id="{169f33f4-e423-4b24-8c85-1ecefb85908d}">
+    <Declaration><![CDATA[TYPE ST_EL3058 :
+STRUCT
+	//--------------------------------------------------------------------------------------------------------
+	sTerminalName                                           :   STRING(200):= 'EL3058 | 4-Channel Analog Input';
+    //============================================================================================================================	
+	// TERMINAL - EL3058 4-Channel Analog Input Terminal (Term 11)	
+	iMainPressure               			AT %I*			: 	UINT;	// EL1809 channel 1
+	iEL3058_Ch2                   			AT %I*			: 	UINT;	// EL1809 channel 2
+	iEL3058_Ch3        						AT %I*	 		: 	UINT;	// EL1809 channel 3
+	iEL3058_Ch4	   							AT %I*	 		: 	UINT;	// EL1809 channel 4
+	
+	stTerminalInfo											: 	ST_Terminal_Info;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

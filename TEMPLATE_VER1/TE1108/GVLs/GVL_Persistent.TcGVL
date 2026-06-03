@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <GVL Name="GVL_Persistent" Id="{c4d03ea6-35af-4633-972d-fef3cfe7daa9}">
+    <Declaration><![CDATA[
+VAR_GLOBAL PERSISTENT
+	
+/////////////////////////////////////////////////////////////////////////////////////Log/////////////////////////////////////////////////////////////////////////////////////
+	
+	stUserLog					: ARRAY [0..250] OF ST_UserLog;
+	
+	aDataHistoryNest1			: ARRAY[0..2000] OF ST_CycleData;
+	aDataHistoryNest2			: ARRAY[0..2000] OF ST_CycleData;
+	astEventsHistory			: ARRAY[0..200] OF ST_EventsHistory;
+	stJavasCriptPDF				: ST_JavasCriptPDF;
+
+	stProbesSettings			: ST_ProbesSettings;
+	lastDateCSV					: STRING;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

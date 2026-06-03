@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_ProbesSettings" Id="{a88f077e-6c66-4a83-be94-fdfa4e9dc786}">
+    <Declaration><![CDATA[TYPE ST_ProbesSettings :
+STRUCT
+	
+	anDistanceCalibrationBlock			: ARRAY [1..3] OF REAL;	
+	nDistanceOffset1					: ARRAY [1..3] OF REAL; 
+	nDistanceOffset2					: ARRAY [1..3] OF REAL;	
+	anExpectedDistances					: ARRAY [1..3] OF REAL;
+	anHeightSetByCalibration1			: ARRAY [1..4] OF REAL;	
+	anHeightSetByCalibration2			: ARRAY [1..4] OF REAL;	
+	anTolerances						: ARRAY [1..3] OF REAL;	
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

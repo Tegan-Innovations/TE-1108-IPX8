@@ -1,0 +1,69 @@
+{
+    "EXCLUDE_SYSTEM_ADMINISTRATOR_FROM_LOCKOUT": false,
+    "MAX_INVALID_LOGIN_ATTEMPTS": 0,
+    "PASSWORD_BLACKLIST": "",
+    "PASSWORD_ENABLE_AGING": false,
+    "PASSWORD_FORCE_COMPLEX": 0,
+    "PASSWORD_HISTORY_SIZE": 0,
+    "PASSWORD_MAXIMUM_AGE": "P90D",
+    "PASSWORD_MINIMUM_LENGTH": 1,
+    "USERS": {
+        "Administrator": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2026-04-07T10:46:10.1782679Z",
+            "PASSWORD": "695b00c38be18bc2d4b3559ab9113723caaa92ef2898728c2e9bcd0c78605f8f1c7670035efd556d3b950d36daf8edda557b53101eb46d6607866f891f4d06f2",
+            "SALT": "FRQL+bwEs+A3dp5oQRX8bn4Hld9ZvxdY31ab2Zk9xP/UkLZRF5rK6IGTbqVkIkoU+j7PxEOTUfpY+WfEUQPCQw==",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "Engineer": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2026-04-07T10:45:27.971937Z",
+            "PASSWORD": "73483c8dd4e4cc828e49b3b60f1e939e170d8149982d8f9c5dfef34d469b006ec709abcb8a0ea9bb2465feef7006f7c4fb8e5dd33697e433f4e9350441b80056",
+            "SALT": "2fquZzWvcTT3kyUp6HPFgyrCqdEZVoeJBiu+VYRffik3ue9R4dtyJHEORWsgv1zUVgo7dAbpNqZgHkOKkbO82A==",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "Operator": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2026-04-07T10:43:53.3245027Z",
+            "PASSWORD": "e3fad984aeda04c545df739b51c3b7ad5b4ae0e9a98df64e968ba9e6b471b01538a21912fb2ab12aaa0a456eba4859b8db197487d447248758b59292d1fa383d",
+            "SALT": "K0FLJardFSOC7kW4PTdReZV6xbFCt9EZ9b7h0ekbcLHpWvNLrqsBdzficIBpk0SZBSdeXc5g3ZkgBqFj3VQIgA==",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "__SystemAdministrator": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2026-03-10T09:52:33.6895507Z",
+            "PASSWORD": "d8d991781635634815cbbb9470763d774190b3b0dc1dacebf3b582abb028e94d4022613371e97919fb697b1d05e56bbf0f89287b874f2af9376cab3879fd4e22",
+            "PASSWORD_HISTORY": [],
+            "SALT": "y6NVqC4C3ffjF0tE/0ZqxSD0p9l6NSqGH9Za/MXAcnZeLrHHBU1depqjzyH+67l4JdiYO3B4ugpjgcSVldVeng==",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "__SystemGuest": {
+            "ALGORITHM": 0,
+            "ENABLED": true,
+            "PASSWORD": "",
+            "PASSWORD_HISTORY": [],
+            "SALT": "",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "__SystemUser": {
+            "ALGORITHM": 0,
+            "ENABLED": true,
+            "PASSWORD": "",
+            "PASSWORD_HISTORY": [],
+            "SALT": "",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        },
+        "sebastian.ulloa": {
+            "ALGORITHM": 1,
+            "ENABLED": true,
+            "LAST_PASSWORD_CHANGE": "2026-04-07T10:45:40.4048519Z",
+            "PASSWORD": "def7bc992c133b7fce454e62257bf21bb01ea11c5a44c1ff119753da59c0aff31eb5b36d3f181f8a8f8e99f8dc5e3dfe88136ba5e3d97d3f4a8920f5487e27e5",
+            "SALT": "vjbB/L/FgjNnSp/q558iZtFBBChcMqhuR0h02dQvVWwSD/w2OYLS8DMvmbopK5ANv2zgZxeo7mBB1c9VT6urCw==",
+            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
+        }
+    }
+}

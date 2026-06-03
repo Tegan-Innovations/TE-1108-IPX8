@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_ActiveEvents" Id="{b66d47f1-145e-49ad-8ee6-313762a9623a}">
+    <Declaration><![CDATA[TYPE ST_ActiveEvents :
+STRUCT
+	
+	sEventTex									: STRING(255);
+	sType										: STRING(255);
+	sSolution									: STRING(255);
+	abType										: DINT;					//1:Alarm
+																		//2:Alert
+																		//3:Message
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

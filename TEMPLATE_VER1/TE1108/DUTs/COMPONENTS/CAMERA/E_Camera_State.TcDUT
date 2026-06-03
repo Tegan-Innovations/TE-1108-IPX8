@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="E_Camera_State" Id="{1f427bb6-b000-49ab-b9fe-b41ba2f3f5a8}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_Camera_State :
+(
+	//GENERIC
+	ABORTED				,
+	RESET_ERROR			,
+	READY				,
+	RESET_CMD			,
+	//MANUAL_MODE			:=50, /manual mode not needed.
+	ERROR				,
+	//SPECIFIC FOR EVERY STATION
+	HOMING				,
+	
+	TAKING_PICTURE_CAP	,
+	TAKING_PICTURE_FPB	,
+	COMPARING_RESULTS	,
+	DONE				,
+	RESULTS_CAP			,
+	RESULTS_FPB				
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

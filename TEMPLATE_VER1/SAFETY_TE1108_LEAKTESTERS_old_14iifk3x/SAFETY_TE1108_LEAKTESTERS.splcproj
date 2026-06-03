@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Crc="1613229246" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9e0f1d4c-f1dd-45ac-95d3-906f2eccffca}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TwinCAT3SafePlcProject</RootNamespace>
+    <AssemblyName>TwinCAT3SafePlcProject</AssemblyName>
+    <FileUpgradeFlags />
+    <UpgradeBackupLocation />
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetSystem>EL6900</TargetSystem>
+    <ProgrammingLanguage>Graphical Editor</ProgrammingLanguage>
+    <Worker>Sebastian.Ulloa</Worker>
+    <IntProjName>TwinSAFE</IntProjName>
+    <IsNewCreated>false</IsNewCreated>
+    <SPlcProjVersion>1.7.0.0</SPlcProjVersion>
+    <Name>SAFETY_TE1108_LEAKTESTERS</Name>
+    <NextSdsId>37</NextSdsId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="TwinSafeGroup1\Alias Devices\AirErrorSignal.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\AirPressureAbove.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\AirPressureBelow.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\AirPressureMaxVal.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\AirPressureMinVal.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\AirSupplyMeasurement.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\E_StopPressed.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\MainDoorOpened.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ProcessDoor Closing.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ProcessDoorClosed.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ProcessDoorClosedCondition.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\ProcessDoorSafe.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\SafetyOK.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 4 %28EL1918%29 - Module 1 %28FSOE%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 5 %28EL1918%29 - Module 1 %28FSOE%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 6 %28EL2904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\TwoHands.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\TwoHandsSafe.sds" />
+    <None Include="TwinSafeGroup1\TwinSafeGroup1.sal" />
+    <None Include="TwinSafeGroup1\TwinSafeGroup1.sal.diagram">
+      <DependentUpon>TwinSafeGroup1\TwinSafeGroup1.sal</DependentUpon>
+      <Visible>false</Visible>
+    </None>
+    <None Include="TargetSystemConfig.xml">
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GVLs" />
+    <Folder Include="TwinSafeGroup1" />
+    <Folder Include="TwinSafeGroup1\Alias Devices" />
+    <Folder Include="User FBs" />
+    <None Include="TwinSafeGroup1\Alias Devices\ErrorAcknowledgement.sds" />
+  </ItemGroup>
+</Project>

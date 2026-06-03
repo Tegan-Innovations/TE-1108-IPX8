@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="st_i28LiveMeasurement" Id="{75ad5113-9ec8-4953-bd3f-32c575e2a06f}">
+    <Declaration><![CDATA[TYPE st_i28LiveMeasurement :
+STRUCT
+
+inUniqueID			               	AT%I*       : UDINT; 
+inCurrentProgramNumber				AT%I*       : UINT;
+inSegmentCode						AT%I*       : USINT;
+
+inMeasurement1						AT%I*       : UDINT;//TIME
+inVariableCode1						AT%I*       : UINT;
+inUnitCode1							AT%I*       : USINT;
+inPrecisionCode1					AT%I*       : USINT;
+
+inMeasurement2						AT%I*       : UDINT;//PRESSURE
+inVariableCode2						AT%I*       : UINT;
+inUnitCode2							AT%I*       : USINT;
+inPrecisionCode2					AT%I*       : USINT;
+
+inMeasurement3						AT%I*       : UDINT;//PRESSURE LOSS/RATE
+inVariableCode3						AT%I*       : UINT;
+inUnitCode3							AT%I*       : USINT;
+inPrecisionCode3					AT%I*       : USINT;
+
+inMeasurement4						AT%I*       : UDINT;//FLOW/LEAK
+inVariableCode4						AT%I*       : UINT;
+inUnitCode4							AT%I*       : USINT;
+inPrecisionCode4					AT%I*       : USINT;
+
+
+
+//Output Data
+sSegmentCode									:WSTRING;
+
+
+sVariable1										:WSTRING;
+sUnit1											:WSTRING;
+sPrecision1										:WSTRING;
+
+
+sVariable2										:WSTRING;
+sUnit2											:WSTRING;
+sPrecision2										:WSTRING;
+
+
+sVariable3										:WSTRING;
+sUnit3											:WSTRING;
+sPrecision3										:WSTRING;
+
+
+sVariable4										:WSTRING;
+sUnit4											:WSTRING;
+sPrecision4										:WSTRING;
+
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_StationEvents" Id="{57187980-fadb-46c4-ba60-74da2804cdd1}">
+    <Declaration><![CDATA[TYPE ST_StationEvents :
+STRUCT
+	
+	aEvents								: ARRAY [0..100] OF ST_EVENT;	
+	
+	bFault								: BOOL;
+	bCycleStopRequest					: BOOL;
+	
+			
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

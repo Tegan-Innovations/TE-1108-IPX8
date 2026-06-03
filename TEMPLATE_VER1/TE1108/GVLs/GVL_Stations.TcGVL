@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <GVL Name="GVL_Stations" Id="{51987edd-ecbc-463a-bda0-55117182c9fa}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	
+	
+	stCamera								: ST_Camera;
+	stLeakTesters							: ST_LeakTester;	
+	stHeightTests							: ST_HeightTest;
+	stProcessCylinder						: ST_ProcessCylinder;
+	stProcessDoor							: ST_ProcessDoor;
+	
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

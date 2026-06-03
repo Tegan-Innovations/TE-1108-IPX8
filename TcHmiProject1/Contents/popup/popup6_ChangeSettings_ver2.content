@@ -1,0 +1,55 @@
+<div id="popup1_2" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="500" data-tchmi-height="300">
+<div id="Part_Rejected_14" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="300" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/PopUp/YesNo_ver2.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-settings_in="%i%YESNOpopup_setting_in%/i%" data-tchmi-closepopup="%i%YESNOpopup_close%/i%" data-tchmi-visibility="Visible" data-tchmi-setting1_out="%s%PLC1.GVL_HMI.bQuitHMI%/s%" data-tchmi-header="%i%YESNOpopup_Header%/i%" data-tchmi-text="%i%YESNOpopup_Text%/i%" data-tchmi-setting2_out="%s%PLC1.GVL_HMI.bShutDown%/s%" data-tchmi-setting3_out="%s%ADS.PLC1.GVL_HMI.bCameraSetTreshold.0%/s%" data-tchmi-setting4_out="%s%ADS.PLC1.GVL_HMI.bCameraSetTreshold.1%/s%" data-tchmi-setting5out="%s%ADS.PLC1.GVL_HMI.bCameraSetTreshold.2%/s%" data-tchmi-setting6out="%s%ADS.PLC1.GVL_HMI.bCameraSetTreshold.3%/s%" data-tchmi-setting7_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.0%/s%" data-tchmi-setting8_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.1%/s%" data-tchmi-setting9_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.2%/s%" data-tchmi-setting10_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.3%/s%" data-tchmi-setting11_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.4%/s%" data-tchmi-setting12_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.5%/s%" data-tchmi-setting13_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.6%/s%" data-tchmi-setting14_out="%s%ADS.PLC1.GVL_HMI.abPresetProbe.7%/s%" data-tchmi-setting15_out="%s%ADS.PLC1.GVL_HMI.bSetCalibrationBlock1%/s%" data-tchmi-setting16_out="%s%ADS.PLC1.GVL_HMI.bSetCalibrationBlock2%/s%" data-tchmi-setting17_out="%s%ADS.PLC1.GVL_HMI.bSetDistances%/s%" data-tchmi-setting18_out="%s%ADS.PLC1.GVL_HMI.bSetTolerances%/s%">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%i%YESNOpopup_close%/i%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%i%YESNOpopup_close%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%yes_no_popup::Visibility%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Collapsed"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+</div>

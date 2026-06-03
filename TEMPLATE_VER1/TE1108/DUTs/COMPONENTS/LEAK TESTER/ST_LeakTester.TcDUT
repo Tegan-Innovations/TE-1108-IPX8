@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_LeakTester" Id="{9b2abc05-6e52-486d-bd5f-5eef4986d306}">
+    <Declaration><![CDATA[TYPE ST_LeakTester :
+STRUCT
+	
+	State							: E_LeakTester_State;	
+	CMD								: ST_GeneralStationCMD;
+	Status							: ST_StationStatus;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

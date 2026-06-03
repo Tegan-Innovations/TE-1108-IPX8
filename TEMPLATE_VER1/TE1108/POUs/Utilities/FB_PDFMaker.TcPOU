@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_PDFMaker" Id="{906d47d3-6154-4696-a853-6d52290744a1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PDFMaker
+VAR_INPUT
+	
+	aDataHistory			: ARRAY[0..200] OF ST_EventsHistory;
+	bWriteData				: BOOL;
+	aDataHistoryArrayLength	: DINT;
+	nDataHistoryIndex		: DINT;
+	sDate					: STRING(255);
+	
+	sUser					: STRING(255);
+	sGroup					: STRING(255);
+	sMachineName			: STRING(255);
+	
+	 
+END_VAR
+VAR_OUTPUT
+	
+	stJavasCriptPDF		: ST_JavasCriptPDF;
+	bDataWrited			: BOOL;
+	bMakePdf			: BOOL;
+
+END_VAR
+VAR
+	
+	rWriteData				: R_TRIG;
+	i						: DINT;
+	nRowIndex				: DINT;
+	sPDFDate				: STRING(255);
+	sFileName				: STRING(255);
+	tonResetData			: TON;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ACT_IO();
+ACT_WriteData();
+
+		]]></ST>
+    </Implementation>
+    <Action Name="ACT_IO" Id="{8b9915ff-83a8-4047-8cda-512409519079}">
+      <Implementation>
+        <ST><![CDATA[stJavasCriptPDF.stEventsPdfConstants.sGroup			:= sGroup;		
+stJavasCriptPDF.stEventsPdfConstants.sMachineName	:= sMachineName;
+stJavasCriptPDF.stEventsPdfConstants.sUser			:= sUser;
+stJavasCriptPDF.stEventsPdfConstants.sFileName		:= sFileName;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ACT_WriteData" Id="{96624e8f-4491-4d1e-9dfe-f17cc01ba340}">
+      <Implementation>
+        <ST><![CDATA[rWriteData( CLK := bWriteData);
+
+IF rWriteData.Q THEN
+	
+	FOR i := 0 TO aDataHistoryArrayLength DO
+				
+					stJavasCriptPDF.stEventsPDF[nRowIndex + i].sEvents					:= 	aDataHistory[i].sEventTex;
+					stJavasCriptPDF.stEventsPDF[nRowIndex + i].sType					:= 	aDataHistory[i].sType;
+					stJavasCriptPDF.stEventsPDF[nRowIndex + i].sDate					:= 	aDataHistory[i].sDate;
+					stJavasCriptPDF.stEventsPDF[nRowIndex + i].sTime					:= 	aDataHistory[i].sTime;
+				
+	END_FOR
+	
+	i													:= 0;
+	
+	bDataWrited											:= TRUE;
+	nRowIndex											:= nRowIndex + 201;
+
+	
+
+END_IF
+
+IF nDataHistoryIndex = 0 THEN
+	
+	bDataWrited											:= FALSE;
+
+END_IF
+
+IF sPDFDate <> sDate THEN
+	
+	bMakePdf							:= TRUE;
+	sPDFDate							:= sDate;
+	
+END_IF
+
+sFileName 								:= CONCAT( STR1 := 'PDF_', STR2 := sPDFDate);
+
+tonResetData( IN := bMakePdf, PT := T#1S);
+
+IF tonResetData.Q THEN
+	
+	FOR i := 0 TO 1000 DO
+				
+					stJavasCriptPDF.stEventsPDF[i].sDate					:= 	'';
+					stJavasCriptPDF.stEventsPDF[i].sEvents					:=  '';
+					stJavasCriptPDF.stEventsPDF[i].sTime					:= 	'';
+					stJavasCriptPDF.stEventsPDF[i].sType					:= 	'';
+				
+	END_FOR
+	nRowIndex 										:= 0;		
+	bMakePdf										:= FALSE;
+	i												:= 0;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="FB_PDFMaker">
+      <LineId Id="9" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="50" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_PDFMaker.ACT_IO">
+      <LineId Id="1" Count="3" />
+    </LineIds>
+    <LineIds Name="FB_PDFMaker.ACT_WriteData">
+      <LineId Id="27" Count="0" />
+      <LineId Id="2" Count="24" />
+      <LineId Id="1" Count="0" />
+      <LineId Id="29" Count="7" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="38" Count="13" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="54" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

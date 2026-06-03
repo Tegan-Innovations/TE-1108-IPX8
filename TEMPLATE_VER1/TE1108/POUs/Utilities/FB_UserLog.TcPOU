@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_UserLog" Id="{1570abb7-f10f-4062-98c8-8686e7ab373c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_UserLog
+VAR_INPUT
+	
+	nNumberOfData				: DINT;
+	bSaveSignal					: BOOL;
+	sUser						: STRING;
+	sGroup						: STRING;
+	sDate						: STRING;
+	sTime						: STRING;
+
+END_VAR
+VAR_OUTPUT
+	
+END_VAR
+VAR
+	rSaveSignal					: R_TRIG;
+	i							: DINT;
+END_VAR
+VAR_IN_OUT
+	
+	aDataOutput					: ARRAY [*] OF ST_UserLog;
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rSaveSignal( CLK := bSaveSignal);
+
+IF rSaveSignal.Q THEN
+	
+	FOR i := nNumberOfData TO 0 BY -1 DO
+		
+		aDataOutput[i+1]		:= aDataOutput[i];
+		
+	END_FOR
+	
+	aDataOutput[0].sDate		:= sDate;
+	aDataOutput[0].sGroup		:= sGroup;
+	aDataOutput[0].sTime		:= sTime;
+	aDataOutput[0].sUser		:= sUser;
+	
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_UserLog">
+      <LineId Id="80" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="76" Count="2" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="26" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

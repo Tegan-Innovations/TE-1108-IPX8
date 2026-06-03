@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_ProcessDoor" Id="{93333d96-5334-4412-9525-eeeb19b48331}">
+    <Declaration><![CDATA[TYPE ST_ProcessDoor :
+STRUCT
+	
+	State					: E_ProcessDoor_State;
+	CMD						: ST_GeneralStationCMD;
+	Status					: ST_StationStatus;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

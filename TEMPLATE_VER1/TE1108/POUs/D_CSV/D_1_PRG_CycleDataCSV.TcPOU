@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="D_1_PRG_CycleDataCSV" Id="{1311eead-4d4d-4783-80ab-5afc27af2040}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM D_1_PRG_CycleDataCSV
+VAR_INPUT
+	
+	stCycleDataNest1		: ST_CycleData;
+	stCycleDataNest2		: ST_CycleData;
+	bWriteNest1				: BOOL;
+	bWriteNest2				: BOOL;
+	
+	
+END_VAR
+VAR_OUTPUT
+	
+	bCSVDone				: BOOL;
+	bReady					: BOOL;
+	
+END_VAR
+VAR
+	sFileName		: T_MaxString := 'C:\Temp\USW_STN13_#date#.csv';(* CSV destination file path and name *)
+	sCSVLine		: T_MaxString := '#1#;#2#;#3#;#4#;#5#;#6#;#7#;#8#;#9#,#10#,#11#,#12#,#13#$L';(*1-Nest; 2-General result; 3-Height check; 4-Camera result; 5-Leak tester result; 6-Distance1; 7-Distance2; 8-Distance3; 9-Setpoint 1 10-Setpoint 2 12-Setpoint 3 11-date 3 13-time 3*)
+	bBusy			: BOOL;
+	bError			: BOOL;
+	nErrId			: UDINT;
+	hFile			: UINT		:= 0;
+	step			: DWORD 	:= 0;
+	fbFileOpen		: FB_FileOpen;(* Opens file *)
+	fbFileClose		: FB_FileClose;(* Closes file *)
+	fbFilePuts		: FB_FilePuts;(* Writes one record (line) *)
+	
+	done: BOOL;
+	
+	f1_Nest			: STRING;
+	f2_GeneralResult: STRING;
+	f3_HeightResult	: STRING;
+	f4_CameraResult	: STRING;
+	f5_LeakTesterResult	: STRING;
+	f6_Distance1	: STRING;
+	f7_Distance2	: STRING;
+	f8_Distance3	: STRING;
+	f9_Setpoint1	: STRING;
+	f10_Setpoint2	: STRING;
+	f11_Setpoint3	: STRING;
+	f12_RawValue1	: STRING;
+	f13_RawValue2	: STRING;
+	f14_RawValue3	: STRING;
+	f15_RawValue4	: STRING;
+	f16_Date		: STRING;
+	f17_Time		: STRING;
+	
+	bWritingFirstRow : BOOL;
+	bWrite			: BOOL;
+	rWriteNest1		: R_TRIG;
+	rWriteNest2		: R_TRIG;
+	
+	rError			: R_TRIG;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+IF 	step = 0 THEN
+	
+		bReady		:= TRUE;
+
+ELSE 	bReady		:= FALSE;
+END_IF
+
+CASE step OF
+	0:	(* Wait for rising edge at bWrite variable *)
+		bCSVDone	:= FALSE;
+		IF bWrite	 THEN
+			
+			bWrite	:= FALSE;
+			bBusy 	:= TRUE;
+			bError	:= FALSE;
+			nErrId	:= 0;
+			hFile	:= 0;
+			step 	:= 1;
+			
+		END_IF
+		
+	1:	(* Open source file *)
+		fbFileOpen(  bExecute := FALSE  );
+		fbFileOpen( sNetId := NetAmsIdLocal, 
+					sPathName := sFileName, 
+					nMode := FOPEN_MODEAPPEND OR FOPEN_MODETEXT,
+					ePath := PATH_GENERIC, 
+					bExecute := TRUE );
+		step := 2;
+	
+	2:(* Wait until open not busy *)
+		fbFileOpen( bExecute := FALSE, bError => bError, nErrID => nErrID, hFile => hFile );
+		IF NOT fbFileOpen.bBusy THEN
+			IF NOT fbFileOpen.bError THEN
+				step := 3;
+			ELSE(* Error: file not found? *)
+				step := 100;
+			END_IF
+		END_IF
+
+	3:(* Convert one PLC record to CSV format *)
+		
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#1#'), pInsertString:= ADR(f1_Nest), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#2#'), pInsertString:= ADR(f2_GeneralResult), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#3#'), pInsertString:= ADR(f3_HeightResult), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#4#'), pInsertString:= ADR(f4_CameraResult), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#5#'), pInsertString:= ADR(f5_LeakTesterResult), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#6#'), pInsertString:= ADR(f6_Distance1), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#7#'), pInsertString:= ADR(f7_Distance2), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#8#'), pInsertString:= ADR(f8_Distance3), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#9#'), pInsertString:= ADR(f9_Setpoint1), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#10#'), pInsertString:= ADR(f10_Setpoint2), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#11#'), pInsertString:= ADR(f11_Setpoint3), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#12#'), pInsertString:= ADR(f12_RawValue1), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#13#'), pInsertString:= ADR(f13_RawValue2), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#14#'), pInsertString:= ADR(f14_RawValue3), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#15#'), pInsertString:= ADR(f15_RawValue4), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));	
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#16#'), pInsertString:= ADR(f16_Date), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		FindAndReplace(pSrcString:= ADR(sCSVLine), pDeleteString:= ADR('#17#'), pInsertString:= ADR(f17_Time), pDstString:= ADR(sCSVLine), nDstSize:= SIZEOF(sCSVLine));
+		done:=TRUE;
+		
+		IF done THEN
+			step := 4;
+			done := FALSE;
+		ELSE
+			step := 3;
+		END_IF
+		
+		
+	4:	(* Write single text line *)
+		fbFilePuts( bExecute := FALSE );
+		fbFilePuts( sNetId := '', 
+					hFile := hFile, 
+					sLine := sCSVLine, 
+					bExecute := TRUE );
+		step := 5;
+
+	5:(* Wait until write not busy *)
+		fbFilePuts( bExecute := FALSE, bError => bError, nErrID => nErrID );
+		IF NOT fbFilePuts.bBusy THEN
+			IF NOT fbFilePuts.bError THEN
+				step := 10;
+			ELSE(* Error *)
+				step := 100;
+			END_IF
+		END_IF
+
+	10:	(* Close source file *)
+		fbFileClose( bExecute := FALSE );
+		fbFileClose( sNetId := '', hFile := hFile, bExecute := TRUE );
+		sCSVLine:= '#1#;#2#;#3#;#4#;#5#;#6#;#7#;#8#;#9#,#10#,#11#,#12#,#13#,#14#,#15#,#16#,#17#$L';
+		step := 11;
+
+	11:(* Wait until close not busy *)
+		fbFileClose( bExecute := FALSE, bError => bError, nErrID => nErrID );
+		IF ( NOT fbFileClose.bBusy ) THEN
+			bWritingFirstRow	:= FALSE;
+			
+			hFile := 0;
+			step := 100;
+		END_IF
+
+	100: (* Error or ready step => cleanup *)
+		IF ( hFile <> 0 ) THEN
+			step := 10; (* Close the source file *)
+		ELSE
+			bBusy := FALSE;
+			step := 0;	(* Ready *)
+			bCSVDone	:= TRUE;
+		END_IF
+
+END_CASE
+
+IF (lastDateCSV <> sSystemDate) AND NOT dw_T04_EL1918.iResetButton	 THEN
+lastDateCSV:= sSystemDate;
+sFileName:= 'C:\Users\Administrator\Desktop\csv\CycleData_#date#.csv';
+FindAndReplace(pSrcString:= ADR(sFileName), pDeleteString:= ADR('#date#'), pInsertString:= ADR(lastDateCSV), pDstString:= ADR(sFileName), nDstSize:= SIZEOF(sFileName));
+
+f1_Nest			:= 'NEST';
+f2_GeneralResult:= 'GENERAL RESULTS';
+f3_HeightResult	:= 'HEIGHT CHECK RESULTS';
+f4_CameraResult	:= 'CAMERA RESULTS';
+f5_LeakTesterResult	:= 'LEAK TESTER RESULTS';
+f6_Distance1	:= 'DISTANCE 1';
+f7_Distance2	:= 'DISTANCE 2';
+f8_Distance3	:= 'DISTANCE 3';
+f9_Setpoint1	:= 'SETPOINT 1';
+f10_Setpoint2	:= 'SETPOINT 2';
+f11_Setpoint3	:= 'SETPOINT 3';
+f12_RawValue1	:= 'PROBE POSITION 1';
+f13_RawValue2	:= 'PROBE POSITION 2';
+f14_RawValue3	:= 'PROBE POSITION 3';
+f15_RawValue4	:= 'PROBE POSITION 4';
+f16_Date		:= 'DATE';
+f17_Time		:= 'TIME';
+bWrite			:= TRUE;
+bWritingFirstRow	:= TRUE;
+
+END_IF
+
+IF NOT bWritingFirstRow THEN
+	ACT_LinkingVariables();
+END_IF
+
+rError(CLK := bError);
+
+bCSVError		:= rError.Q;
+
+IF bWritingFirstRow AND dw_T04_EL1918.iResetButton THEN
+	
+	lastDateCSV			:= '0';
+	bCSVError			:= FALSE;			
+
+END_IF
+ 
+]]></ST>
+    </Implementation>
+    <Action Name="ACT_LinkingVariables" Id="{aefe0441-c878-4b2c-8890-8d9046b6e377}">
+      <Implementation>
+        <ST><![CDATA[rWriteNest1( CLK := bWriteNest1);
+rWriteNest2( CLK := bWriteNest2);
+
+IF rWriteNest1.Q THEN
+	
+	f1_Nest			:= INT_TO_STRING(stCycleDataNest1.nNest);
+	f2_GeneralResult:= stCycleDataNest1.sGeneralResult;
+	f3_HeightResult	:= stCycleDataNest1.sHeightTestResult;
+	f4_CameraResult	:= stCycleDataNest1.sCameraResult;
+	f5_LeakTesterResult	:= stCycleDataNest1.sLeakTesterResult;
+	f6_Distance1	:= stCycleDataNest1.sDistance1;
+	f7_Distance2	:= stCycleDataNest1.sDistance2;
+	f8_Distance3	:= stCycleDataNest1.sDistance3;
+	f9_Setpoint1	:= stCycleDataNest1.sSetpoint1;
+	f10_Setpoint2	:= stCycleDataNest1.sSetpoint2;
+	f11_Setpoint3	:= stCycleDataNest1.sSetpoint3;
+	f12_RawValue1	:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anRawMeasurement[1]);
+	f13_RawValue2	:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anRawMeasurement[2]);
+	f14_RawValue3	:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anRawMeasurement[3]);
+	f15_RawValue4	:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anRawMeasurement[4]);
+	f16_Date		:= stCycleDataNest1.sDate;
+	f17_Time		:= stCycleDataNest1.sTime;
+	
+	bWrite			:= TRUE;
+
+ELSIF rWriteNest2.Q THEN
+	
+	f1_Nest			:= INT_TO_STRING(stCycleDataNest2.nNest);
+	f2_GeneralResult:= stCycleDataNest2.sGeneralResult;
+	f3_HeightResult	:= stCycleDataNest2.sHeightTestResult;
+	f4_CameraResult	:= stCycleDataNest2.sCameraResult;
+	f5_LeakTesterResult	:= stCycleDataNest2.sLeakTesterResult;
+	f6_Distance1	:= stCycleDataNest2.sDistance1;
+	f7_Distance2	:= stCycleDataNest2.sDistance2;
+	f8_Distance3	:= stCycleDataNest2.sDistance3;
+	f9_Setpoint1	:= stCycleDataNest2.sSetpoint1;
+	f10_Setpoint2	:= stCycleDataNest2.sSetpoint2;
+	f11_Setpoint3	:= stCycleDataNest2.sSetpoint3;
+	f12_RawValue1	:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anRawMeasurement[1]);
+	f13_RawValue2	:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anRawMeasurement[2]);
+	f14_RawValue3	:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anRawMeasurement[3]);
+	f15_RawValue4	:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anRawMeasurement[4]);
+	f16_Date		:= stCycleDataNest2.sDate;
+	f17_Time		:= stCycleDataNest2.sTime;
+	
+	bWrite			:= TRUE;
+	
+END_IF
+
+
+		]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

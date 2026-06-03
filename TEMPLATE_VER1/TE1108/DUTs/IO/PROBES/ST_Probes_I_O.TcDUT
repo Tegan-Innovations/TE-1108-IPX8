@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_Probes_I_O" Id="{84e24643-423a-42da-8153-4f00aca97b7f}">
+    <Declaration><![CDATA[TYPE ST_Probes_I_O :
+STRUCT
+	
+	bGeneralError					AT %I*					: BOOL;
+	stProbesSet												: ARRAY [1..2] OF ST_ProbesSet;
+	abPresetProbe					AT %Q*					: DINT;
+	
+	stTerminalInfo											: 	ST_Terminal_Info;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

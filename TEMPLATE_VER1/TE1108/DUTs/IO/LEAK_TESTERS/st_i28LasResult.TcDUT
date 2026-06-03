@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="st_i28LasResult" Id="{91f5214e-3abc-4127-869f-5836ec932236}">
+    <Declaration><![CDATA[TYPE st_i28LasResult :
+STRUCT
+
+inUniqueID			               	AT%I*       : UDINT; 
+inChannelNumber						AT%I*       : USINT;
+inProgramNumber						AT%I*       : USINT;
+inTestPort							AT%I*       : USINT;
+inPartEvaluation					AT%I*       : USINT;
+inTestType							AT%I*       : USINT;
+inPrecisionCode						AT%I*       : USINT;
+
+ibTestEvaluation0					AT%I*       : BOOL;
+ibTestEvaluation1					AT%I*       : BOOL;
+ibTestEvaluation2					AT%I*       : BOOL;
+ibTestEvaluation3					AT%I*       : BOOL;
+
+
+inMeasurement1						AT%I*       : UDINT;
+inVariableCode1						AT%I*       : UINT;
+inUnitCode1							AT%I*       : USINT;
+
+
+inMeasurement2						AT%I*       : UDINT;
+inVariableCode2						AT%I*       : UINT;
+inUnitCode2							AT%I*       : USINT;
+
+//Output Data
+sPartEvaluation									: WSTRING;
+sTestType										: WSTRING;
+sPrecision										: WSTRING;
+sTestEvaluation									: WSTRING;
+sVariable1										: WSTRING; 
+sUnit1											: WSTRING;
+sVariable2										: WSTRING; 
+sUnit2											: WSTRING;
+
+//Info
+sDate											: STRING;
+sTime											: STRING;
+
+
+
+
+
+
+
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

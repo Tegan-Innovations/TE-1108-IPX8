@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_General_LeakTester_I_O" Id="{cce0cedf-49f9-4006-a73b-4ed8a3a5a71d}">
+    <Declaration><![CDATA[TYPE ST_General_LeakTester_I_O :
+STRUCT
+	
+	sti28General_I_O					: st_i28General_I_O;
+	sti28LasResult						: st_i28LasResult;
+	sti28LiveMeasurement				: st_i28LiveMeasurement;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

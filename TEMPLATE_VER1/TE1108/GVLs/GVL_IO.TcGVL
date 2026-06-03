@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <GVL Name="GVL_IO" Id="{45216df1-d642-48c2-a25b-8ce51cdc643d}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	
+	
+
+	dw_T01_EK1100                                                		: ST_K1100;//EtherCAT Coupler 
+	dw_T02_EL6070                                           			: ST_EL6070;//EtherCAT Terminal, license key FOR TwinCAT 3.1 	
+	dw_T03_EL6910														: st_EL6910;//TwinSAFE logic
+	dw_T04_EL1918														: st_EL1918_A;//EL1918 8 Channel Safety Digital Input
+	dw_T05_EL1918														: st_EL1918_B;//EL1918 8 Channel Safety Digital Input
+	dw_T06_EL2904														: st_EL2904;//EL2904 4 Channel Safety Digital Output
+	dw_T07_EL9410														: st_EL9410;//E-Bus Power supply
+	dw_T08_EL1809														: st_EL1809;// 16 Channel Digital Input ( 24VDC )
+	dw_T09_EL2809														: st_EL2809_A;// 16 Channel Digital Output ( 24VDC ) 	
+	dw_T10_EL3058                                                		: st_EL3058;// 4 Channel Analog Input
+	dw_T11_EL1918														: st_EL1918_C;//EL1918 8 Channel Safety Digital Input
+	dw_T12_EL6633                                                		: ST_EL6633; // Profinet Protocol
+	
+	stTwinSAFE															: ST_TwinSAFE;
+	
+	LeakTester1_IO														: ST_General_LeakTester_I_O;
+	LeakTester2_IO														: ST_General_LeakTester_I_O;
+	
+	Camera1_IO															: ST_KeyenceCamera_I_O;
+	Camera2_IO															: ST_KeyenceCamera_I_O;
+	Camera3_IO															: ST_KeyenceCamera_I_O;
+	Camera4_IO															: ST_KeyenceCamera_I_O;
+	
+	Probes																: ST_Probes_I_O;
+
+	dw_T06_EL2904_Reading												: ST_SafeOutputsReading;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

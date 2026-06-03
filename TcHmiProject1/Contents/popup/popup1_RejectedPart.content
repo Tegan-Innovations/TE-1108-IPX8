@@ -1,0 +1,4 @@
+<div id="popup1" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="500" data-tchmi-height="300" data-tchmi-creator-viewport-width="800" data-tchmi-creator-viewport-height="600">
+<div id="Part_Rejected_16" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="300" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/PopUp/RejectPart.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-header="%i%PopupRejectPart_Header%/i%" data-tchmi-text="%i%PopupRejectPart_Text%/i%">
+</div>
+</div>

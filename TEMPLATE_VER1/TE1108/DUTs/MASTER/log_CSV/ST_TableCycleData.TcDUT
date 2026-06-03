@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_TableCycleData" Id="{39aa5686-3555-40f2-8e6c-0c20916ac0ad}">
+    <Declaration><![CDATA[TYPE ST_TableCycleData :
+STRUCT
+	
+	nNest								: INT;
+	sGeneralResult						: STRING;
+	sCameraResult						: STRING;
+	sHeightTestResult					: STRING;
+	sLeakTesterResult					: STRING;
+	nDistance1							: REAL;
+	nSetpoint1							: REAL;
+	nDistance2							: REAL;
+	nSetpoint2							: REAL;
+	nDistance3							: REAL;
+	nSetpoint3							: REAL;
+	sTime								: STRING;
+	sDate								: STRING;
+	
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

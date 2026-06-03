@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="E_ProcessCylinder_State" Id="{39ea7c49-57ae-4672-9d34-1fe246bace50}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_ProcessCylinder_State :
+(
+		//GENERIC
+	ABORTED				,
+	HOMING				,
+	READY				,
+	MANUAL_MODE			,
+	STOPPING			,
+	//SPECIFIC FOR EVERY STATION
+	EXTEND,
+	RETRACT,
+	DONE				,
+	RESET				
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

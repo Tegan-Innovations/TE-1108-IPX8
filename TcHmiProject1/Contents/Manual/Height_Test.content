@@ -1,0 +1,52 @@
+<div id="Height_Test1" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1080" data-tchmi-height="407" data-tchmi-zindex="2" data-tchmi-zindex="2">
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
+{
+  "topLeft": 0.0,
+  "topRight": 0.0,
+  "bottomLeft": 10.0,
+  "bottomRight": 10.0,
+  "topLeftUnit": "px",
+  "topRightUnit": "px",
+  "bottomLeftUnit": "px",
+  "bottomRightUnit": "px"
+}
+</script>
+
+
+
+
+<div id="TcHmiTextblock_1007" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="176" data-tchmi-left-unit="px" data-tchmi-text="TEST ZONE - LH" data-tchmi-top="17" data-tchmi-top-unit="px" data-tchmi-width="210" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="2">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+</div>
+<div id="UserControl1_5" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="417" data-tchmi-height-unit="px" data-tchmi-left="-5" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/HeightTest/HeightTestManual.usercontrol" data-tchmi-top="-5" data-tchmi-top-unit="px" data-tchmi-width="557" data-tchmi-width-unit="px" data-tchmi-maxdist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.0%/s%" data-tchmi-maxdist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.1%/s%" data-tchmi-maxdist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.2%/s%" data-tchmi-mindist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.0%/s%" data-tchmi-mindist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.1%/s%" data-tchmi-mindist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.2%/s%" data-tchmi-dist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance1.0%/s%" data-tchmi-dist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance1.1%/s%" data-tchmi-dist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance1.2%/s%" data-tchmi-setpoint1="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.0%/s%" data-tchmi-setpoint2="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.1%/s%" data-tchmi-setpoint3="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.2%/s%" data-tchmi-rawvalue1="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.0.anScaledRawMeasurement.0%/s%" data-tchmi-rawvalue2="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.0.anScaledRawMeasurement.1%/s%" data-tchmi-rawvalue3="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.0.anScaledRawMeasurement.2%/s%" data-tchmi-rawvalue4="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.0.anScaledRawMeasurement.3%/s%">
+</div>
+<div id="TcHmiTextblock_1061" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="707" data-tchmi-left-unit="px" data-tchmi-text="TEST ZONE - RH" data-tchmi-top="17" data-tchmi-top-unit="px" data-tchmi-width="210" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center" data-tchmi-zindex="2">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+</div>
+<div id="UserControl1_6" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="417" data-tchmi-height-unit="px" data-tchmi-left="531" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/HeightTest/HeightTestManual.usercontrol" data-tchmi-top="-5" data-tchmi-top-unit="px" data-tchmi-width="557" data-tchmi-width-unit="px" data-tchmi-dist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance2.0%/s%" data-tchmi-dist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance2.1%/s%" data-tchmi-dist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anRealDistance2.2%/s%" data-tchmi-maxdist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.0%/s%" data-tchmi-mindist1="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.0%/s%" data-tchmi-maxdist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.1%/s%" data-tchmi-maxdist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.2%/s%" data-tchmi-mindist2="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.1%/s%" data-tchmi-mindist3="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMinimumDistance.2%/s%" data-tchmi-setpoint1="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.0%/s%" data-tchmi-setpoint2="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.1%/s%" data-tchmi-setpoint3="%s%ADS.PLC1.GVL_Persistent.stProbesSettings.anExpectedDistances.2%/s%" data-tchmi-rawvalue1="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.1.anScaledRawMeasurement.0%/s%" data-tchmi-rawvalue2="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.1.anScaledRawMeasurement.1%/s%" data-tchmi-rawvalue3="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.1.anScaledRawMeasurement.2%/s%" data-tchmi-rawvalue4="%s%ADS.PLC1.GVL_IO.Probes.stProbesSet.1.anScaledRawMeasurement.3%/s%">
+</div>
+</div>

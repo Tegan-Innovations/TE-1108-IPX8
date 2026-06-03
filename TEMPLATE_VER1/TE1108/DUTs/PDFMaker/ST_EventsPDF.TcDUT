@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EventsPDF" Id="{5d1b9fdc-f767-4eaf-a728-2aea68ef8394}">
+    <Declaration><![CDATA[TYPE ST_EventsPDF :
+STRUCT
+	
+	     sEvents				: STRING;
+         sType					: STRING;
+         sDate					: STRING;
+         sTime					: STRING;
+
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

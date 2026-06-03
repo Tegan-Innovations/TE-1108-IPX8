@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_TwinSAFE" Id="{53872549-54d4-4379-ac97-82f6a4774545}">
+    <Declaration><![CDATA[TYPE ST_TwinSAFE :
+STRUCT
+	
+///////////////////////////////////////////////////////////////////////////Safety OUTPUTS///////////////////////////////////////////////////////////////////////////////////////
+		
+	iAirPressureMaxValue					AT %Q*			: 	UINT;
+	iAirPressureMinValue					AT %Q*			: 	UINT;
+	iAirSupplyMeasurement					AT %Q*			: 	UINT;
+	iMachineStopped							AT %Q*			: 	BOOL;	
+	iProcessDoorClosing              		AT %Q*			: 	BOOL;		
+	iProcessDoorClosedCondition				AT %Q*			: 	BOOL;
+	iSafetyErrorAcknowledge					AT %Q*			: 	BOOL;
+	iRunSafety								AT %Q*			: 	BOOL;
+	iInitSafety								AT %Q*			: 	BOOL;
+	
+///////////////////////////////////////////////////////////////////////////Safety Inputs///////////////////////////////////////////////////////////////////////////////////////	
+
+	qAirErrorSignal							AT %I*			: 	BOOL;	
+	qAirPressureAbove						AT %I*			: 	BOOL;	
+	qAirPressureBelow						AT %I*			: 	BOOL;
+	qAirPressureOK							AT %I*			: 	BOOL;
+	qMainDoorOpenned						AT %I*			: 	BOOL;	
+	qE_StopPressed							AT %I*			: 	BOOL;	
+	qMainDoorUnsafe							AT %I*			: 	BOOL;	
+	qProcessCylinderUnsafe					AT %I*			: 	BOOL;
+	qProcessCylinderRetracted				AT %I*			: 	BOOL;
+	qProcessDoorUnSafe						AT %I*			: 	BOOL;	
+	qSafetyOk								AT %I*			: 	BOOL;
+	qSystemSafe								AT %I*			: 	BOOL;
+	qTwoHandsUnsafe							AT %I*			: 	BOOL;
+	qFBError								AT %I*			: 	BOOL;
+	qOtherError								AT %I*			: 	BOOL;
+	qComError								AT %I*			: 	BOOL;
+	qTwoHandsSafe							AT %I*			: 	BOOL;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

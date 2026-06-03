@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <POU Name="FB_EventsManager" Id="{a5f89ae0-d262-4bc0-baad-f557f917db4a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EventsManager
+
+VAR_INPUT
+	
+	bPulse					: BOOL;
+	sSystemTime				: STRING(255);
+	sSystemDate				: STRING(255);
+	bDataWritedInCSV		: BOOL;
+	nArraySize				: DINT;
+	bMachineMessage			: STRING;
+	
+END_VAR
+
+VAR_OUTPUT
+
+	astActiveEvents			: ARRAY [0..50] OF ST_ActiveEvents;
+	astEventsHistory		: ARRAY[0..200] OF ST_EventsHistory;
+
+END_VAR
+
+VAR
+	
+	i								: ARRAY [0..1] OF DINT;
+	j								: ARRAY [0..1] OF DINT;
+	m								: ARRAY [0..3] OF DINT;
+	k								: ARRAY [0..1] OF DINT;
+	l								: DINT;
+	n								: DINT;
+	
+	bEventsAssigmentSignal			: BOOL		:= TRUE;
+	
+
+	
+END_VAR
+
+VAR_IN_OUT
+	
+	stStationEvents			: ARRAY[0..4] OF ST_StationEvents;
+	stEventsAssigment		: ST_EventsAssigmentGeneral;
+	bResetFaults			: BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ACT_FaultTrig();
+ACT_ActiveEvents_DataHistory();
+
+IF bEventsAssigmentSignal THEN
+	ACT_EventTextAssigment();
+	bEventsAssigmentSignal := FALSE;
+END_IF
+
+
+
+]]></ST>
+    </Implementation>
+    <Action Name="ACT_ActiveEvents_DataHistory" Id="{189c7dfd-f9f1-43a8-9266-a00a732d0443}">
+      <Implementation>
+        <ST><![CDATA[IF bPulse  THEN
+
+FOR k[0] := 0 TO nArraySize DO
+	
+	FOR k[1] := 0 TO 100 DO
+		
+		IF stStationEvents[k[0]].aEvents[k[1]].bFault AND stStationEvents[k[0]].aEvents[k[1]].bEventFlag AND NOT stStationEvents[k[0]].aEvents[k[1]].bActive THEN
+			
+			//ACTIVE EVENTS
+			astActiveEvents[l+1].sEventTex				:= 	stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astActiveEvents[l+1].sType					:= 'Fault';						
+			astActiveEvents[l+1].abType					:= 1; 
+			astActiveEvents[l+1].sSolution				:= stStationEvents[k[0]].aEvents[k[1]].sSolution;
+			stStationEvents[k[0]].aEvents[k[1]].bActive := TRUE;
+			
+			//EVENTS HISTORY
+			FOR n := 200 TO 1 BY -1 DO
+							
+				astEventsHistory[n ].sEventTex				:= astEventsHistory[n - 1].sEventTex;
+				astEventsHistory[n ].sType					:= astEventsHistory[n - 1].sType;
+				astEventsHistory[n].abType					:= astEventsHistory[n - 1].abType;
+				astEventsHistory[n ].sDate					:= astEventsHistory[n - 1].sDate;										
+				astEventsHistory[n ].sTime					:= astEventsHistory[n - 1].sTime;
+				
+			END_FOR
+
+			astEventsHistory[0].sEventTex				:= stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astEventsHistory[0].sType					:= 'Fault';
+			astEventsHistory[0].abType					:= 1;
+			astEventsHistory[0].sDate					:= 	sSystemDate;										
+			astEventsHistory[0].sTime					:= 	sSystemTime;
+			l											:= l + 1;			
+			
+			
+		END_IF
+		
+		IF stStationEvents[k[0]].aEvents[k[1]].bCycleStopRequest AND stStationEvents[k[0]].aEvents[k[1]].bEventFlag AND NOT stStationEvents[k[0]].aEvents[k[1]].bActive THEN
+			
+			//ACTIVE EVENTS
+			astActiveEvents[l+1].sEventTex				:= 	stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astActiveEvents[l+1].sType					:= 'Cycle Stop Request';						
+			astActiveEvents[l+1].abType					:= 2; 
+			astActiveEvents[l+1].sSolution				:= stStationEvents[k[0]].aEvents[k[1]].sSolution;
+			stStationEvents[k[0]].aEvents[k[1]].bActive := TRUE;
+			
+			//EVENTS HISTORY
+			n:= 200;
+			FOR n := 200 TO 1 BY -1 DO
+							
+				astEventsHistory[n].sEventTex				:= astEventsHistory[n - 1].sEventTex;
+				astEventsHistory[n].sType					:= astEventsHistory[n - 1].sType;
+				astEventsHistory[n].abType					:= astEventsHistory[n - 1].abType;
+				astEventsHistory[n].sDate					:= astEventsHistory[n - 1].sDate;										
+				astEventsHistory[n].sTime					:= astEventsHistory[n - 1].sTime;
+				
+			END_FOR
+
+			astEventsHistory[0].sEventTex				:= stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astEventsHistory[0].sType					:= 'Cycle Stop Request';
+			astEventsHistory[0].abType					:= 2;
+			astEventsHistory[0].sDate					:= 	sSystemDate;										
+			astEventsHistory[0].sTime					:= 	sSystemTime;
+															
+			l											:= l + 1;	
+			
+						
+		END_IF
+		
+		IF stStationEvents[k[0]].aEvents[k[1]].bMessage AND stStationEvents[k[0]].aEvents[k[1]].bEventFlag AND NOT stStationEvents[k[0]].aEvents[k[1]].bActive THEN
+			
+			//ACTIVE EVENTS
+			astActiveEvents[l+1].sEventTex				:= 	stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astActiveEvents[l+1].sType					:= 'Message';						
+			astActiveEvents[l+1].abType					:= 3; 
+			astActiveEvents[l+1].sSolution				:= stStationEvents[k[0]].aEvents[k[1]].sSolution;
+			stStationEvents[k[0]].aEvents[k[1]].bActive := TRUE;
+			
+			//EVENTS HISTORY
+			FOR n := 200 TO 1 BY -1 DO
+							
+				astEventsHistory[n].sEventTex				:= astEventsHistory[n - 1].sEventTex;
+				astEventsHistory[n].sType					:= astEventsHistory[n - 1].sType;
+				astEventsHistory[n].abType				:= astEventsHistory[n - 1].abType;
+				astEventsHistory[n].sDate					:= astEventsHistory[n - 1].sDate;										
+				astEventsHistory[n].sTime					:= astEventsHistory[n - 1].sTime;
+				
+			END_FOR
+
+			astEventsHistory[0].sEventTex				:= stStationEvents[k[0]].aEvents[k[1]].bEventTextHMI;
+			astEventsHistory[0].sType					:= 'Message';
+			astEventsHistory[0].abType					:= 3;
+			astEventsHistory[0].sDate					:= 	sSystemDate;										
+			astEventsHistory[0].sTime					:= 	sSystemTime;
+															
+			l											:= l + 1;
+			
+										
+		END_IF
+		
+		
+	END_FOR
+
+END_FOR
+
+ELSIF bResetFaults THEN
+	FOR l := 1 TO 50 DO
+	
+			astActiveEvents[l].sEventTex			:= 	'';
+			astActiveEvents[l].sType				:= '';						
+			astActiveEvents[l].abType				:= 0; 
+			astActiveEvents[l].sSolution			:= '';
+			
+	END_FOR	
+	
+	FOR k[0] := 0 TO nArraySize DO
+	
+		FOR k[1] := 0 TO 100 DO
+	
+			stStationEvents[k[0]].aEvents[k[1]].bActive	:= FALSE;
+		END_FOR
+	END_FOR
+	
+	l												:= 0;
+	k[0]											:= 0;
+	k[1]											:= 0;	
+ELSE
+	
+	k[0]											:= 0;
+	k[1]											:= 0;
+	
+END_IF
+
+astActiveEvents[0].sEventTex						:= bMachineMessage;
+astActiveEvents[0].sType							:= 'Message';
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ACT_EventTextAssigment" Id="{2f99a514-df71-4979-86ed-664674c281e4}">
+      <Implementation>
+        <ST><![CDATA[
+FOR j[0] := 0 TO nArraySize DO
+	
+	FOR j[1] := 0 TO 100 DO 
+		
+		IF stStationEvents[j[0]].aEvents[j[1]].bFault THEN
+			
+			m[0]											:= m[0]+1;
+			
+			stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI	:= 		CONCAT( STR1 := 'Fault N ', STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(m[0]), str2 := 
+																CONCAT( STR1 :=' - Station ' , STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(j[0]), STR2 := 
+																CONCAT( STR1 :=' - ', str2 := stStationEvents[j[0]].aEvents[j[1]].bEventText )))));
+			stStationEvents[j[0]].aEvents[j[1]].bAssignedID	:= 	m[0];				
+			
+			//EVENTS ASSIGMENT
+			stEventsAssigment.astFaultEvents[m[0]].sEventText	:= stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI;
+			stEventsAssigment.astFaultEvents[m[0]].sSolution	:= stStationEvents[j[0]].aEvents[j[1]].sSolution;
+			
+		ELSIF stStationEvents[j[0]].aEvents[j[1]].bCycleStopRequest THEN
+		
+			m[2]											:= m[2]+1;	
+			
+			stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI	:= 		CONCAT( STR1 := 'Cycle Stop Request N ', STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(m[2]), str2 := 
+																CONCAT( STR1 :=' - Station ' , STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(j[0]), STR2 := 
+																CONCAT( STR1 :=' - ', str2 := stStationEvents[j[0]].aEvents[j[1]].bEventText )))));
+			stStationEvents[j[0]].aEvents[j[1]].bAssignedID	:= 	m[2];													
+
+			//EVENTS ASSIGMENT
+			stEventsAssigment.astCycleStopRequestEvents[m[2]].sEventText	:= stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI;
+			stEventsAssigment.astCycleStopRequestEvents[m[2]].sSolution	:= stStationEvents[j[0]].aEvents[j[1]].sSolution;
+			
+		ELSIF stStationEvents[j[0]].aEvents[j[1]].bMessage THEN
+			
+			m[3]											:= m[3]+1;
+			
+			stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI	:= 		CONCAT( STR1 := 'Message N ', STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(m[3]), str2 := 
+																CONCAT( STR1 :=' - Station ' , STR2 := 
+																CONCAT( STR1 := DINT_TO_STRING(j[0]), STR2 := 
+																CONCAT( STR1 :=' - ', str2 := stStationEvents[j[0]].aEvents[j[1]].bEventText )))));
+			stStationEvents[j[0]].aEvents[j[1]].bAssignedID	:= 	m[3];													
+				
+			//EVENTS ASSIGMENT
+			stEventsAssigment.astMessage[m[3]].sEventText	:= stStationEvents[j[0]].aEvents[j[1]].bEventTextHMI;
+			stEventsAssigment.astMessage[m[3]].sSolution	:= stStationEvents[j[0]].aEvents[j[1]].sSolution;	
+			
+		END_IF
+		
+	END_FOR
+	
+	
+END_FOR
+j[0]														:= 0;
+j[1]														:= 0;
+m[0]														:= 0;
+m[1]														:= 0;
+m[2]														:= 0;
+m[3]														:= 0;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ACT_FaultTrig" Id="{59fc2b1d-e7a6-4423-afcc-b6b44fcfba0f}">
+      <Implementation>
+        <ST><![CDATA[IF bPulse THEN
+	
+
+	FOR i[0] := 0 TO nArraySize DO
+	//IMMEDIATE FAULT
+		FOR i[1] :=0 TO 100 DO
+			
+			//IMMEDIATE FAULT
+			IF stStationEvents[i[0]].aEvents[i[1]].bFault AND stStationEvents[i[0]].aEvents[i[1]].bEventFlag THEN
+	
+				stStationEvents[i[0]].bFault								:= TRUE;
+		
+			ELSIF bResetFaults THEN
+				stStationEvents[i[0]].bFault						:= FALSE;
+			END_IF
+
+			//STOP REQUEST
+			IF stStationEvents[i[0]].aEvents[i[1]].bCycleStopRequest AND stStationEvents[i[0]].aEvents[i[1]].bEventFlag THEN
+	
+				stStationEvents[i[0]].bCycleStopRequest						:= TRUE;
+		
+			ELSIF bResetFaults THEN
+				stStationEvents[i[0]].bCycleStopRequest						:= FALSE;
+			END_IF
+		
+		END_FOR
+	END_FOR
+
+ELSE 	i[0]														:= 0;
+		i[1]														:= 0;	
+END_IF]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

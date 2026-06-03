@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_Puls" Id="{a6fbc444-f8a7-455f-be46-0e9c4ed640db}">
+    <Declaration><![CDATA[TYPE ST_Puls :
+STRUCT
+	
+	bFlash1Hz						: BOOL;
+	bFlash2Hz						: BOOL;
+	bFlash4Hz				   		: BOOL;
+	bFlash10Hz						: BOOL;
+	bFlash10BHz        		  		: BOOL;
+	bFlash100Hz      	      		: BOOL;
+	bFlashScale       	      		: BOOL;
+	bFlashScale4       		  		: BOOL;
+	bFlashScale5        	  		: BOOL;
+	bFlash5sec                      : BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

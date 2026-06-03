@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_SafeOutputsReading" Id="{9ee2773f-5649-4d8b-af7c-90a6947e6ac7}">
+    <Declaration><![CDATA[TYPE ST_SafeOutputsReading :
+STRUCT
+	
+	fbReadOutSafety06						: ARRAY[1..4] OF Tc2_EtherCat.FB_EcCoESdoRead;	
+	berror									: ARRAY[1..4] OF BOOL;
+	bBusy									: ARRAY[1..4] OF BOOL;
+	bResult									: ARRAY[1..4] OF INT;
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

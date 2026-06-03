@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62">
+	<Project ProjectGUID="{AAED4EA2-0931-43D2-8590-E4ACDEB76CAB}" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Settings MaxCpus="20" NonWinCpus="1">
+				<Cpu CpuId="19"/>
+			</Settings>
+			<Licenses>
+				<Target>
+					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
+				</Target>
+			</Licenses>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{997013A6-75D1-424B-98F5-A30289B2B96E}" Name="TEXXX-XXX" PrjFilePath="TEXXX-XXX\TEXXX-XXX.plcproj" TmcFilePath="TEXXX-XXX\TEXXX-XXX.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="TEXXX-XXX\TEXXX-XXX.tmc" TmcHash="{E5FED95D-B319-8B94-89A8-8D2C1ECC2FC1}">
+					<Name>TEXXX-XXX Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch1</Name>
+							<Comment><![CDATA[ EL1809 channel 1]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch2</Name>
+							<Comment><![CDATA[ EL1809 channel 2]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch3</Name>
+							<Comment><![CDATA[ EL1809 channel 3]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch4</Name>
+							<Comment><![CDATA[ EL1809 channel 4]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch5</Name>
+							<Comment><![CDATA[ EL1809 channel 5 		     			]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch6</Name>
+							<Comment><![CDATA[ EL1809 channel 6]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch7</Name>
+							<Comment><![CDATA[ EL1809 channel 7 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch8</Name>
+							<Comment><![CDATA[ EL1809 channel 8]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch9</Name>
+							<Comment><![CDATA[ EL1809 channel 9]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch10</Name>
+							<Comment><![CDATA[ EL1809 channel 10]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch11</Name>
+							<Comment><![CDATA[ EL1809 channel 11]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch12</Name>
+							<Comment><![CDATA[ EL1809 channel 12	   ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch13</Name>
+							<Comment><![CDATA[ EL1809 channel 13   ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch14</Name>
+							<Comment><![CDATA[ EL1809 channel 14 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch15</Name>
+							<Comment><![CDATA[ EL1809 channel 15  ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.iEL1809_Ch16</Name>
+							<Comment><![CDATA[ EL1809 channel 16  	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T03_EL1809.stTerminalInfo.nTerminal_State</Name>
+							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.stTerminalInfo.nTerminal_State</Name>
+							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch1</Name>
+							<Comment><![CDATA[ EL2809 channel 1]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch2</Name>
+							<Comment><![CDATA[ EL2809 channel 2]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch3</Name>
+							<Comment><![CDATA[ EL2809 channel 3 			]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch4</Name>
+							<Comment><![CDATA[ EL2809 channel 4 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch5</Name>
+							<Comment><![CDATA[ EL2809 channel 5]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch6</Name>
+							<Comment><![CDATA[ EL2809 channel 6 	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch7</Name>
+							<Comment><![CDATA[ EL2809 channel 7	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch8</Name>
+							<Comment><![CDATA[ EL2809 channel 8	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch9</Name>
+							<Comment><![CDATA[ EL2809 channel 9]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch10</Name>
+							<Comment><![CDATA[ EL2809 channel 10   	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch11</Name>
+							<Comment><![CDATA[ EL2809 channel 11	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch12</Name>
+							<Comment><![CDATA[ EL2809 channel 12 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch13</Name>
+							<Comment><![CDATA[ EL2809 channel 13 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch14</Name>
+							<Comment><![CDATA[ EL2809 channel 14 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch15</Name>
+							<Comment><![CDATA[ EL2809 channel 15 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T04_EL2809.qiEL2809_Ch16</Name>
+							<Comment><![CDATA[ EL2809 channel 16  ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+	</Project>
+</TcSmProject>

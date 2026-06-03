@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EVENT" Id="{aa8240d2-f153-4b6d-8ba3-f39478af10c7}">
+    <Declaration><![CDATA[TYPE ST_EVENT :
+STRUCT
+	
+	bFault								: BOOL;
+	bCycleStopRequest					: BOOL;
+	bMessage							: BOOL;
+	
+	bAssignedID							: DINT;
+	
+	bEventFlag							: BOOL;
+	bEventTimer							: TON;
+	bEventText							: STRING(255);
+	bEventTextHMI						: STRING(255);
+	sSolution							: STRING(255);
+	bActive								: BOOL;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

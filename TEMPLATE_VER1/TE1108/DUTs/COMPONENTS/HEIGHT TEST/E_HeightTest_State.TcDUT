@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="E_HeightTest_State" Id="{5ddfb4d9-7fc1-463c-94a3-7a2a15a0ec39}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_HeightTest_State :
+(
+	//GENERIC
+	ABORTED				,
+	READY				,
+	//MANUAL_MODE			:=50, /manual mode not needed.
+	ERROR				,
+	//SPECIFIC FOR EVERY STATION
+	MEASURE				,
+	WAIT_MEASUREMENT	,
+	DONE				,
+	RESULTS				,
+	RESET				,
+	MANUAL_MODE
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

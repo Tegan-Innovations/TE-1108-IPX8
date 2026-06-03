@@ -1,0 +1,1135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="A_2_PRG_MachineCtrl" Id="{fa5999e8-1190-4f6f-b7ba-be790246df67}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM A_2_PRG_MachineCtrl
+VAR
+/////////////////////////////////////////////////////////////////////////////////////TIMERS & TRIGGERS/////////////////////////////////////////////////////////////////////////////////////
+
+	tonSys_Init					: Tc2_Standard.TON:=(PT:=T#1S);
+	tonSys_InitTimeout			: Tc2_Standard.TON:=(PT:=T#5S);					
+	tonFirstAutoCycle			: Tc2_Standard.TON:=(PT:=T#500MS);
+	tonStopped					: TON := (PT := T#500MS);
+	
+/////////////////////////////////////////////////////////////////////////////////////PROCESS CYCLE/////////////////////////////////////////////////////////////////////////////////////	
+	
+	eCycleState					: E_General_ProcessCycle;
+	tonCMD_Done					: TON;
+	tonResetAllCMD				: TON;
+	tonExecute					: TON;
+	tonSave_Data				: TON;
+	tonWriteToCsv				: TON;
+	rFirstAutoCycle				: R_TRIG;
+	
+	bStartProcessCondition		: BOOL;
+	i							: INT;
+	j							: INT;
+	
+	bVisionProcessDoneFlag		: BOOL;
+	tonGettingResults			: TON;
+	tonWaitExtendCylidner		: TON;
+	tonTakePicture				: TON;
+	ctuRejectPart				: CTU;
+
+/////////////////////////////////////////////////////////////////////////////////////SAFETY/////////////////////////////////////////////////////////////////////////////////////		
+	
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////I/O/////////////////////////////////////////////////////////////////////////////////////	
+
+	bPartPresentNest1			: BOOL;
+	bPartPresentNest2			: BOOL;
+	bPartPresentNest3			: BOOL;
+	bPartPresentNest4			: BOOL;
+	rRejectSensor				: R_TRIG;
+	bTwoHandsSignal				: BOOL;
+	tonTwoHandsSignal			: TON;
+	
+	bEndAutoCycleFlag			: BOOL;
+	bProcessedPart				: ARRAY[0..1] OF BOOL;
+	fProcessedPart				: ARRAY[0..1] OF F_TRIG;
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////GENERAL/////////////////////////////////////////////////////////////////////////////////////
+a_ACT_MachineStatus();
+b_ACT_ProcessCycle();
+d_ACT_IO();
+e_ACT_SafetyProcess();
+
+]]></ST>
+    </Implementation>
+    <Action Name="a_ACT_MachineStatus" Id="{83375328-405c-4671-a979-0a97efed562c}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////Utilities/////////////////////////////////////////////////////////////////////////////////////
+tonSys_Init(IN:=stMachineStatus.bInitialising);
+tonSys_InitTimeout(IN:=stMachineStatus.bInitialising);
+tonSafety( IN := stMachineStatus.eMachineState = E_MachineState.SAFETY, PT := T#10S);
+tonStopped(IN := stMachineStatus.eMachineState = E_MachineState.STOPPED);
+	
+	IF stMachineStatus.eMachineState <> E_MachineState.SYSTEM_AUTO_CYCLE THEN
+		
+		sMachineMessage									:= '';			
+		
+	END_IF
+	
+	IF (stMachineStatus.eMachineState = E_MachineState.STOPPED)  OR 
+		(stMachineStatus.eMachineState = E_MachineState.STOPPING) THEN
+		
+		stTwinSAFE.iMachineStopped						:= TRUE;
+		stTwinSAFE.iRunSafety							:= FALSE;
+	
+	ELSIF (stMachineStatus.eMachineState = E_MachineState.SAFETY) OR (stMachineStatus.eMachineState = E_MachineState.SYSTEM_INITIALISING) OR 
+		(stMachineStatus.eMachineState = E_MachineState.SYSTEM_READY_TO_START) OR (stMachineStatus.eMachineState = E_MachineState.SYSTEM_AUTO_CYCLE) 
+		OR (stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE)THEN
+
+		stTwinSAFE.iRunSafety							:= TRUE;
+		stTwinSAFE.iMachineStopped						:= FALSE;
+	
+	ELSE stTwinSAFE.iMachineStopped						:= FALSE;
+		stTwinSAFE.iRunSafety							:= FALSE;
+		
+	END_IF
+	
+	IF stMachineStatus.eMachineState = E_MachineState.SAFETY THEN
+		
+		stTwinSAFE.iInitSafety							:= TRUE;
+		
+	ELSE stTwinSAFE.iInitSafety							:= FALSE;
+		
+	END_IF
+
+/////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+				IF NOT stMasterCtrl.bNoFault THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;
+				END_IF
+				
+				IF stMachineStatus.eMachineState		= E_MachineState.STOPPING OR
+				stMachineStatus.eMachineState			= E_MachineState.FAULT THEN
+					
+					stCamera.CMD.bAbort					:= TRUE;	
+					stLeakTesters.CMD.bAbort			:= TRUE;	
+					stHeightTests.CMD.bAbort			:= TRUE;
+					stProcessCylinder.CMD.bAbort		:= TRUE;
+					stProcessDoor.CMD.bAbort			:= TRUE;
+				
+					stCamera.CMD.bEnable				:= FALSE;	
+					stLeakTesters.CMD.bEnable			:= FALSE;	
+					stHeightTests.CMD.bEnable			:= FALSE;
+					stProcessCylinder.CMD.bEnable		:= FALSE;
+					stProcessDoor.CMD.bEnable			:= FALSE;
+					
+				END_IF
+				
+				IF 	stButtonsLamps.bResetButtonFallingEdge THEN
+					stCamera.CMD.bReset					:= TRUE;	
+					stLeakTesters.CMD.bReset			:= TRUE;	
+					stHeightTests.CMD.bReset			:= TRUE;
+					stProcessCylinder.CMD.bReset		:= TRUE;
+					stProcessDoor.CMD.bReset			:= TRUE;
+				ELSE 
+					stCamera.CMD.bReset					:= FALSE;	
+					stLeakTesters.CMD.bReset			:= FALSE;	
+					stHeightTests.CMD.bReset			:= FALSE;
+					stProcessCylinder.CMD.bReset		:= FALSE;
+					stProcessDoor.CMD.bReset			:= FALSE;
+				END_IF	
+
+				IF 	NOT (stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE) THEN
+					
+					stCamera.CMD.bManualMode				:=FALSE;
+					stLeakTesters.CMD.bManualMode			:=FALSE;
+					stHeightTests.CMD.bManualMode			:=FALSE;
+					stProcessCylinder.CMD.bManualMode		:=FALSE;
+					stProcessDoor.CMD.bManualMode			:=FALSE;
+					
+				END_IF
+				
+				IF stMachineStatus.eMachineState = E_MachineState.SYSTEM_POWER_UP THEN
+					
+					bReadAMSNetID							:= TRUE;
+				
+				ELSE 
+					
+					bReadAMSNetID							:= FALSE;
+					
+				END_IF
+				
+				IF stMachineStatus.eMachineState		= E_MachineState.FAULT THEN
+					
+					bOpenDoorCycleFault						:= TRUE;
+					
+				ELSE bOpenDoorCycleFault					:= FALSE;
+					
+				END_IF
+				
+/////////////////////////////////////////////////////////////////////////////////////MACHINE CONTROL/////////////////////////////////////////////////////////////////////////////////////
+
+CASE stMachineStatus.eMachineState OF
+
+E_MachineState.SYSTEM_POWER_UP: 		
+
+				fbGetLocalAMSNetID.bExecute				:= TRUE;
+				bLightsOnOff							:= TRUE;
+				IF tonSystemPowerUP.Q THEN
+						stMachineStatus.eMachineState 	:= E_MachineState.STOPPED;//
+				END_IF
+	
+E_MachineState.STOPPED:		
+
+				stTwinSAFE.iRunSafety					:= FALSE;				
+
+				IF stMasterCtrl.bNoFault   AND NOT stMasterCtrl.bCycleStopRequest AND ftrigButton[3].Q AND tonStopped.Q THEN
+						stMachineStatus.eMachineState 	:= E_MachineState.SAFETY;//
+				ELSIF NOT stMasterCtrl.bNoFault    THEN	
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;		
+				END_IF	
+
+E_MachineState.SAFETY:
+
+				stTwinSAFE.iRunSafety					:= TRUE;
+				
+				IF stTwinSAFE.qSafetyOk AND stTwinSAFE.qProcessCylinderRetracted AND bDoorOpenedFlag THEN
+					
+					stMachineStatus.eMachineState		:= E_MachineState.SYSTEM_INITIALISING;
+					
+				ELSIF stButtonsLamps.bStopButtonFallingEdge OR  
+				stMasterCtrl.bCycleStopRequest OR tonSys_InitTimeout.Q  THEN
+				
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPING;	
+					
+				ELSIF NOT stMasterCtrl.bNoFault THEN		
+					
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;
+	
+				END_IF
+								
+
+E_MachineState.SYSTEM_INITIALISING:		
+					
+					
+				stCamera.CMD.bAbort						:= FALSE;	
+				stLeakTesters.CMD.bAbort				:= FALSE;	
+				stHeightTests.CMD.bAbort				:= FALSE;
+				stProcessCylinder.CMD.bAbort			:= FALSE;
+				stProcessDoor.CMD.bAbort				:= FALSE;	
+
+				IF tonSys_Init.Q THEN
+					stCamera.CMD.bEnable				:= TRUE;	
+					stLeakTesters.CMD.bEnable			:= TRUE;	
+					stHeightTests.CMD.bEnable			:= TRUE;
+					stProcessCylinder.CMD.bEnable		:= TRUE;
+					stProcessDoor.CMD.bEnable			:= TRUE;						
+				END_IF
+				
+				IF stMasterCtrl.bAllStationsReady  THEN 
+					stMachineStatus.eMachineState		:= E_MachineState.SYSTEM_READY_TO_START;
+				ELSIF stButtonsLamps.bStopButtonFallingEdge OR  
+				stMasterCtrl.bCycleStopRequest OR tonSys_InitTimeout.Q  THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPING;	
+				ELSIF NOT stMasterCtrl.bNoFault THEN		
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;
+				END_IF
+			
+					
+E_MachineState.SYSTEM_READY_TO_START:	
+
+				IF 	 stButtonsLamps.bStartButtonFallingEdge AND stMasterCtrl.bAllStationsReady  THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.SYSTEM_AUTO_CYCLE;
+				ELSIF NOT stMasterCtrl.bAllStationsReady OR stMasterCtrl.bCycleStopRequest THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPING;		
+				ELSIF NOT stMasterCtrl.bNoFault THEN	
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;
+				ELSIF GVL_Master.stMasterCTRL.bManualModeRequest AND stMasterCtrl.bNoFault THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.MANUAL_MODE;
+				END_IF
+
+				
+
+E_MachineState.SYSTEM_AUTO_CYCLE:		
+
+				
+				IF  stMasterCtrl.bCycleStopRequest AND (eCycleState = E_General_ProcessCycle.IDLE) THEN
+	
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPING;
+				
+				ELSIF stMasterCtrl.bCycleStopRequest AND NOT (eCycleState = E_General_ProcessCycle.IDLE) THEN					
+				
+					sMachineMessage						:= 'Ending  Cycle';
+				
+				ELSIF NOT stMasterCtrl.bNoFault THEN	
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;
+				END_IF
+				
+
+E_MachineState.STOPPING:	
+
+				
+				IF stMasterCtrl.bAllStationsStopped THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPED;
+				ELSIF NOT stMasterCtrl.bNoFault THEN	
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;					
+				END_IF
+				
+				stTwinSAFE.iRunSafety					:= FALSE;	
+
+E_MachineState.FAULT:	
+				
+				IF stMasterCtrl.bNoFault	THEN
+					stMachineStatus.eMachineState		:= E_MachineState.STOPPED;		
+				END_IF
+				
+				stTwinSAFE.iRunSafety					:= FALSE;	
+
+E_MachineState.MANUAL_MODE:
+
+				IF stButtonsLamps.bStopButtonFallingEdge OR NOT GVL_Master.stMasterCTRL.bManualModeRequest THEN
+					stMachineStatus.eMachineState 		:= E_MachineState.STOPPING;
+				ELSIF  NOT stMasterCtrl.bNoFault THEN	
+					stMachineStatus.eMachineState 		:= E_MachineState.FAULT;								
+				ELSE 
+					
+					stCamera.CMD.bManualMode				:=TRUE;
+					stLeakTesters.CMD.bManualMode			:=TRUE;
+					stHeightTests.CMD.bManualMode			:=TRUE;
+					stProcessCylinder.CMD.bManualMode		:=TRUE;
+					stProcessDoor.CMD.bManualMode			:=TRUE;
+
+				END_IF
+				
+					
+ELSE
+stMachineStatus.eMachineState:=E_MachineState.SYSTEM_POWER_UP;		
+END_CASE									
+
+
+/////////////////////////////////////////////////////////////////////////////////////MACHINE STATUS/////////////////////////////////////////////////////////////////////////////////////
+stMachineStatus.bSystemPowerUp 			:= (stMachineStatus.eMachineState = E_MachineState.SYSTEM_POWER_UP);
+stMachineStatus.bStopped 				:= (stMachineStatus.eMachineState = E_MachineState.STOPPED);
+stMachineStatus.bInitialising 			:= (stMachineStatus.eMachineState = E_MachineState.SYSTEM_INITIALISING);
+stMachineStatus.bReadyToStart 			:= (stMachineStatus.eMachineState = E_MachineState.SYSTEM_READY_TO_START);
+stMachineStatus.bAutoCycle 				:= (stMachineStatus.eMachineState = E_MachineState.SYSTEM_AUTO_CYCLE);
+stMachineStatus.bStopping 				:= (stMachineStatus.eMachineState = E_MachineState.STOPPING);
+stMachineStatus.bFault 					:= (stMachineStatus.eMachineState = E_MachineState.FAULT);
+stMachineStatus.bManualMode 			:= (stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE);
+stMachineStatus.bSafety 				:= (stMachineStatus.eMachineState = E_MachineState.SAFETY);
+
+/////////////////////////////////////////////////////////////////////////////////////FLAGS/////////////////////////////////////////////////////////////////////////////////////
+stMasterCtrl.bAllStationsStopped		:= (stCamera.Status.bStopped OR NOT stMACHINE.bVisionTest ) AND (stLeakTesters.Status.bStopped OR NOT stMACHINE.bLeakTest ) AND (stHeightTests.Status.bStopped OR NOT stMACHINE.bHeightTest ) AND stProcessCylinder.Status.bStopped AND stProcessDoor.Status.bStopped AND
+										   (NOT stCamera.Status.bBusy OR NOT stMACHINE.bVisionTest ) AND (NOT stLeakTesters.Status.bBusy OR NOT stMACHINE.bLeakTest ) AND (NOT stHeightTests.Status.bBusy OR NOT stMACHINE.bHeightTest ) AND NOT stProcessCylinder.Status.bBusy AND NOT stProcessDoor.Status.bBusy;
+										   
+stMasterCtrl.bAllStationsReady			:= (stCamera.Status.bReady OR NOT stMACHINE.bVisionTest ) AND (stLeakTesters.Status.bReady OR NOT stMACHINE.bLeakTest ) AND (stHeightTests.Status.bReady OR NOT stMACHINE.bHeightTest ) AND stProcessCylinder.Status.bReady AND stProcessDoor.Status.bReady;
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="b_ACT_ProcessCycle" Id="{5e92037d-73c3-401d-956e-95e5929b3e1d}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES & TRIGGERS/////////////////////////////////////////////////////////////////////////////////////
+//ADD REJECT SENSOR FUNCTION. IF PART FAIL WE SHOULD WAIT UNTIL THE OPERATOR LEAVE THE FAIL PART IN THE CONTAINER
+tonTakePicture(IN := stCamera.Status.bDone, PT := T#500MS);
+
+IF (eCycleState <> E_General_ProcessCycle.WAIT_REJECT_PART) AND rRejectSensor.Q THEN
+	
+	bRejectPartOutTime							:= TRUE;
+
+END_IF
+
+ctuRejectPart();
+IF eCycleState = E_General_ProcessCycle.RESET_ALL_CMD THEN
+	
+	ctuRejectPart.RESET							:= TRUE;
+
+ELSE ctuRejectPart.RESET						:= FALSE;	
+	
+END_IF
+IF eCycleState = E_General_ProcessCycle.IDLE THEN
+	
+	bAutocycleIDLE								:= TRUE;
+	
+ELSE bAutocycleIDLE								:= FALSE;
+
+END_IF
+
+tonWaitExtendCylidner(IN := eCycleState = E_General_ProcessCycle.PROCESS_FLAGS_DEFINITIONS, PT := T#1S);
+tonGettingResults( IN := eCycleState = E_General_ProcessCycle.WAIT_RESULTS, PT := T#100MS);
+
+tonCMD_Done( IN := , PT := T#500MS);
+tonSave_Data( IN :=  eCycleState = E_General_ProcessCycle.SAVE_DATA2, PT := T#500MS);
+tonResetAllCMD( IN := eCycleState = E_General_ProcessCycle.RESET_ALL_CMD, PT := T#500MS);
+
+
+tonExecute( IN := 	eCycleState = E_General_ProcessCycle.CLOSE_PROCESS_DOOR OR
+					eCycleState = E_General_ProcessCycle.OPEN_PROCESS_DOOR OR
+					eCycleState = E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER OR
+					eCycleState = E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER OR
+					eCycleState = E_General_ProcessCycle.CAMERA_INSPECTION OR
+					eCycleState = E_General_ProcessCycle.LEAK_TESTS OR
+					eCycleState = E_General_ProcessCycle.LEAK_TESTS_HEIGHT_TEST OR
+					eCycleState = E_General_ProcessCycle.HEIGHT_TEST OR
+					eCycleState = E_General_ProcessCycle.WAIT_TO_SAVE_DATA,
+					PT := T#500MS);
+IF (stMachineStatus.eMachineState <> E_MachineState.SYSTEM_AUTO_CYCLE) THEN
+	
+	eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
+
+END_IF
+
+rFirstAutoCycle( CLK := stMachineStatus.bAutoCycle);
+
+IF (eCycleState = E_General_ProcessCycle.CAMERA_INSPECTION) OR (eCycleState = E_General_ProcessCycle.LEAK_TESTS) OR
+	(eCycleState = E_General_ProcessCycle.LEAK_TESTS_HEIGHT_TEST) OR (eCycleState = E_General_ProcessCycle.HEIGHT_TEST)  THEN
+			sMachineMessage						:= 'Inspection in process';
+
+END_IF
+
+IF stMachineStatus.eMachineState <> E_MachineState.SYSTEM_AUTO_CYCLE THEN
+	
+	MEMSET( destAddr := ADR(stCycleDataNest1), fillByte := 0, n := SIZEOF(stCycleDataNest1));
+	MEMSET( destAddr := ADR(stCycleDataNest2), fillByte := 0, n := SIZEOF(stCycleDataNest2));
+
+END_IF
+
+	
+/////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+
+
+bStartProcessCondition := bTwoHandsSignal AND bPartPresentNest1 AND bPartPresentNest2 AND (bNest1Flag OR bNest2Flag);
+
+
+
+IF rFirstAutoCycle.Q THEN
+	eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
+END_IF
+
+
+CASE eCycleState OF
+	
+E_General_ProcessCycle.RESET_ALL_CMD:
+
+				stProcessDoor.CMD.ProcessDoorCMD.OpenDoor						:= FALSE;
+				stProcessDoor.CMD.ProcessDoorCMD.CloseDoor						:= FALSE;
+				stProcessDoor.CMD.bExecute										:= FALSE;
+				
+				stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1		:= FALSE;
+				stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1		:= FALSE;
+				stProcessCylinder.CMD.bExecute									:= FALSE;
+				
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1					:= FALSE;
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2					:= FALSE;
+				stLeakTesters.CMD.bExecute										:= FALSE;
+				
+				stHeightTests.CMD.HeightTest_CMD.Measurement1					:= FALSE;
+				stHeightTests.CMD.HeightTest_CMD.Measurement2					:= FALSE;
+				stHeightTests.CMD.bExecute										:= FALSE;
+				
+				stCamera.CMD.bExecute											:= FALSE;
+				
+				bVisionProcessDoneFlag											:= FALSE;
+				
+				bWriteNest1														:= FALSE;
+				bWriteNest2														:= FALSE;
+				bRejectPartDialog[0]											:= FALSE;
+				bRejectPartDialog[1]											:= FALSE;
+				bRejectPartFault												:= FALSE;
+			
+				//add reset command to reset all cycle data
+				
+				IF tonResetAllCMD.Q AND stMachineStatus.bAutoCycle THEN
+					eCycleState								:= E_General_ProcessCycle.IDLE;						
+				END_IF
+	
+E_General_ProcessCycle.IDLE:
+		
+				//start cycle
+				IF bStartProcessCondition AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] THEN
+					
+					MEMSET( destAddr := ADR(stCycleDataNest1), fillByte := 0, n := SIZEOF(stCycleDataNest1));
+					MEMSET( destAddr := ADR(stCycleDataNest2), fillByte := 0, n := SIZEOF(stCycleDataNest2));
+					
+					IF bNest1Flag THEN
+						
+						bProcessedPart[0]					:= bPartPresentNest1;
+						
+					END_IF
+					
+					IF bNest2Flag THEN
+						
+						bProcessedPart[1]					:= bPartPresentNest2;
+						
+					END_IF
+					
+					eCycleState								:= E_General_ProcessCycle.CLOSE_PROCESS_DOOR;
+					
+				END_IF
+				
+				//Make sure operator remove processed part
+				fProcessedPart[0]( CLK := bPartPresentNest1);
+				fProcessedPart[1]( CLK := bPartPresentNest2);
+				
+				IF fProcessedPart[0].Q THEN
+					bProcessedPart[0]						:= FALSE;
+				END_IF
+				
+				IF fProcessedPart[1].Q THEN
+					bProcessedPart[1]						:= FALSE;
+				END_IF
+				
+				//Messages to start cycle
+				
+					
+				IF  NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND ( NOT bPartPresentNest1 OR NOT bPartPresentNest2)  THEN
+					
+					sMachineMessage						:= 'Insert parts to continue';
+				
+				ELSIF  NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND  bPartPresentNest1 AND bPartPresentNest2  THEN
+					
+					sMachineMessage						:= 'trigger both safety buttons to start cycle';
+				
+				ELSIF bProcessedPart[0] AND NOT bProcessedPart[1] AND NOT bStartProcessCondition THEN
+					
+					sMachineMessage						:= 'Remove Processed part from nest 1';
+					
+				ELSIF NOT bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN
+					
+					sMachineMessage						:= 'Remove Processed part from nest 2';
+					
+				ELSIF bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN
+					
+					sMachineMessage						:= 'Remove Processed parts';
+					
+				ELSE sMachineMessage						:= '';
+						
+				END_IF
+			
+E_General_ProcessCycle.CLOSE_PROCESS_DOOR:
+
+				stProcessDoor.CMD.ProcessDoorCMD.CloseDoor	:= TRUE;
+				stProcessDoor.CMD.bExecute					:= TRUE;
+				
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR:
+				
+				IF stProcessDoor.Status.bDone THEN
+				stProcessDoor.CMD.ProcessDoorCMD.CloseDoor	:= FALSE;
+				stProcessDoor.CMD.bExecute					:= FALSE;
+				stProcessDoor.CMD.bAcknowledge				:= TRUE;
+				eCycleState									:= E_General_ProcessCycle.PROCESS_FLAGS_DEFINITIONS;
+				END_IF
+				
+E_General_ProcessCycle.PROCESS_FLAGS_DEFINITIONS:
+				
+				
+				IF stMACHINE.bVisionTest THEN
+					
+					IF bVisionProcessDoneFlag THEN
+						
+						eCycleState							:= E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER;
+					ELSE eCycleState						:= E_General_ProcessCycle.CAMERA_INSPECTION;
+						
+					END_IF
+				ELSIF tonWaitExtendCylidner.Q AND NOT stMACHINE.bVisionTest THEN
+
+					eCycleState							:= E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER;
+					
+				END_IF
+				
+				
+
+E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER:
+				
+						
+				stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1		:= TRUE;
+				stProcessCylinder.CMD.bExecute		:= TRUE;
+	
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_EXTEND_PROCESS_CYLINDER;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_EXTEND_PROCESS_CYLINDER:
+			
+				IF stProcessCylinder.Status.bDone THEN
+					
+					stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1		:= FALSE;
+					stProcessCylinder.CMD.bExecute			:= FALSE;
+					stProcessCylinder.CMD.bAcknowledge		:= TRUE;
+						
+					IF stMACHINE.bHeightTest AND stMACHINE.bLeakTest THEN
+						
+						eCycleState							:= E_General_ProcessCycle.LEAK_TESTS_HEIGHT_TEST;	
+						
+					ELSIF 	stMACHINE.bHeightTest AND NOT stMACHINE.bLeakTest  THEN
+						
+						eCycleState							:= E_General_ProcessCycle.HEIGHT_TEST;
+					
+					ELSIF 	NOT stMACHINE.bHeightTest AND stMACHINE.bLeakTest  THEN
+						
+						eCycleState							:= E_General_ProcessCycle.LEAK_TESTS;
+					END_IF
+					
+				END_IF
+
+E_General_ProcessCycle.LEAK_TESTS_HEIGHT_TEST:
+				
+							
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1						:= bNest1Flag;
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2						:= bNest2Flag;
+				stHeightTests.CMD.HeightTest_CMD.Measurement1						:= bNest1Flag;
+				stHeightTests.CMD.HeightTest_CMD.Measurement2						:= bNest2Flag;
+				stLeakTesters.CMD.bExecute					:= TRUE;
+				stHeightTests.CMD.bExecute					:= TRUE;
+							
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_LEAK_TEST_HEIGHT_TEST;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_LEAK_TEST_HEIGHT_TEST:
+					
+					IF stLeakTesters.Status.bDone AND stHeightTests.Status.bDone THEN
+						
+						stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1				:= FALSE;
+						stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2				:= FALSE;
+						stHeightTests.CMD.HeightTest_CMD.Measurement1				:= FALSE;
+						stHeightTests.CMD.HeightTest_CMD.Measurement2				:= FALSE;
+						stLeakTesters.CMD.bExecute			:= FALSE;
+						stHeightTests.CMD.bExecute			:= FALSE;
+						stLeakTesters.CMD.bAcknowledge		:= TRUE;
+						stHeightTests.CMD.bAcknowledge		:= TRUE;
+						eCycleState							:= E_General_ProcessCycle.WAIT_RESULTS;
+						
+					END_IF				   
+
+E_General_ProcessCycle.HEIGHT_TEST:
+
+				stHeightTests.CMD.HeightTest_CMD.Measurement1				 		:= bNest1Flag;
+				stHeightTests.CMD.HeightTest_CMD.Measurement2				 		:= bNest2Flag;
+				stHeightTests.CMD.bExecute					:= TRUE;
+					
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_HEIGHT_TEST;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_HEIGHT_TEST:
+
+				IF stHeightTests.Status.bDone THEN
+					
+					stHeightTests.CMD.HeightTest_CMD.Measurement1				 	:= FALSE;
+					stHeightTests.CMD.HeightTest_CMD.Measurement2				 	:= FALSE;
+					stHeightTests.CMD.bExecute										:= FALSE;
+					stHeightTests.CMD.bAcknowledge 			:= TRUE;	
+					eCycleState								:= E_General_ProcessCycle.WAIT_RESULTS;
+					
+				END_IF
+
+E_General_ProcessCycle.LEAK_TESTS:
+
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1						:= bNest1Flag;
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2						:= bNest2Flag;
+				stLeakTesters.CMD.bExecute					:= TRUE;
+				
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_LEAK_TEST;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_LEAK_TEST:
+
+				IF stLeakTesters.Status.bDone THEN
+					
+					stLeakTesters.CMD.bExecute										:= FALSE;
+					stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1				 	:= FALSE;
+					stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2				 	:= FALSE;
+					stLeakTesters.CMD.bAcknowledge 			:= TRUE;	
+					eCycleState								:= E_General_ProcessCycle.WAIT_RESULTS;
+					
+				END_IF
+				
+E_General_ProcessCycle.CAMERA_INSPECTION:
+				
+				stCamera.CMD.bExecute						:= TRUE;
+				stCamera.CMD.CameraCMD.Inspect1				:= bNest1Flag;
+				stCamera.CMD.CameraCMD.Inspect2				:= bNest2Flag;
+				
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.WAIT_CAMERA;	
+				END_IF
+				
+E_General_ProcessCycle.WAIT_CAMERA:
+
+				IF  tonTakePicture.Q THEN
+					
+					stCamera.CMD.bExecute					:= FALSE;
+					bVisionProcessDoneFlag					:= TRUE;
+					stCamera.CMD.bAcknowledge				:= TRUE;
+					eCycleState								:= E_General_ProcessCycle.PROCESS_FLAGS_DEFINITIONS;
+				
+				END_IF
+				
+E_General_ProcessCycle.WAIT_RESULTS:
+
+				IF tonGettingResults.Q THEN
+					
+					eCycleState									:= E_General_ProcessCycle.RESULTS;
+					
+				END_IF
+
+
+E_General_ProcessCycle.RESULTS:
+
+				
+					
+					IF bProcessedPart[0] THEN
+					
+						IF  (stCycleDataNest1.Camera_Pass OR NOT stMACHINE.bVisionTest) AND   (stCycleDataNest1.LeakTest_Pass OR NOT stMACHINE.bLeakTest)
+				 			AND   (stCycleDataNest1.HeightTest_Pass OR NOT stMACHINE.bHeightTest) THEN	
+				
+							stCycleDataNest1.bPass				:= TRUE;
+							stCycleDataNest1.bFail				:= FALSE;
+				
+						ELSE stCycleDataNest1.bFail				:= TRUE;
+							stCycleDataNest1.bPass				:= FALSE;
+				
+						END_IF
+					
+					END_IF
+				
+					IF bProcessedPart[1] THEN
+					
+						IF  (stCycleDataNest2.Camera_Pass OR NOT stMACHINE.bVisionTest) AND   (stCycleDataNest2.LeakTest_Pass OR NOT stMACHINE.bLeakTest)
+				 			AND   (stCycleDataNest2.HeightTest_Pass OR NOT stMACHINE.bHeightTest) THEN	
+				
+							stCycleDataNest2.bPass				:= TRUE;
+							stCycleDataNest2.bFail				:= FALSE;
+				
+						ELSE stCycleDataNest2.bFail				:= TRUE;
+							stCycleDataNest2.bPass				:= FALSE;
+				
+						END_IF
+					
+					END_IF
+					
+				
+				
+				
+				
+				stCycleDataNest1.sTime						:= sSystemTime;
+				stCycleDataNest1.sDate						:= sSystemDate;
+				stCycleDataNest2.sTime						:= sSystemTime;
+				stCycleDataNest2.sDate						:= sSystemDate;
+					
+				eCycleState								:= E_General_ProcessCycle.WAIT_TO_SAVE_DATA;
+									
+E_General_ProcessCycle.WAIT_TO_SAVE_DATA:
+				
+				IF tonExecute.Q THEN
+					eCycleState								:= E_General_ProcessCycle.SAVE_DATA;	
+				END_IF
+
+E_General_ProcessCycle.SAVE_DATA:
+
+				IF bProcessedPart[0] THEN
+					
+					FOR i := 199 TO 0 BY -1 DO
+						aDataHistoryNest1[i+1] 						:= aDataHistoryNest1[i];
+					END_FOR
+				
+				END_IF
+				
+				IF bProcessedPart[1] THEN
+					
+					FOR i := 199 TO 0 BY -1 DO
+						aDataHistoryNest2[i+1] 						:= aDataHistoryNest2[i];
+					END_FOR
+				
+				END_IF		
+			
+				eCycleState									:= E_General_ProcessCycle.SAVE_DATA2;
+					
+E_General_ProcessCycle.SAVE_DATA2:	
+				
+				
+				c_ACT_SaveData();	
+				
+				
+					
+				eCycleState									:= E_General_ProcessCycle.CSV_NEST1;
+				
+				
+E_General_ProcessCycle.CSV_NEST1:
+
+				IF bProcessedPart[0] THEN
+					
+					bWriteNest1								:= TRUE;
+					
+					IF bCSVDone OR bCSVError THEN
+						
+						eCycleState							:= E_General_ProcessCycle.CSV_NEST2;
+						bWriteNest1							:= FALSE;
+						bCSVError							:= FALSE;
+						
+					END_IF
+				ELSE eCycleState							:= E_General_ProcessCycle.CSV_NEST2;				
+					
+				END_IF
+			
+				
+E_General_ProcessCycle.CSV_NEST2:
+
+				IF bCSVDone THEN
+					
+						bWriteNest2							:= FALSE;
+						eCycleState							:= E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER;	
+	
+				END_IF
+
+				IF bProcessedPart[1] AND  bCSVReady AND NOT bCSVDone AND NOT bCSVError THEN
+				
+						bWriteNest2							:= TRUE;
+
+				ELSIF NOT bProcessedPart[1] OR bCSVError THEN
+
+						 eCycleState						:= E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER;
+						 bCSVError							:= FALSE;
+						 
+				END_IF
+				
+				
+					
+				
+E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER:
+						
+				stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1		:= TRUE;	
+				stProcessCylinder.CMD.bExecute			:= TRUE;
+				
+				IF tonExecute.Q THEN
+					eCycleState							:= E_General_ProcessCycle.WAIT_RETRACT_PROCESS_CYLINDER;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_RETRACT_PROCESS_CYLINDER:
+
+				IF 	stProcessCylinder.Status.bDone THEN
+					
+					stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1		:= FALSE;
+					stProcessCylinder.CMD.bExecute		:= FALSE;
+					stProcessCylinder.CMD.bAcknowledge	:= TRUE;
+					
+					eCycleState							:= E_General_ProcessCycle.OPEN_PROCESS_DOOR;
+					
+				END_IF
+		
+E_General_ProcessCycle.OPEN_PROCESS_DOOR:
+
+				stProcessDoor.CMD.ProcessDoorCMD.OpenDoor							:= TRUE;
+				stProcessDoor.CMD.bExecute				:= TRUE;
+				
+				IF tonExecute.Q THEN
+					eCycleState							:= E_General_ProcessCycle.WAIT_OPEN_PROCESS_DOOR;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_OPEN_PROCESS_DOOR:
+
+				IF 	stProcessDoor.Status.bDone THEN
+					
+					stProcessDoor.CMD.ProcessDoorCMD.OpenDoor						:= FALSE;
+					stProcessDoor.CMD.bExecute			:= FALSE;
+					stProcessDoor.CMD.bAcknowledge		:= TRUE;
+					
+					IF stCycleDataNest1.bFail OR stCycleDataNest2.bFail THEN
+					
+						eCycleState									:= E_General_ProcessCycle.WAIT_REJECT_PART;
+					
+					ELSE eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
+						
+					END_IF
+				
+				END_IF
+				
+E_General_ProcessCycle.WAIT_REJECT_PART:
+					
+				ctuRejectPart.CU 								:= rRejectSensor.Q;				
+
+				IF stCycleDataNest1.bFail AND NOT stCycleDataNest2.bFail THEN
+					
+					sMachineMessage								:= 'REMOVE PART FROM NEST 1 AND PUT IN REJECT CHUTE';
+					
+					IF ctuRejectPart.CV > 0 AND NOT bPartPresentNest1 AND (bPartPresentNest2 OR NOT bProcessedPart[1])  THEN
+						
+						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
+						
+					ELSIF ctuRejectPart.CV > 0 AND (bPartPresentNest1 OR (NOT bPartPresentNest2 AND bProcessedPart[1])) THEN
+						
+						bRejectPartFault						:= TRUE; 
+					
+					END_IF
+					
+					IF NOT bPartPresentNest2 AND bProcessedPart[1] THEN
+						
+						bRejectPartDialog[0]					:= TRUE;		
+						sMachineMessage							:= 'WRONG PART TAKEN';
+						
+					ELSIF  bPartPresentNest2 THEN
+						
+						bRejectPartDialog[0]					:= FALSE;
+						
+					END_IF					
+					
+				ELSIF NOT stCycleDataNest1.bFail AND stCycleDataNest2.bFail THEN
+					
+					sMachineMessage								:= 'REMOVE PART FROM NEST 2 AND PUT IN REJECT CHUTE';
+					
+					IF ctuRejectPart.CV > 0 AND NOT bPartPresentNest2 AND (bPartPresentNest1 OR NOT bProcessedPart[0])  THEN
+						
+						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
+						
+					ELSIF ctuRejectPart.CV > 0 AND (bPartPresentNest1 OR (NOT bPartPresentNest1 AND bProcessedPart[0])) THEN
+						
+						bRejectPartFault						:= TRUE; 
+					
+					END_IF
+					
+					IF NOT bPartPresentNest1 AND bProcessedPart[0] THEN
+						
+						bRejectPartDialog[1]					:= TRUE;		
+						sMachineMessage							:= 'WRONG PART TAKEN';
+						
+					ELSIF  bPartPresentNest1 THEN
+						
+						bRejectPartDialog[1]					:= FALSE;
+						
+					END_IF
+				
+				ELSIF stCycleDataNest1.bFail AND stCycleDataNest2.bFail THEN
+					
+					IF ctuRejectPart.CV > 1 AND NOT bPartPresentNest1 AND NOT bPartPresentNest1 THEN
+						
+						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
+					
+					ELSIF ctuRejectPart.CV > 1 AND ( bPartPresentNest1 OR bPartPresentNest1) THEN
+						
+						bRejectPartFault						:= TRUE; 		
+					
+					END_IF
+					
+					sMachineMessage								:= 'REMOVE PART FROM BOTH NESTS AND PUT IN REJECT CHUTE';
+					
+				END_IF
+				
+END_CASE
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="c_ACT_SaveData" Id="{5a28b6f2-a56d-4cef-8c15-c08642850884}">
+      <Implementation>
+        <ST><![CDATA[
+//SAVING NEST 1 DATA
+IF bProcessedPart[0] THEN
+	
+	stCycleDataNest1.sDistance1				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anDistancesResult[1]);
+	stCycleDataNest1.sDistance2				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anDistancesResult[2]);
+	stCycleDataNest1.sDistance3				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anDistancesResult[3]);
+	
+	stCycleDataNest1.sSetpoint1				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anSetPoint[1]);
+	stCycleDataNest1.sSetpoint2				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anSetPoint[2]);
+	stCycleDataNest1.sSetpoint3				:= REAL_TO_STRING(stCycleDataNest1.HeightTest_anSetPoint[3]);
+	
+	IF stCycleDataNest1.bPass THEN
+	
+		stCycleDataNest1.sGeneralResult			:= 'PASS';
+
+	ELSIF stCycleDataNest1.bFail THEN
+	
+		stCycleDataNest1.sGeneralResult			:= 'FAIL';
+
+	END_IF
+	
+
+
+	IF stCycleDataNest1.Camera_Pass THEN
+	
+		stCycleDataNest1.sCameraResult			:= 'PASS';
+
+	ELSIF stCycleDataNest1.Camera_Fail THEN
+	
+		stCycleDataNest1.sCameraResult			:= 'FAIL';
+
+	END_IF
+
+	IF stCycleDataNest1.HeightTest_Pass THEN
+	
+		stCycleDataNest1.sHeightTestResult		:= 'PASS';
+	
+	ELSIF stCycleDataNest1.HeightTest_Fail THEN
+	
+		stCycleDataNest1.sHeightTestResult		:= 'FAIL';
+	
+	END_IF
+
+
+
+	IF stCycleDataNest1.LeakTest_Pass THEN
+	
+		stCycleDataNest1.sLeakTesterResult		:= 'PASS';
+
+	ELSIF stCycleDataNest1.LeakTest_Fail THEN
+	
+		stCycleDataNest1.sLeakTesterResult		:= 'FAIL';
+	
+	END_IF
+	
+	aDataHistoryNest1[0]						:= stCycleDataNest1;
+	
+END_IF
+	
+
+//SAVING NEST 2 DATA
+
+IF bProcessedPart[1] THEN
+	
+	stCycleDataNest2.sDistance1				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anDistancesResult[1]);
+	stCycleDataNest2.sDistance2				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anDistancesResult[2]);
+	stCycleDataNest2.sDistance3				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anDistancesResult[3]);
+	
+	stCycleDataNest2.sSetpoint1				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anSetPoint[1]);
+	stCycleDataNest2.sSetpoint2				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anSetPoint[2]);
+	stCycleDataNest2.sSetpoint3				:= REAL_TO_STRING(stCycleDataNest2.HeightTest_anSetPoint[3]);
+	
+	IF stCycleDataNest2.bPass THEN
+	
+		stCycleDataNest2.sGeneralResult			:= 'PASS';
+
+	ELSIF stCycleDataNest2.bFail THEN
+	
+		stCycleDataNest2.sGeneralResult			:= 'FAIL';
+
+	END_IF
+	
+
+
+	IF stCycleDataNest2.Camera_Pass THEN
+	
+		stCycleDataNest2.sCameraResult			:= 'PASS';
+
+	ELSIF stCycleDataNest2.Camera_Fail THEN
+	
+		stCycleDataNest2.sCameraResult			:= 'FAIL';
+
+	END_IF
+
+	IF stCycleDataNest2.HeightTest_Pass THEN
+	
+		stCycleDataNest2.sHeightTestResult		:= 'PASS';
+	
+	ELSIF stCycleDataNest2.HeightTest_Fail THEN
+	
+		stCycleDataNest2.sHeightTestResult		:= 'FAIL';
+	
+	END_IF
+
+
+
+	IF stCycleDataNest2.LeakTest_Pass THEN
+	
+		stCycleDataNest2.sLeakTesterResult		:= 'PASS';
+
+	ELSIF stCycleDataNest2.LeakTest_Fail THEN
+	
+		stCycleDataNest2.sLeakTesterResult		:= 'FAIL';
+	
+	END_IF
+	
+	aDataHistoryNest2[0]						:= stCycleDataNest2;
+	
+END_IF
+
+
+
+
+
+
+
+
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="d_ACT_IO" Id="{d58390ec-22cf-49c4-9476-b860ef0ae942}">
+      <Implementation>
+        <ST><![CDATA[//INPUTS
+
+bPartPresentNest1					:= dw_T08_EL1809.iPartPresentNest1;
+bPartPresentNest2					:= dw_T08_EL1809.iPartPresentNest2;
+
+rRejectSensor( CLK := dw_T08_EL1809.iRejectSensor);
+
+bDoorClosingFlag					:= (eCycleState = E_General_ProcessCycle.CLOSE_PROCESS_DOOR) OR (eCycleState = E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR);
+bDoorOpeningFlag					:= eCycleState = E_General_ProcessCycle.OPEN_PROCESS_DOOR;
+
+bProcessDoorClosedConditionFlag		:= eCycleState = E_General_ProcessCycle.PROCESS_FLAGS_DEFINITIONS OR
+										eCycleState = E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER OR
+										eCycleState = E_General_ProcessCycle.LEAK_TESTS_HEIGHT_TEST OR
+										eCycleState = E_General_ProcessCycle.WAIT_LEAK_TEST_HEIGHT_TEST OR
+										eCycleState = E_General_ProcessCycle.HEIGHT_TEST OR
+										eCycleState = E_General_ProcessCycle.WAIT_HEIGHT_TEST OR
+										eCycleState = E_General_ProcessCycle.LEAK_TESTS OR
+										eCycleState = E_General_ProcessCycle.WAIT_LEAK_TEST OR
+										eCycleState = E_General_ProcessCycle.CAMERA_INSPECTION OR
+										eCycleState = E_General_ProcessCycle.WAIT_CAMERA OR
+										eCycleState = E_General_ProcessCycle.RESULTS OR
+										eCycleState = E_General_ProcessCycle.WAIT_TO_SAVE_DATA OR
+										eCycleState = E_General_ProcessCycle.SAVE_DATA OR
+										eCycleState = E_General_ProcessCycle.SAVE_DATA2 OR
+										eCycleState = E_General_ProcessCycle.CSV_NEST1 OR
+										eCycleState = E_General_ProcessCycle.CSV_NEST2 OR
+										eCycleState = E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER OR
+										eCycleState = E_General_ProcessCycle.WAIT_RETRACT_PROCESS_CYLINDER;
+					
+
+										
+
+										
+tonTwoHandsSignal( IN := stTwinSAFE.qTwoHandsSafe , PT := stTimers.tTwoHandsSignal);						
+				
+bTwoHandsSignal						:= tonTwoHandsSignal.Q;
+		
+dw_T09_EL2809.qIndicatorLED1_Red	:= stCycleDataNest1.bFail;		
+dw_T09_EL2809.qIndicatorLED1_Green	:= stCycleDataNest1.bPass;	
+dw_T09_EL2809.qIndicatorLED2_Red	:= stCycleDataNest2.bFail;		
+dw_T09_EL2809.qIndicatorLED2_Green	:= stCycleDataNest2.bPass;	
+
+IF 	(stMachineStatus.eMachineState = E_MachineState.SYSTEM_AUTO_CYCLE) AND NOT ((eCycleState	= E_General_ProcessCycle.IDLE) OR eCycleState	= E_General_ProcessCycle.WAIT_REJECT_PART) THEN
+	
+
+	bPartPresent[0]					:= 	bProcessedPart[0];
+	bPartPresent[1]					:= 	bProcessedPart[1];
+	
+ELSE	
+		bPartPresent[0]				:= dw_T08_EL1809.iPartPresentNest1;
+		bPartPresent[1]				:= dw_T08_EL1809.iPartPresentNest2;
+
+END_IF
+
+IF dw_T04_EL1918.iResetButton THEN
+	
+	bRejectPartOutTime							:= FALSE;	
+
+END_IF
+																]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="e_ACT_SafetyProcess" Id="{0848b2c7-b28b-44f7-b4f5-995247f3c0c3}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

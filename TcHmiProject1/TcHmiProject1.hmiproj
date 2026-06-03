@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Clean;Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <TcHmiDirectory>$(registry:HKEY_CURRENT_USER\Software\Beckhoff\TwinCAT3\3.1@InstallDir)\..\Functions\TE2000-HMI-Engineering</TcHmiDirectory>
+    <TcHmiDirectory Condition="'$(TcHmiDirectory)'==''">$(registry:HKEY_LOCAL_MACHINE\Software\Beckhoff\TwinCAT3\3.1@InstallDir)\..\Functions\TE2000-HMI-Engineering</TcHmiDirectory>
+    <TcHmiDirectory Condition="'$(TcHmiDirectory)'==''">$(registry:HKEY_LOCAL_MACHINE\Software\Wow6432Node\Beckhoff\TwinCAT3\3.1@InstallDir)\..\Functions\TE2000-HMI-Engineering</TcHmiDirectory>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <AvailablePlatforms>TwinCAT HMI</AvailablePlatforms>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <HmiTitle>Please enter your Title...</HmiTitle>
+    <HmiVerboseLevel>2</HmiVerboseLevel>
+    <HmiVersion>1.0.0.0</HmiVersion>
+    <HmiCommunicationServerPort>3002</HmiCommunicationServerPort>
+    <HmiLogTcHmiServerMessages>false</HmiLogTcHmiServerMessages>
+    <HmiLogDesignerModeComMessages>false</HmiLogDesignerModeComMessages>
+    <HmiDefaultLanguage>client</HmiDefaultLanguage>
+    <TargetFrameworkMoniker>native,Version=v1.12.0,Profile=tchmi</TargetFrameworkMoniker>
+    <TargetFramework>native1.12-tchmi</TargetFramework>
+    <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+    <HmiViewportInitialScale>1.0</HmiViewportInitialScale>
+    <HmiViewportMinimumScale />
+    <HmiViewportMaximumScale />
+    <HmiViewportUserScaleable>Default</HmiViewportUserScaleable>
+    <HmiPostProcessing>True</HmiPostProcessing>
+    <Name>TcHmiProject1</Name>
+    <HmiCommunicationRouterPort>10104</HmiCommunicationRouterPort>
+    <HmiCommunicationServerAuthPort>13002</HmiCommunicationServerAuthPort>
+    <HmiInitial>1.12.762.46</HmiInitial>
+    <HmiRecent>14.3.765.1</HmiRecent>
+    <HmiServerNodeAdvancedView>False</HmiServerNodeAdvancedView>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>false</TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>
+    <HmiCommunicationServerPublicPort>3443</HmiCommunicationServerPublicPort>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TwinCATHmi_Tasks>$(TcHmiDirectory)\MSBuild\Beckhoff.TwinCAT.HMI.tasks</TwinCATHmi_Tasks>
+    <TwinCATHmi_Targets>$(TcHmiDirectory)\MSBuild\Beckhoff.TwinCAT.HMI.targets</TwinCATHmi_Targets>
+  </PropertyGroup>
+  <Import Project="$(TwinCATHmi_Tasks)" />
+  <Import Project="$(TwinCATHmi_Targets)" />
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>205c1adb-6e9f-4188-8649-3b2c65f01e72</ProjectGuid>
+    <RootNamespace>TwinCAT3HmiProject</RootNamespace>
+    <AssemblyName>TwinCAT3HmiProject</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">TwinCAT HMI</Platform>
+  </PropertyGroup>
+  <!-- Any CPU -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|TwinCAT HMI' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>TwinCAT HMI</PlatformTarget>
+    <DefaultNamespace>TcHmiProject1</DefaultNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|TwinCAT HMI' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>TwinCAT HMI</PlatformTarget>
+    <DefaultNamespace>TcHmiProject1</DefaultNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(RestoreProjectStyle)' == 'PackageReference'" />
+  <PropertyGroup>
+    <PreBuildEventDependsOn />
+  </PropertyGroup>
+  <Target Name="PreBuildEvent" Condition="'$(PreBuildEvent)'!=''" DependsOnTargets="$(PreBuildEventDependsOn)">
+    <Exec WorkingDirectory="$(OutDir)" Command="$(PreBuildEvent)" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn />
+  </PropertyGroup>
+  <Target Name="PostBuildEvent" Condition="'$(PostBuildEvent)' != '' and ('$(RunPostBuildEvent)'=='Always' or '$(RunPostBuildEvent)'=='OnOutputUpdated')" DependsOnTargets="$(PostBuildEventDependsOn)">
+    <Exec WorkingDirectory="$(OutDir)" Command="$(PostBuildEvent)" />
+  </Target>
+  <Target Name="GetFrameworkPaths" />
+  <PropertyGroup>
+    <BuiltProjectOutputGroupDependsOn>
+			PreBuildEvent;
+			CoreBuild;
+			PostBuildEvent
+		</BuiltProjectOutputGroupDependsOn>
+    <CleanDependsOn>
+			BaseClean
+		</CleanDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TcHmi_ProjectDirectory Condition="'$(TcHmi_ProjectDirectory)' == ''">$(MSBuildProjectDirectory)</TcHmi_ProjectDirectory>
+    <TcHmi_ServerAddress Condition="'$(TcHmi_ServerAddress)' == ''">127.0.0.1</TcHmi_ServerAddress>
+    <TcHmi_ServerPort Condition="'$(TcHmi_ServerPort)' == ''">1010</TcHmi_ServerPort>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_TcHmiNodeJsMode>Global</_TcHmiNodeJsMode>
+    <_TcHmiNodeJsMode Condition="'$(_TcHmiNodeJsMode)' == ''">Global</_TcHmiNodeJsMode>
+    <_TcHmiNodePath Condition="'$(_TcHmiNodeJsMode)' == 'Global'">$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Node.js@InstallPath)</_TcHmiNodePath>
+    <_TcHmiNodePath Condition="'$(_TcHmiNodeJsMode)' == 'Global' AND '$(_TcHmiNodePath)' == '' AND Exists('C:\Program Files\nodejs\')">C:\Program Files\nodejs\</_TcHmiNodePath>
+    <_TcHmiNodePath Condition="'$(_TcHmiNodeJsMode)' == 'Global' AND '$(_TcHmiNodePath)' == '' AND Exists('C:\Program Files (x86)\nodejs\')">C:\Program Files (x86)\nodejs\</_TcHmiNodePath>
+  </PropertyGroup>
+  <Target Name="ReTargetNodePath" Condition="'$(_TcHmiNodePath)' != ''" BeforeTargets="$(CompileDependsOn)">
+    <PropertyGroup>
+      <NodePath>$(_TcHmiNodePath)</NodePath>
+    </PropertyGroup>
+  </Target>
+  <Target Name="CoreBuild">
+    <TcHmiMSBuild.Publish.TcHmiBuild TaskAction="Clean" ProjectDirectory="$(TcHmi_ProjectDirectory)" OutputPath="$(OutputPath)" />
+    <TcHmiMSBuild.Publish.TcHmiBuild TaskAction="Build" ProjectDirectory="$(TcHmi_ProjectDirectory)" OutputPath="$(OutputPath)" ProjectFiles="@(Content)" VirtualMappings="$(TcHmi_VirtualMappings)" PostProcessing="$(HmiPostProcessing)" />
+    <TcHmiMSBuild.Publish.TcHmiGenerator TaskAction="EntryPage" ProjectDirectory="$(TcHmi_ProjectDirectory)" OutputPath="$(OutputPath)" TcHmiServerAddress="$(TcHmi_ServerAddress)" TcHmiServerPort="$(TcHmi_ServerPort)">
+      <Output TaskParameter="Result" PropertyName="TaskResult0" />
+    </TcHmiMSBuild.Publish.TcHmiGenerator>
+    <Message Text="Generating the Default.html within OutputPath('$(OutputPath)'): $(TaskResult0)" />
+  </Target>
+  <Target Name="Build" DependsOnTargets="$(BuiltProjectOutputGroupDependsOn)" />
+  <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
+  <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
+  <ItemGroup>
+    <Folder Include="Contents\CSS_JAVA\UserManagerControl" />
+    <Folder Include="Contents\CSS_JAVA\PDF Maker" />
+    <Folder Include="Contents\Hardware" />
+    <Folder Include="Contents\Manual" />
+    <Folder Include="Contents\CSS_JAVA" />
+    <Folder Include="Contents\Events" />
+    <Folder Include="Contents\M" />
+    <Folder Include="Contents\IOs" />
+    <Folder Include="Contents\Manual\Cameras" />
+    <Folder Include="Contents\Screens" />
+    <Folder Include="Contents\UserControl" />
+    <Folder Include="Contents\popup" />
+    <Folder Include="Contents\pdf" />
+    <Folder Include="Contents\Settings" />
+    <Folder Include="Contents\UserControl\HeightTest" />
+    <Folder Include="Contents\UserControl\HeightTest\Settings" />
+    <Folder Include="Contents\UserControl\PopUp" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Images" />
+    <Folder Include="Images\Icons\events" />
+    <Folder Include="Images\Manifest" />
+    <Folder Include="Images\Buttons" />
+    <Folder Include="Images\Icons" />
+    <Folder Include="Images\IO" />
+    <Folder Include="Imports" />
+    <Folder Include="Imports\Images" />
+    <Folder Include="Imports\Videos" />
+    <Folder Include="KeyboardLayouts\" />
+    <Folder Include="Localization" />
+    <Folder Include="Contents" />
+    <Folder Include="Server\TcHmiLua" />
+    <Folder Include="Server\TcHmiReporting" />
+    <Folder Include="Themes" />
+    <Folder Include="Themes\Base-Dark\Images\" />
+    <Folder Include="Themes\Base\" />
+    <Folder Include="Themes\Base-Dark\" />
+    <Folder Include="Server">
+      <WorkingDirectory>TcHmiProject1</WorkingDirectory>
+    </Folder>
+    <Folder Include="Properties" />
+    <Content Include=".eslintrc.json">
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\Enable buttons.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\CssBehind1.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\Heartbeat.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\PDF Maker\jspdf.min.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\PDF Maker\relatori.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\RowClassesProvider.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\CSS_JAVA\RowClassesProvider.js</DependentUpon>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\RowClassesProvider.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\CSS_JAVA\UserManagerControl\userManagerScript 1.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Events\Messages_CycleStopReq.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Events\CycleStopFaults.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Events\ImmediateFaults.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Events\History.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\EL9189.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\EL9188.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\C6010-0010.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\Keyence_Probe_Set.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\KeyenceCamera4.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\KeyenceCamera3.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\KeyenceCamera2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\KeyenceCamera1.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\LeakTester2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\LeakTester1.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T12_EL6633.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T01_EK1100.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T11-EL1918.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T10_EL3058.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T09_EL2809.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T08_EL1809.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T07_EL9410.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T06_EL2904.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T05_EL1918.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T04_EL1918.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T03_EL6910.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Hardware\T02_EL6070.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Cameras\CameraTriggerPopup.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Cameras\CameraInterface.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Cameras_FPB.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Cameras_CAP.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Leak_Test.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\Height_Test.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Manual\MessageBox.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\M\HeadMenu.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\pdf\TE1096_ EMALC_Stopper_Insertion.SDS.pdf">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\pdf\TM429-EMALC-4_StopperInsertion_ScrewStation_Rev_1.0.pdf">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\popup\popup6_ChangeSettings_ver2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\popup\popup5_UserManagement.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\popup\popup1_RejectedPart.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\10_Manage_Users.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\13_Develop.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\1_Main_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\1_Main_HW.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\1_Main_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\1_Main_LT_HW_VC_ver2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\2_Menu.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\3_IO_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\3_IO_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\3_IO_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\4_Events.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\5_Manual_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\5_Manual_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\5_Manual_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\6_Settings_NoProbes.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\6_Settings_Probes.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\7_Statistics_HW.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\7_Statistics_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\7_Statistics_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\8_Info.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest1_HW.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest1_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest1_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest2_HW.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest2_LT.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Screens\9_Data_HistoryNest2_LT_HW_VC.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\Calibration_Set1.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\Calibration_Set2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\Distances.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\ProbePositions2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\ProbePositions1.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\EnableNests.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\Tolerances.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\08CH_Dig_IO_CARD.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\08CH_Dig_IO_CARD.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\08CH_Dig_IO_CARD.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\4CH_Dig_IO_CARD.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\4CH_Dig_IO_CARD.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\4CH_Dig_IO_CARD.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\8CH_Analog_Input_CARD.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\8CH_Analog_Input_CARD.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\8CH_Analog_Input_CARD.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\16CH_Dig_IO_CARD.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\16CH_Dig_IO_CARD.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\16CH_Dig_IO_CARD.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\Green_Red_Rectangle.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\Green_Red_Rectangle.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\Green_Red_Rectangle.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\HeightTest\HeightTestManual.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\HeightTest\HeightTestManual.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\HeightTest\HeightTestManual.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\LED_Green.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\LED_Green.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\LED_Green.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\led_Red.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\led_Red.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\led_Red.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_1In_IO.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_1In_IO.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\led_RedAndGreen_1In_IO.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_1In.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_1In.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\led_RedAndGreen_1In.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_2In.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\led_RedAndGreen_2In.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\led_RedAndGreen_2In.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\RejectPart.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\RejectPart.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\RejectPart.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\Acknowledge.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\Acknowledge.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\Acknowledge.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNo_ver2.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNo_ver2.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\YesNo_ver2.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNo.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNo.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\YesNo.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\ProbeLevel_V2.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\ProbeLevel_V2.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\ProbeLevel_V2.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Images\40-408925_png-file-svg-file-eps-file-psd-file-cdr-file-milk-bottle-Photoroom.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\40-408925_png-file-svg-file-eps-file-psd-file-cdr-file-milk-bottle.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\animation_base.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\animation_cylinder.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\AlarmButton.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\HomeButton.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\IOButton.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\LoginButton.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\MenuButton.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Buttons\Shutdown_Box_Red.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\camera amplifier.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\camera.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\dinesh.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\ethercat unit.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\gt2 amplifier.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\box.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\calendardate.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\clock.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\events\alarm.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\events\alert.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\events\message.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Icons\user.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\C6015-0010.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\C6015-0010_2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\C6015-0010_detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\c6015_A.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\c6015_main2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\c6030-0060en1.jpg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\C6030_2.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CMMP-AS.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\Cognex2802cA.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CP2216_small.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CP2912-0000.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\cp2924_Connection.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CPX Block.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CU2005A.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\CU8801-0000.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EK1100.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EK1100A.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EK1100_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EK1110.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EK1122.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1809.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1809details.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\el1889.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1889_D.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1904.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1904fullDetails.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1918.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL1918_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL2809.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL2809details.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL2904.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL2904full.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL3054_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL3058.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL3058_D.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL3064_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL4004.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL4024.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6002.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6070.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6070A.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6631.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6631detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6652-0000.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6652_DetailPNG.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6910.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL6910_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\el7211.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL7221-9014.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9181.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9188_Detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9189.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9189detail.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9410.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EL9576.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\EP2316_0003.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\LR-TB5000.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\LR-W500.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\LV-N12P.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\MU-N12.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\NU-EC1.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\OVERVIEW PLC - 2.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\RJ45A.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\Servobeckhoff.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\IO\Wieland_Switch.PNG">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\JabilMasterLogo.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\keyence camera.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\leak tester.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\left_hand - green.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\left_hand.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\messagebox.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\probe.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\probepositions2.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\probes positions.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\right_hand - green.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\right_hand.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Screenshot 2026-03-25 140933.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\TeganInfo.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Untitled (2).png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiLua\TcHmiLua.Config.default.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiLua\TcHmiLua.Config.remote.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiLua\TcHmiLua.Storage.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Config.default.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Config.remote.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiSqliteLogger\TcHmiSqliteLogger.Storage.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Config.default.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Config.remote.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="Server\TcHmiUserManagement\TcHmiUserManagement.Storage.json">
+      <SubType>Content</SubType>
+      <Visible>True</Visible>
+    </Content>
+    <Content Include="tsconfig.tpl.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="tsconfig.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+      <DependentUpon>tsconfig.tpl.json</DependentUpon>
+    </Content>
+    <Content Include="packages.config">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="packages.xsd">
+      <SubType>Content</SubType>
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="Properties\tchmiconfig.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Properties\tchmi.framework.Schema.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Properties\tchmi.project.Schema.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Properties\tchmipublish.config.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Properties\tchmimanifest.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Properties\Default.tpl">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include=".tfignore">
+      <SubType>Content</SubType>
+      <Visible>false</Visible>
+    </Content>
+    <Content Include=".gitignore">
+      <SubType>Content</SubType>
+      <Visible>false</Visible>
+    </Content>
+    <Content Include="Fonts\Fonts.css">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Fonts\Roboto-Condensed-webfont.woff">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\Base.theme">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\BaseStyle.css">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\Images\Splash-320x534.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\Images\Splash-420x200.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\Images\Splash-800x600.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base\Images\Background.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Base-Dark.theme">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Base-DarkStyle.css">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Images\Splash-320x534.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Images\Splash-420x200.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Images\Splash-800x600.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Themes\Base-Dark\Images\Background.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Localization\de.localization">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Localization\en.localization">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="KeyboardLayouts\German - compact.keyboard.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="KeyboardLayouts\US - compact.keyboard.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="KeyboardLayouts\Numpad (plusminus).keyboard.json">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Favicon.ico">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Beckhoff_Logo.svg">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-0-75x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-1-5x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-1x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-2x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-3x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Images\Manifest\launcher-icon-4x.png">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Content Include="Desktop.view">
+      <SubType>Content</SubType>
+      <Visible>true</Visible>
+    </Content>
+    <Folder Include="Server\ADS\" />
+    <Folder Include="Server\TcHmiLua\" />
+    <Folder Include="Server\TcHmiSqliteLogger\" />
+    <Folder Include="Server\TcHmiSrv\" />
+    <Folder Include="Server\TcHmiUserManagement\" />
+    <Content Include="Server\ADS\ADS.Config.default.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\ADS\ADS.Config.remote.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\ADS\ADS.Storage.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiSrv\TcHmiSrv.Config.default.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiSrv\TcHmiSrv.Config.remote.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiSrv\TcHmiSrv.Storage.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Folder Include="Themes\Base\Images\" />
+  </ItemGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.9.5\build\Microsoft.TypeScript.MSBuild.targets')" />
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.5.9.3\build\Microsoft.TypeScript.MSBuild.targets')" />
+</Project>

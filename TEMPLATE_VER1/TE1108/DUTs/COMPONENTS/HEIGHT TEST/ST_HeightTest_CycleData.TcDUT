@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_HeightTest_CycleData" Id="{9fa01127-d8b3-4cd4-8460-18bade0da36e}">
+    <Declaration><![CDATA[TYPE ST_HeightTest_CycleData :
+STRUCT
+	/////////////////////////////////////////////////////////////////////////////////////SETTINGS/////////////////////////////////////////////////////////////////////////////////////			
+(**************************************************************************CURRENT SETTINGS DURING CYCLE. VELOCITY FOR EXAMPLE****************************************************)	
+	
+	
+	
+/////////////////////////////////////////////////////////////////////////////////////GENERAL DATA/////////////////////////////////////////////////////////////////////////////////////			
+(**************************************************************************RESULT DATA OF THE CYCLE. DISTANCE FOR EXAMPLE************************************************************)	
+	
+	anDistancesResult1						: ARRAY [1..3] OF REAL;
+	anDistancesResult2						: ARRAY [1..3] OF REAL;
+	bDistancesResult1						: ARRAY [1..3] OF BOOL;
+	bDistancesResult2						: ARRAY [1..3] OF BOOL;
+	anRawMeasurement1						: ARRAY [1..4] OF REAL;
+	anRawMeasurement2						: ARRAY [1..4] OF REAL; 
+
+////////////////////////////////////////////////////////////////////////////////////RESULTS////////////////////////////////////////////////////////////////////////////////////////
+(**************************************************************************DETERMINE IF THE PART FAIL OR PASS*********************************************************************)
+
+	bPass1				: BOOL;
+	bFail1				: BOOL;	
+	bPass2				: BOOL;
+	bFail2				: BOOL;		
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

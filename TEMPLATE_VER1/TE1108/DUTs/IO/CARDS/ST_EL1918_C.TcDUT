@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_EL1918_C" Id="{023e6457-39d4-4784-8b33-f86fda49968a}">
+    <Declaration><![CDATA[TYPE ST_EL1918_C :
+STRUCT
+	//--------------------------------------------------------------------------------------------------------
+	sTerminalName                                           :   STRING(200):= 'EL1918 | 8-Channel Safety Digital Input';
+    //============================================================================================================================	
+	// TERMINAL - EL1918 8-Channel Digital Input Terminal 	(Term 5)
+
+	iD3ProcessCylinderRetracted1            AT %I*			: 	BOOL;	// EL1918 channel 1
+	iD3ProcessCylinderRetracted2           	AT %I*			: 	BOOL;	// EL1918 channel 2
+	iD3ProcessCylinderFeedback        		AT %I*	 		: 	BOOL;	// EL1918 channel 3
+	iEL1918_Ch4   							AT %I*	 		: 	BOOL;	// EL1918 channel 4
+	iEL1918_Ch5         					AT %I*	 		: 	BOOL;	// EL1918 channel 5 		     			
+	iEL1918_Ch6								AT %I*			: 	BOOL;	// EL1918 channel 6
+	iEL1918_Ch7              				AT %I*          :   BOOL;   // EL1918 channel 7 
+    iEL1918_Ch8          					AT %I*          :   BOOL;   // EL1918 channel 8
+ 		
+	stTerminalInfo											: 	ST_Terminal_Info;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="st_i28General_I_O" Id="{b7a69db1-4f61-44a2-bdf2-fc8b8da4cc26}">
+    <Declaration><![CDATA[TYPE st_i28General_I_O :
+STRUCT
+	
+//OUTPUTS
+bOutput1	                   	AT%Q*       : BOOL;
+bOutput2	                   	AT%Q*       : BOOL;
+bOutput3	                   	AT%Q*       : BOOL;
+bOutput4	                   	AT%Q*       : BOOL;
+bOutput5	                   	AT%Q*       : BOOL;
+bOutput6	                   	AT%Q*       : BOOL;
+bOutput7	                   	AT%Q*       : BOOL;
+bOutput8	                   	AT%Q*       : BOOL;
+bOutput9	                   	AT%Q*       : BOOL;
+bOutput10	                   	AT%Q*       : BOOL;
+bOutput11	                   	AT%Q*       : BOOL;
+bOutput12	                   	AT%Q*       : BOOL;
+bOutput13	                   	AT%Q*       : BOOL;
+bOutput14	                   	AT%Q*       : BOOL;
+bOutput15	                   	AT%Q*       : BOOL;
+bOutput16	                   	AT%Q*       : BOOL;
+
+bChangeProgram	                AT%Q*       : BOOL;
+bVentHalt	                	AT%Q*       : BOOL;
+bReset	                		AT%Q*       : BOOL;
+bStop	                		AT%Q*       : BOOL;
+bStart	                		AT%Q*       : BOOL;
+
+bSetProgram						AT%Q*       : ARRAY [0..7] OF BOOL;
+
+
+//i28 inputs
+bInput1			               	AT%I*       : BOOL; 
+bInput2			               	AT%I*       : BOOL; 
+bInput3			               	AT%I*       : BOOL; 
+bInput4			               	AT%I*       : BOOL; 
+bInput5			               	AT%I*       : BOOL; 
+bInput6			               	AT%I*       : BOOL; 
+bInput7			               	AT%I*       : BOOL; 
+bInput8			               	AT%I*       : BOOL; 
+bInput9			               	AT%I*       : BOOL; 
+bInput10		               	AT%I*       : BOOL; 
+bInput11		               	AT%I*       : BOOL; 
+bInput12		               	AT%I*       : BOOL; 
+bInput13		               	AT%I*       : BOOL; 
+bInput14		               	AT%I*       : BOOL; 
+bInput15		               	AT%I*       : BOOL; 
+bInput16		               	AT%I*       : BOOL; 
+
+bTestActiveLiveData			   	AT%I*       : BOOL;
+bMalfunction	               	AT%I*       : BOOL; 
+bProgramReject	               	AT%I*       : BOOL; 
+bProgramAccept	               	AT%I*       : BOOL; 
+bInstrumentReady               	AT%I*       : BOOL;
+nCurrentProgramNumber			AT%I*		: USINT; 
+
+
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

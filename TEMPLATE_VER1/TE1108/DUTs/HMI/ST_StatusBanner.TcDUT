@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_StatusBanner" Id="{fbe26160-a0d4-4095-9d78-28ddee5a4f37}">
+    <Declaration><![CDATA[TYPE ST_StatusBanner :
+STRUCT
+	
+	sMachineStatusText					:STRING;
+	nMachineStatusTxtCol				:DWORD;
+	nMachineStatusColour				:DWORD;
+	sBannerTextColor					:STRING;
+	sBannerBckColor						:STRING;
+	
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <GVL Name="GVL_HMI" Id="{7d424ba3-5d42-48e0-870b-7d749b127bab}">
+    <Declaration><![CDATA[VAR_GLOBAL
+////////////////////////////////////////:	///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////GENERIC/////////////////////////////////////////////////////////////////////////////////////
+
+	stHMI_IO							: ST_HMI_IO;
+	bQuitHMI							: BOOL;
+	bShutDown							: BOOL;
+	stStatusBanner						: ST_StatusBanner;
+	nPopUp								: DINT;
+	
+	bPartPresent						: ARRAY [0..1] OF BOOL;
+	stStatisticsWH						: ARRAY [0..5] OF ST_StatisticsHMI;
+	stStatisticsLT						: ARRAY [0..3] OF ST_StatisticsHMI;
+	
+	bRejectPartDialog					: ARRAY [0..2] OF BOOL;
+	bOpenRejectDialog					: BOOL;
+	anCameraScore						: ARRAY [1..4] OF STRING;
+	bLightsOnOff						: BOOL;
+	
+	bHMIAlive							: BOOL;
+	tonHMIAliveOn						: TON;
+	tonHMIAliveOff						: TON;
+	bOutHMI								: BOOL;
+	
+/////////////////////////////////////////////////////////////////////////////////////SYSTEM INFO/////////////////////////////////////////////////////////////////////////////////////
+
+	sSoftwareVersion					: STRING := ' 1.0 ';
+	sSoftwareDate						: STRING := '23/04/2026';
+	sTC3Version							: STRING := ' v3.1.4026.22, Runtime v3.1.4026.22 ';
+	sHMIVersion							: STRING := ' 14.13';
+	sSystemName							: STRING ;
+	sProjectID							: STRING := ' TE 11108' ;
+	sAplication                     	: STRING ;
+	sHMIServer                			: STRING := ' 14.13 ';
+	
+/////////////////////////////////////////////////////////////////////////////////////MANUAL/////////////////////////////////////////////////////////////////////////////////////
+
+	bEnableManual						: BOOL;
+	nMainRegion							: DINT;
+	bManualModeOffFlag					: BOOL;
+	bManualScreen						: BOOL;
+	tonManualMode						: TON;
+	bEnableSettings						: BOOL;
+
+	
+	
+	stAnimations						: ST_Animations;
+	nMachineDefinitionIndex2			: INT;
+	bMachineDefinitionSet1				: BOOL;
+	rMachineDefinitionSet2				: R_TRIG;
+	fMachineDefinitionSet2				: F_TRIG;
+	
+	bProcessCylinder_Up					: BOOL;
+	bProcessCylinder_Down2				: BOOL;
+	
+	bProcessDoor_Up2					: BOOL;
+	bProcessDoor_Down					: BOOL;
+	
+	bLeaktester1_Start					: BOOL;
+	bLeaktester2_Start					: BOOL;
+	bLeaktester1_Stop					: BOOL;
+	bLeaktester2_Stop					: BOOL;
+	bLeaktester1_Reset					: BOOL;
+	bLeaktester2_Reset					: BOOL;
+	bCameraResetStatistics				: ARRAY[1..4] OF BOOL;
+	bCameraSettingNo					: ARRAY[1..4] OF UINT;
+	bCameraSettingVal					: ARRAY[1..4] OF UDINT;
+	bCameraSetTreshold					: ARRAY[1..4] OF BOOL;
+	bCameraTrigger						: ARRAY[1..4] OF BOOL;
+	
+	bProcessCylinderDownEnable			: BOOL;
+	
+	//Probes
+	bSetTolerances						: BOOL;
+	abPresetProbe						: ARRAY [1..8] OF BOOL;
+	bSetCalibrationBlock1				: BOOL;
+	bSetCalibrationBlock2				: BOOL;
+	bEnableSetCablibrationBlock1		: BOOL;
+	bEnableSetCablibrationBlock2		: BOOL;
+	bSetDistances						: BOOL;
+	
+	
+	
+	
+END_VAR
+
+VAR_GLOBAL PERSISTENT
+	
+	stTimers							: ST_Timers;
+	stStatisticsHMI						: ARRAY [0..7] OF ST_StatisticsHMI;	//0: Nest1
+																	//1: Nest2
+																	//2: Leak Tester 1
+																	//3: Leak Tester 2
+																	//4: Height Test 1
+																	//5: Height Test 2
+																	//6: Camera set 1
+																	//7: camera set 2
+														
+	/////////////////////////////////////////////////////////////////////////////////////SETTINGS/////////////////////////////////////////////////////////////////////////////////////	
+	
+
+
+	
+	//TwinSAFE
+	
+	nAirPressureMaxValue				: UINT;	
+	nAirPressureMinValue				: UINT;	
+	abMachineDefinition					: ARRAY[1..5] OF  BOOL;
+	stTableCycleDataNest1				: ARRAY[0..2000] OF ST_TableCycleData;
+	stTableCycleDataNest2				: ARRAY[0..2000] OF ST_TableCycleData;
+	
+	bNest1Flag							: BOOL;
+	bNest2Flag							: BOOL;
+
+
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

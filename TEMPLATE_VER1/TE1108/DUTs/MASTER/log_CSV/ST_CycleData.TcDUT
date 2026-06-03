@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <DUT Name="ST_CycleData" Id="{55f28d2e-fb51-4eb3-b909-a265f2991986}">
+    <Declaration><![CDATA[TYPE ST_CycleData :
+STRUCT
+//-----------------------------------------------------------------------------------GENERAL------------------------------------------------------------------------------------//	
+
+	nNest				: INT;
+	bPass				: BOOL;
+	bFail				: BOOL;	
+	sDate				: STRING;	
+	sTime				: STRING;
+	
+	Camera_Pass			: BOOL;
+	Camera_Fail			: BOOL;
+	
+	LeakTest_Pass		: BOOL;
+	LeakTest_Fail		: BOOL;
+	
+	//Height test
+	
+	HeightTest_anDistancesResult: ARRAY [1..3] OF REAL;
+	HeightTest_anSetPoint		: ARRAY [1..3] OF REAL;
+	HeightTest_bDistancesResult	: ARRAY [1..3] OF BOOL;
+	HeightTest_anRawMeasurement	: ARRAY [1..4] OF REAL;
+	
+	HeightTest_Pass		: BOOL;
+	HeightTest_Fail		: BOOL;	
+	
+	//HMI, CSV
+	sGeneralResult		: STRING;
+	sCameraResult		: STRING;
+	sHeightTestResult	: STRING;
+	sLeakTesterResult	: STRING;
+	
+	sDistance1			: STRING;
+	sDistance2			: STRING;
+	sDistance3			: STRING;
+	
+	sSetpoint1			: STRING;
+	sSetpoint2			: STRING;
+	sSetpoint3			: STRING;
+	
+	
+
+	
+	
+
+
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

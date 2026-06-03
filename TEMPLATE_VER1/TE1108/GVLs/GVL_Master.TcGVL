@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <GVL Name="GVL_Master" Id="{ff1c03dd-d56c-490f-bced-572c30dff423}">
+    <Declaration><![CDATA[VAR_GLOBAL
+////////////////////////////////////////:	///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////GENERIC/////////////////////////////////////////////////////////////////////////////////////
+
+	// PowerUP 
+	tonSystemPowerUP				:TON;
+	tSystemPowerUP_Time				:TIME								:=T#3S;
+	bSystemPoweringUP				:BOOL								:=TRUE; //Global System PowerUP Flag
+	
+	fbSystemShutDown     	        : NT_Shutdown;
+	stButtonsLamps					: ST_ButtonsLamps;
+	rtrigButton             		: ARRAY[1..3] OF Tc2_Standard.R_TRIG;
+	ftrigButton             		: ARRAY[1..3] OF Tc2_Standard.F_TRIG; 
+	stPuls							: ST_Puls;		
+
+	stCycleDataNest1				: ST_CycleData;
+	stCycleDataNest2				: ST_CycleData;
+	
+	bWriteNest1						: BOOL;
+	bWriteNest2						: BOOL;
+	bCSVDone						: BOOL;
+	bCSVReady						: BOOL;
+	bAutocycleIDLE					: BOOL;
+	bDoorOpenedFlag					: BOOL;
+	
+	bRejectPartFault				: BOOL;
+	bRejectPartOutTime				: BOOL;
+	bCSVError						: BOOL;
+	
+	NetAmsIdLocal        	       	: T_AmsNetId;// := '172.18.236.164.1.1'; // AMS-ID for com port setup 
+	bReadAMSNetID					: BOOL;
+	fbGetLocalAMSNetID				: FB_GetLocalAmsNetId;
+	
+	fbGetDeviceNetId				: IOF_GetDeviceNetId;
+	NetAmsIdDevice					: T_AmsNetId;
+	
+	bOpenDoorCycleFault				: BOOL;
+	
+	
+	
+/////////////////////////////////////////////////////////////////////////////////////Event Log/////////////////////////////////////////////////////////////////////////////////////
+	
+	stStationEvents				: ARRAY[0..4] OF  ST_StationEvents;//0: GENERAL
+																	//1: Leak Test
+																	//1: Height Test
+																	//3: Vision Inspection
+																	//4: Cylinders
+	astActiveEvents				: ARRAY [0..50] OF ST_ActiveEvents;
+	stEventsAssigment			: ST_EventsAssigmentGeneral;
+	bMachineMessages			: BOOL;
+	sMachineMessage				: STRING;
+
+/////////////////////////////////////////////////////////////////////////////////////MACHINE CONTROL////////////////////////////////////////////////////////////////////////////
+	
+	stMachineStatus					: ST_MachineStatus;	
+	stMasterCtrl					: ST_MasterCTRL;
+	bStatisticsTest					: ARRAY[0..6] OF  BOOL;
+	
+	
+////////////////////////////////////////////////////////////////////////////////////SYSTEM////////////////////////////////////////////////////////////////////////////
+	stSystemTime				: TIMESTRUCT;
+	sSystemTime					: STRING(255);
+	sSystemDate					: STRING(255);
+	
+	bResetTest					: BOOL;
+	bTestFlag					: ARRAY[0..10] OF BOOL;
+
+////////////////////////////////////////////////////////////////////////////////////SAFETY////////////////////////////////////////////////////////////////////////////
+
+	bDoorClosingFlag				: BOOL;
+	bDoorOpeningFlag				: BOOL;
+	bProcessDoorClosedConditionFlag	: BOOL;
+	tonSafety						: TON;
+	bProcessCylinderSafetyPosition	: BOOL;
+	bProcessDoorUpInitialising		: BOOL;
+	
+END_VAR
+VAR_GLOBAL PERSISTENT
+	
+	stMACHINE						: ST_MACHINE;	//THIS STRUCTURE WILL DEFINDE THE PROCESS IN AUTO CYCLE DEPENDING OF WHAT MACHINE YOU ARE WORKING WITH
+													//THE bMachine boolean array will define the machine			//1. LT-WH-VC LEAK TEST: FLUID PATH, HEIGHT TEST: FPB WELDING, VISION CHECK: EWIS FOAM
+																													//2. WH: HEIGHT TEST: FPB WELDING
+																													//3. LT: LEAK TEST: RESERVOIR 
+																													
+
+
+
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

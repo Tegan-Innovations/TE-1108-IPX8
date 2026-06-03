@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_StationStatus" Id="{f5453be2-f4e3-435c-9958-e4a94da5d0cd}">
+    <Declaration><![CDATA[TYPE ST_StationStatus :
+STRUCT
+//Universal Module STATUS Struct
+
+	bReady        			:BOOL;	// Module initialized and ready for CMD
+    bBusy         			:BOOL;	// Module is busy processing a request
+    bDone         			:BOOL;	// Operation successfully completed
+	bStopped				:BOOL;	// Station stopped
+    bError        			:BOOL;	// Error occurred
+    nErrorID      			:INT;	// Error code (ideally enum-based)
+
+
+	nCurrentTaskID			:UINT;	// Current Task ID
+    nCurrentState 			:UINT;	// Current State
+
+
+	
+
+//-----------------------------------------------------------------------------------------oldschoo1	
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

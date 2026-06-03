@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_EL1918_B" Id="{4bd7cc3f-0aa6-498b-8f10-fd98afa697ac}">
+    <Declaration><![CDATA[TYPE ST_EL1918_B :
+STRUCT
+	//--------------------------------------------------------------------------------------------------------
+	sTerminalName                                           :   STRING(200):= 'EL1918 | 8-Channel Safety Digital Input';
+    //============================================================================================================================	
+	// TERMINAL - EL1918 8-Channel Digital Input Terminal 	(Term 5)
+
+	iRightTouchButtonNC                		AT %I*			: 	BOOL;	// EL1918 channel 1
+	iLeftTouchButtonNC                   	AT %I*			: 	BOOL;	// EL1918 channel 2
+	iRightTouchButtonNO        				AT %I*	 		: 	BOOL;	// EL1918 channel 3
+	iLeftTouchButtonNO   					AT %I*	 		: 	BOOL;	// EL1918 channel 4
+	iProcessDoorClosed1         			AT %I*	 		: 	BOOL;	// EL1918 channel 5 		     			
+	iProcessDoorClosed2 					AT %I*			: 	BOOL;	// EL1918 channel 6
+	iProcessDoorFB               			AT %I*          :   BOOL;   // EL1918 channel 7 
+    iEL1918_Ch8          					AT %I*          :   BOOL;   // EL1918 channel 8
+ 		
+	stTerminalInfo											: 	ST_Terminal_Info;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

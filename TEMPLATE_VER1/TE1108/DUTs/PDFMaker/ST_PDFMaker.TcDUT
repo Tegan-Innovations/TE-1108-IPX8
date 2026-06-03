@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_PDFMaker" Id="{578cfe81-1a58-40c4-8dd4-506f750c944c}">
+    <Declaration><![CDATA[TYPE ST_PDFMaker :
+STRUCT
+	
+	//INPUTS
+	bWriteData			: BOOL;
+	sDate				: STRING(255);
+	aDataHistoryArrayLength : DINT;
+	nDataHistoryIndex	: DINT;
+	
+
+	//OUTPUTS
+	
+	sFileName			: STRING(255);
+	bDataWrited			: BOOL;
+	
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

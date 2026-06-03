@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_HMI_IO" Id="{2eabb16e-8bde-4561-9f4c-a5eda7c2fe42}">
+    <Declaration><![CDATA[TYPE ST_HMI_IO :
+STRUCT
+	
+	bTriggerButtonA				:BOOL;
+	bTriggerButtonB				:BOOL;
+	bTriggerButtonC				:BOOL;
+	
+	bOutPutSigA					:BOOL;
+	bOutPutSigB					:BOOL;
+	bOutPutSigC					:BOOL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

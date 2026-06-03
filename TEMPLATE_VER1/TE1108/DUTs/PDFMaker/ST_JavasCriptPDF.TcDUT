@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ST_JavasCriptPDF" Id="{96370abc-481d-4e20-b9fd-adcf7cb558a0}">
+    <Declaration><![CDATA[TYPE ST_JavasCriptPDF :
+STRUCT
+	
+	stEventsPDF				: ARRAY [0..2000] OF ST_EventsPDF;
+	stEventsPdfConstants	: ST_EventsPdfConstants;
+	bMakePDF				: BOOL;
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
