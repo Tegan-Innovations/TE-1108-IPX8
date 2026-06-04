@@ -15,30 +15,16 @@ VAR
 	tonCloseChromeBusy						: TON;
 	//fbUserLog								: FB_UserLog;
 	
-	
-	nFindAdm								: INT;
-	nFindEng								: INT;
-	nFindOpe								: INT;
-	sUserGroupName							: STRING (255);
-	sAdmGroup								: STRING (255)							:= 'Administrator';
-	sEngGroup								: STRING (255)							:= 'Engineer';
-	sOpeGroup								: STRING (255)							:= 'Operator';
-	
-	rEfficency								: STRING(510);
-	
 	fbSystemTime							: NT_GetTime;
 	
 	fbScaleAirSupply						: FB_Scale;
 	
-	fMessageReset							: F_TRIG;
-	j										: DINT;
-	i										: DINT;
-	b										: DINT; //index quit HMI
+	i										: DINT; //index quit HMI
 	
+	//Statistics
 	rGoodStatistics							: ARRAY [0..1] OF R_TRIG;
 	rBadStatistics							: ARRAY [0..1] OF R_TRIG;
-	
-	cuRejectCounter							: CTU;
+	rEfficency								: STRING(510);
 
 
 				
@@ -54,11 +40,8 @@ f_ACT_TerminalInfo();
 g_ACT_Manual();
 h_ACT_Statistics();
 i_ACT_TwinSAFE();
-j_ACT_MachineDefinition();
 
 C_1_PRG_MainHMI();
-//D_1_1_PROG_Write_Data_To_CSV();
-//D_2_1_PROG_Write_Data_To_CSV();
 
 PRG_Puls();
 
@@ -69,33 +52,16 @@ bSystemPoweringUP:=FALSE;
 END_IF
 
 /////////////////////////////////////////////////////////////////////////////////////STATIONS/////////////////////////////////////////////////////////////////////////////////////
-
-IF stMACHINE.bHeightTest  THEN
 	
-	B_2_1_PRG_Master_Height_Test();
-
-END_IF
-
-IF stMACHINE.bLeakTest  THEN
-	
+	B_2_1_PRG_Master_Height_Test();	
 	B_1_1_PRG_Master_Leak_Test();
-
-END_IF
-
-IF stMACHINE.bVisionTest THEN
-	
-	B_3_1_PRG_Master_Camera();
-
-END_IF
-
-B_4_1_PRG_Master_ProcessCylinder();
-B_4_2_PRG_Master_ProcessDoor();
+	B_4_1_PRG_Master_ProcessCylinder();
+	B_4_2_PRG_Master_ProcessDoor();
+	B_4_3_PRG_Master_SlideNest();
 
 /////////////////////////////////////////////////////////////////////////////////////PROCESS/////////////////////////////////////////////////////////////////////////////////////
 
 A_2_PRG_MachineCtrl();
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////EVENT LOG/////////////////////////////////////////////////////////////////////////////////////
 
@@ -212,13 +178,13 @@ ntShutdown(NETID := NetAmsIdLocal, DELAY := 5, START := bShutDown);
 
 IF dw_T08_EL1809.iStartButoon THEN
 	IF ftrigButton[2].Q THEN
-		b:= b+1;
+		i:= i+1;
 	END_IF
-	IF b>=3 THEN;
+	IF i>=3 THEN;
 		bQuitHmi:=TRUE;
 	END_IF
 ELSE
-	b:=0;
+	i:=0;
 END_IF]]></ST>
       </Implementation>
     </Action>
@@ -460,92 +426,6 @@ dw_T06_EL2904_Reading.fbReadOutSafety06[4]( 	sNetId 			:= NetAmsIdDevice,
 					 							tTimeout 		:= T#500MS,
 					 							bBusy 			=> dw_T06_EL2904_Reading.bBusy[4],
 					 							bError 			=> dw_T06_EL2904_Reading.berror[4]);
-]]></ST>
-      </Implementation>
-    </Action>
-    <Action Name="j_ACT_MachineDefinition" Id="{d060be37-8904-4e66-8914-eb7f14b7082a}">
-      <Implementation>
-        <ST><![CDATA[rMachineDefinitionSet2(CLK := bMachineDefinitionSet1);
-fMachineDefinitionSet2(CLK := bMachineDefinitionSet1);
-
-IF rMachineDefinitionSet2.Q THEN
-	
-	abMachineDefinition[1]								:= FALSE;
-	abMachineDefinition[2]								:= FALSE;
-	abMachineDefinition[3]								:= FALSE;
-	
-	stMACHINE.bHeightTest								:= FALSE;
-	stMACHINE.bLeakTest									:= FALSE;
-	stMACHINE.bVisionTest								:= FALSE;
-	stMACHINE.sName										:= '';
-	stMACHINE.bMachine[1]								:= FALSE;
-	stMACHINE.bMachine[2]								:= FALSE;
-	stMACHINE.bMachine[3]								:= FALSE;
-
-END_IF
-
-IF fMachineDefinitionSet2.Q THEN
-
-	FOR i := 1 TO 3 DO
-	
-		IF 	nMachineDefinitionIndex2 = i THEN
-			
-			abMachineDefinition[i] 						:= TRUE;
-		
-		END_IF
-	
-	END_FOR
-ELSE i													:= 0;
-	
-END_IF
-
-
-IF abMachineDefinition[1] THEN
-	
-	stMACHINE.bHeightTest								:= TRUE;
-	stMACHINE.bLeakTest									:= TRUE;
-	stMACHINE.bVisionTest								:= TRUE;
-	stMACHINE.sName										:= 'LT-WH-VI LEAK TEST: FLUID PATH , HEIGHT TEST: FPB WELDING, VISION INSPECTION: EWIS FOAM';
-	stMACHINE.bMachine[1]								:= TRUE;
-	stMACHINE.bMachine[2]								:= FALSE;
-	stMACHINE.bMachine[3]								:= FALSE;
-	
-	sAplication                     					:= ' Leak Test - Weld Height - Vision Inspection ';
-	sSystemName											:= ' LT-WH-VI - FLUID PATH CAP ' ;
-
-END_IF
-
-IF abMachineDefinition[2] THEN
-	
-	stMACHINE.bHeightTest								:= TRUE;
-	stMACHINE.bLeakTest									:= FALSE;
-	stMACHINE.bVisionTest								:= TRUE;
-	stMACHINE.sName										:= 'WH: HEIGHT TEST: FPB WELDING';
-	stMACHINE.bMachine[1]								:= FALSE;
-	stMACHINE.bMachine[2]								:= TRUE;
-	stMACHINE.bMachine[3]								:= FALSE;
-	
-	sAplication                     					:= ' Weld Height';
-	sSystemName											:= ' WH - FLUID PATH BODY ' ;
-	
-END_IF
-
-IF abMachineDefinition[3] THEN
-	
-	stMACHINE.bHeightTest								:= FALSE;
-	stMACHINE.bLeakTest									:= TRUE;
-	stMACHINE.bVisionTest								:= FALSE;
-	stMACHINE.sName										:= 'LT LEAK TEST: RESERVOIR ';
-	stMACHINE.bMachine[1]								:= FALSE;
-	stMACHINE.bMachine[2]								:= FALSE;
-	stMACHINE.bMachine[3]								:= TRUE;
-	
-	sAplication                     					:= ' Leak Test';
-	sSystemName											:= ' LT - RESERVOIR ' ;
-	
-END_IF
-
-
 ]]></ST>
       </Implementation>
     </Action>

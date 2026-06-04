@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_SlideNest_CMD" Id="{4d5ed30b-e653-45fe-b67e-82228baaa550}">
+    <Declaration><![CDATA[TYPE ST_SlideNest_CMD :
+STRUCT
+	
+	MoveRight					: BOOL;				
+	MoveLeft					: BOOL;		
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

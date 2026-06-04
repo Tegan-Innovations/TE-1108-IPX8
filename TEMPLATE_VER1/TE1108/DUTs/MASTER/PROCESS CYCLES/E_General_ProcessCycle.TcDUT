@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="E_General_ProcessCycle" Id="{efc1fb3f-e466-425d-af8e-a4df616b7389}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
@@ -7,7 +7,6 @@ TYPE E_General_ProcessCycle :
 (
 	
 IDLE							,
-PROCESS_FLAGS_DEFINITIONS		,
 CLOSE_PROCESS_DOOR				,
 WAIT_CLOSE_PROCESS_DOOR			,
 OPEN_PROCESS_DOOR				,
@@ -16,12 +15,14 @@ EXTEND_PROCESS_CYLINDER			,
 WAIT_EXTEND_PROCESS_CYLINDER	,
 RETRACT_PROCESS_CYLINDER		,
 WAIT_RETRACT_PROCESS_CYLINDER	,
-CAMERA_INSPECTION				,
-WAIT_CAMERA						,
-LEAK_TESTS						,
+RETRACT_MIDDLE_PROCESS_CYLINDER		,
+WAIT_RETRACT_MIDDLE_PROCESS_CYLINDER	,
+MOVE_NEST_TO_RIGHT				,
+WAIT_MOVE_NEST_TO_RIGHT			,
+MOVE_NEST_TO_LEFT				,
+WAIT_MOVE_NEST_TO_LEFT			,
+LEAK_TEST						,
 WAIT_LEAK_TEST					,
-LEAK_TESTS_HEIGHT_TEST			,
-WAIT_LEAK_TEST_HEIGHT_TEST		,
 HEIGHT_TEST						,
 WAIT_HEIGHT_TEST				,
 WAIT_TO_SAVE_DATA				,

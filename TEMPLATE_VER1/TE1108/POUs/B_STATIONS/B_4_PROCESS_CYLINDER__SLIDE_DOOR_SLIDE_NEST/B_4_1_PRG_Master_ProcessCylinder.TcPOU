@@ -60,11 +60,11 @@ CASE stProcessCylinder.State OF
 	
 	E_ProcessCylinder_State.READY:
 	
-								IF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1 THEN
+								IF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder THEN
 
 									stProcessCylinder.State				:= E_ProcessCylinder_State.EXTEND;
 									
-								ELSIF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1 THEN
+								ELSIF stProcessCylinder.CMD.bExecute AND stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder THEN
 									
 									stProcessCylinder.State				:= E_ProcessCylinder_State.RETRACT;;									
 																		
@@ -72,7 +72,7 @@ CASE stProcessCylinder.State OF
 	
 	E_ProcessCylinder_State.EXTEND:
 	
-								bExtend									:= stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder1;
+								bExtend									:= stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder;
 								
 								IF bExtend THEN
 									
@@ -86,7 +86,7 @@ CASE stProcessCylinder.State OF
 								
 	E_ProcessCylinder_State.RETRACT:
 	
-								bRetract								:= stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder1;
+								bRetract								:= stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder;
 								
 								
 								IF bRetract THEN

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="ST_EL2809_A" Id="{b4247617-0c63-4291-9ee1-02e0a92b28da}">
     <Declaration><![CDATA[TYPE ST_EL2809_A :
 STRUCT
@@ -7,8 +7,8 @@ STRUCT
 	sTerminalName                                           :   STRING(200):= 'EL2809 | 16-Channel Digital Output';
 	//=============================================================================================================
 	// TERMINAL - EL2809	16-Channel Digital Output Terminal	 (Term 9)
-	qResetButtonLED 						AT %Q*			: 	BOOL;	// EL2809 channel 1
-	qStartButtonLED							AT %Q* 			: 	BOOL;	// EL2809 channel 2
+	qStartButtonLED							AT %Q*			: 	BOOL;	// EL2809 channel 1
+	qResetButtonLED							AT %Q* 			: 	BOOL;	// EL2809 channel 2
 	qOpenProcessDoor             			AT %Q*	 		: 	BOOL;	// EL2809 channel 3 			
 	qCloseProcessDoor      					AT %Q*	 		: 	BOOL;	// EL2809 channel 4 
 	qRetractProcessCylinder  				AT %Q*	 		: 	BOOL;	// EL2809 channel 5
@@ -18,8 +18,8 @@ STRUCT
 	qIndicatorLED1_Green                 	AT %Q*          :   BOOL;   // EL2809 channel 9
 	qIndicatorLED2_Red             			AT %Q*          :   BOOL;   // EL2809 channel 10   	
 	qIndicatorLED2_Green     				AT %Q*	 		: 	BOOL;	// EL2809 channel 11	
-	qiEL2809_Ch12   						AT %Q*	 		: 	BOOL;	// EL2809 channel 12 
-    qiEL2809_Ch13			        		AT %Q*	 		: 	BOOL;	// EL2809 channel 13 
+	qRetractSlideNest   					AT %Q*	 		: 	BOOL;	// EL2809 channel 12 
+    qExtendSlideNest			        	AT %Q*	 		: 	BOOL;	// EL2809 channel 13 
 	qiEL2809_Ch14                 			AT %Q*	 		: 	BOOL;	// EL2809 channel 14 
 	qiEL2809_Ch15							AT %Q*	 		: 	BOOL;	// EL2809 channel 15 
     qiEL2809_Ch16         		        	AT %Q*	 		: 	BOOL;	// EL2809 channel 16  
