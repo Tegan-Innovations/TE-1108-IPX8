@@ -73,7 +73,7 @@ fbEventsManager	(			//INPUTS
 							sSystemDate						:= sSystemDate,
  							stEventsAssigment				:= stEventsAssigment,
 							bDataWritedInCSV				:= ,
-							nArraySize						:= 4,
+							nArraySize						:= 5,
 							bMachineMessage					:= sMachineMessage,
 							
 							//OUTPUTS

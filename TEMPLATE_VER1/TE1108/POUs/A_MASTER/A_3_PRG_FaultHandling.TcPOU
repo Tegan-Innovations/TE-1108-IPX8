@@ -108,16 +108,12 @@ stStationEvents[0].aEvents[16].bEventFlag					:= bRejectPartFault;
 stStationEvents[0].aEvents[16].bEventText					:= 'Wrong part taken andput in the reject chute' ;
 stStationEvents[0].aEvents[16].sSolution					:= 'Put parts in reject shutter and restart system';
 
-stStationEvents[0].aEvents[17].bFault						:= TRUE;
-stStationEvents[0].aEvents[17].bEventFlag					:= bRejectPartOutTime;
-stStationEvents[0].aEvents[17].bEventText					:= 'Part in reject chute' ;
-stStationEvents[0].aEvents[17].sSolution					:= 'Reset Sytem';
 
-stStationEvents[0].aEvents[18].bFault						:= TRUE;
+stStationEvents[0].aEvents[18].bCycleStopRequest			:= TRUE;
 stStationEvents[0].aEvents[18].bEventTimer(IN := dw_T08_EL1809.iRejectSensor, PT := T#3S);
 stStationEvents[0].aEvents[18].bEventFlag					:= stStationEvents[0].aEvents[18].bEventTimer.Q;
 stStationEvents[0].aEvents[18].bEventText					:= 'Reject chute full' ;
-stStationEvents[0].aEvents[18].sSolution					:= 'Empty reject shutter';
+stStationEvents[0].aEvents[18].sSolution					:= 'Empty reject chute';
 
 stStationEvents[0].aEvents[19].bFault						:= TRUE;
 stStationEvents[0].aEvents[19].bEventTimer(IN := NOT dw_T08_EL1809.iStopButton, PT := T#3S);

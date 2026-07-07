@@ -16,6 +16,7 @@ VAR
 	bNestInRightPos						: BOOL;
 	
 	bProcessCylinderUp					: BOOL;
+	bProcessDoorClosed					: BOOL;
 
 	
 
@@ -51,15 +52,20 @@ CASE stSlideNest.State OF
 	
 	E_SlideNest_State.ABORTED:
 	
-								IF stSlideNest.CMD.bEnable AND bProcessCylinderUp THEN
+								IF stSlideNest.CMD.bEnable  THEN
 									
 									stSlideNest.State				:= E_SlideNest_State.HOMING;
 								
 								END_IF
 								
 	E_SlideNest_State.HOMING: 
-	
-								bNestLeft							:= TRUE;
+								
+								IF bProcessDoorClosed AND bProcessCylinderUp THEN
+									
+									bNestLeft							:= TRUE;
+									
+								END_IF
+								
 								
 								IF bNestInLeftPos THEN
 									
@@ -148,10 +154,12 @@ stSlideNest.Status.bStopped		:= 	NOT stSlideNest.Status.bBusy;]]></ST>
 bNestInLeftPos									:= dw_T08_EL1809.iSlideNestRetracted;
 bNestInRightPos									:= dw_T08_EL1809.iSlideNestExtended; 
 
-dw_T09_EL2809.qExtendSlideNest					:= bNestRight OR bSlideNestRight;	
-dw_T09_EL2809.qRetractSlideNest					:= bNestLeft OR bSlideNestLeft;
+dw_T09_EL2809.qExtendSlideNest					:= (bNestRight OR bSlideNestRight) AND bProcessCylinderUp;	
+dw_T09_EL2809.qRetractSlideNest					:= (bNestLeft OR bSlideNestLeft) AND bProcessCylinderUp;;
 
 bProcessCylinderUp								:= stTwinSAFE.qProcessCylinderRetracted;
+
+bProcessDoorClosed 								:= dw_T05_EL1918.iProcessDoorClosed1 AND dw_T05_EL1918.iProcessDoorClosed2 AND dw_T05_EL1918.iProcessDoorFB;
 
 
 ]]></ST>
@@ -161,17 +169,17 @@ bProcessCylinderUp								:= stTwinSAFE.qProcessCylinderRetracted;
       <Implementation>
         <ST><![CDATA[//IMMEDIATE FAULTS
 
-stStationEvents[4].aEvents[0].bEventTimer( IN :=  (bNestRight OR bSlideNestLeft) AND NOT bNestInLeftPos, PT := T#5S);
-stStationEvents[4].aEvents[0].bFault						:= TRUE;
-stStationEvents[4].aEvents[0].bEventFlag					:= stStationEvents[4].aEvents[0].bEventTimer.Q;
-stStationEvents[4].aEvents[0].bEventText					:= 'Process Door extend timeout';
-stStationEvents[4].aEvents[0].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+stStationEvents[5].aEvents[0].bEventTimer( IN :=  (bNestLeft OR bSlideNestLeft) AND NOT bNestInLeftPos, PT := T#3S);
+stStationEvents[5].aEvents[0].bFault						:= TRUE;
+stStationEvents[5].aEvents[0].bEventFlag					:= stStationEvents[5].aEvents[0].bEventTimer.Q;
+stStationEvents[5].aEvents[0].bEventText					:= 'Slide Nest  Retract timeout';
+stStationEvents[5].aEvents[0].sSolution						:= 'Check Nest Cylinder, neumatic connections and sensors';
 
-stStationEvents[4].aEvents[1].bEventTimer( IN :=  (bNestLeft OR bSlideNestRight) AND NOT bNestInRightPos, PT := T#5S);
-stStationEvents[4].aEvents[1].bFault						:= TRUE;
-stStationEvents[4].aEvents[1].bEventFlag					:= stStationEvents[4].aEvents[1].bEventTimer.Q;
-stStationEvents[4].aEvents[1].bEventText					:= 'Process Door Retract timeout';
-stStationEvents[4].aEvents[1].sSolution						:= 'Check cylinder, neumatic connections and sensors';
+stStationEvents[5].aEvents[1].bEventTimer( IN :=  (bNestRight  OR bSlideNestRight) AND NOT bNestInRightPos, PT := T#3S);
+stStationEvents[5].aEvents[1].bFault						:= TRUE;
+stStationEvents[5].aEvents[1].bEventFlag					:= stStationEvents[5].aEvents[1].bEventTimer.Q;
+stStationEvents[5].aEvents[1].bEventText					:= 'Slide Nest Extend timeout';
+stStationEvents[5].aEvents[1].sSolution						:= 'Check Nest Cylinder, neumatic connections and sensors ';
 
 ]]></ST>
       </Implementation>

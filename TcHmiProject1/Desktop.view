@@ -55,128 +55,14 @@
             },
             "actions": [
               {
-                "objectType": "Condition",
+                "objectType": "WriteToSymbol",
                 "active": true,
-                "parts": [
-                  {
-                    "if": [
-                      {
-                        "compare1": {
-                          "objectType": "Symbol",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%"
-                        },
-                        "compare2": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "value": true
-                        },
-                        "compareOperator": "==",
-                        "logic": null
-                      }
-                    ],
-                    "then": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/1_Main_LT_HW_VC_ver2.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  },
-                  {
-                    "else": [
-                      {
-                        "objectType": "Condition",
-                        "active": true,
-                        "parts": [
-                          {
-                            "if": [
-                              {
-                                "compare1": {
-                                  "objectType": "Symbol",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%"
-                                },
-                                "compare2": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "value": true
-                                },
-                                "compareOperator": "==",
-                                "logic": null
-                              }
-                            ],
-                            "then": [
-                              {
-                                "objectType": "WriteToSymbol",
-                                "active": true,
-                                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                "value": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:framework#/definitions/ContentPath",
-                                  "value": "Contents/Screens/1_Main_HW.content"
-                                },
-                                "asyncWait": true
-                              }
-                            ]
-                          },
-                          {
-                            "else": [
-                              {
-                                "objectType": "Condition",
-                                "active": true,
-                                "parts": [
-                                  {
-                                    "if": [
-                                      {
-                                        "compare1": {
-                                          "objectType": "Symbol",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.2%/s%"
-                                        },
-                                        "compare2": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "value": true
-                                        },
-                                        "compareOperator": "==",
-                                        "logic": null
-                                      }
-                                    ],
-                                    "then": [
-                                      {
-                                        "objectType": "WriteToSymbol",
-                                        "active": true,
-                                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                        "value": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                                          "value": "Contents/Screens/1_Main_LT.content"
-                                        },
-                                        "asyncWait": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "else": []
-                                  }
-                                ],
-                                "asyncWait": true
-                              }
-                            ]
-                          }
-                        ],
-                        "asyncWait": true
-                      }
-                    ]
-                  }
-                ],
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Screens/1_Main_LT_HW_IPX8.content"
+                },
                 "asyncWait": true
               }
             ]
@@ -209,128 +95,14 @@
             },
             "actions": [
               {
-                "objectType": "Condition",
+                "objectType": "WriteToSymbol",
                 "active": true,
-                "parts": [
-                  {
-                    "if": [
-                      {
-                        "compare1": {
-                          "objectType": "Symbol",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%"
-                        },
-                        "compare2": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "value": true
-                        },
-                        "compareOperator": "==",
-                        "logic": null
-                      }
-                    ],
-                    "then": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/3_IO_LT_HW_VC.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  },
-                  {
-                    "else": [
-                      {
-                        "objectType": "Condition",
-                        "active": true,
-                        "parts": [
-                          {
-                            "if": [
-                              {
-                                "compare1": {
-                                  "objectType": "Symbol",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%"
-                                },
-                                "compare2": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "value": true
-                                },
-                                "compareOperator": "==",
-                                "logic": null
-                              }
-                            ],
-                            "then": [
-                              {
-                                "objectType": "WriteToSymbol",
-                                "active": true,
-                                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                "value": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:framework#/definitions/ContentPath",
-                                  "value": "Contents/Screens/3_IO_HW_VC.content"
-                                },
-                                "asyncWait": true
-                              }
-                            ]
-                          },
-                          {
-                            "else": [
-                              {
-                                "objectType": "Condition",
-                                "active": true,
-                                "parts": [
-                                  {
-                                    "if": [
-                                      {
-                                        "compare1": {
-                                          "objectType": "Symbol",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.2%/s%"
-                                        },
-                                        "compare2": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "value": true
-                                        },
-                                        "compareOperator": "==",
-                                        "logic": null
-                                      }
-                                    ],
-                                    "then": [
-                                      {
-                                        "objectType": "WriteToSymbol",
-                                        "active": true,
-                                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                        "value": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                                          "value": "Contents/Screens/3_IO_LT.content"
-                                        },
-                                        "asyncWait": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "else": []
-                                  }
-                                ],
-                                "asyncWait": true
-                              }
-                            ]
-                          }
-                        ],
-                        "asyncWait": true
-                      }
-                    ]
-                  }
-                ],
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Screens/3_IO_LT_HW_IPX8.content"
+                },
                 "asyncWait": true
               }
             ]
@@ -363,128 +135,14 @@
             },
             "actions": [
               {
-                "objectType": "Condition",
+                "objectType": "WriteToSymbol",
                 "active": true,
-                "parts": [
-                  {
-                    "if": [
-                      {
-                        "compare1": {
-                          "objectType": "Symbol",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%"
-                        },
-                        "compare2": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "value": true
-                        },
-                        "compareOperator": "==",
-                        "logic": null
-                      }
-                    ],
-                    "then": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/5_Manual_LT_HW_VC.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  },
-                  {
-                    "else": [
-                      {
-                        "objectType": "Condition",
-                        "active": true,
-                        "parts": [
-                          {
-                            "if": [
-                              {
-                                "compare1": {
-                                  "objectType": "Symbol",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%"
-                                },
-                                "compare2": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "value": true
-                                },
-                                "compareOperator": "==",
-                                "logic": null
-                              }
-                            ],
-                            "then": [
-                              {
-                                "objectType": "WriteToSymbol",
-                                "active": true,
-                                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                "value": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:framework#/definitions/ContentPath",
-                                  "value": "Contents/Screens/5_Manual_HW_VC.content"
-                                },
-                                "asyncWait": true
-                              }
-                            ]
-                          },
-                          {
-                            "else": [
-                              {
-                                "objectType": "Condition",
-                                "active": true,
-                                "parts": [
-                                  {
-                                    "if": [
-                                      {
-                                        "compare1": {
-                                          "objectType": "Symbol",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.2%/s%"
-                                        },
-                                        "compare2": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "value": true
-                                        },
-                                        "compareOperator": "==",
-                                        "logic": null
-                                      }
-                                    ],
-                                    "then": [
-                                      {
-                                        "objectType": "WriteToSymbol",
-                                        "active": true,
-                                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                        "value": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                                          "value": "Contents/Screens/5_Manual_LT.content"
-                                        },
-                                        "asyncWait": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "else": []
-                                  }
-                                ],
-                                "asyncWait": true
-                              }
-                            ]
-                          }
-                        ],
-                        "asyncWait": true
-                      }
-                    ]
-                  }
-                ],
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Screens/5_Manual_LT_HW_IPX8.content"
+                },
                 "asyncWait": true
               }
             ]
@@ -497,56 +155,14 @@
             },
             "actions": [
               {
-                "objectType": "Condition",
+                "objectType": "WriteToSymbol",
                 "active": true,
-                "parts": [
-                  {
-                    "if": [
-                      {
-                        "compare1": {
-                          "objectType": "Symbol",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "symbolExpression": "%s%PLC1.GVL_Master.stMACHINE.bHeightTest%/s%"
-                        },
-                        "compare2": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "value": true
-                        },
-                        "compareOperator": "==",
-                        "logic": null
-                      }
-                    ],
-                    "then": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/6_Settings_Probes.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  },
-                  {
-                    "else": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/6_Settings_NoProbes.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  }
-                ],
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Screens/6_Settings_Probes.content"
+                },
                 "asyncWait": true
               }
             ]
@@ -559,128 +175,14 @@
             },
             "actions": [
               {
-                "objectType": "Condition",
+                "objectType": "WriteToSymbol",
                 "active": true,
-                "parts": [
-                  {
-                    "if": [
-                      {
-                        "compare1": {
-                          "objectType": "Symbol",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%"
-                        },
-                        "compare2": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:general#/definitions/BOOL",
-                          "value": true
-                        },
-                        "compareOperator": "==",
-                        "logic": null
-                      }
-                    ],
-                    "then": [
-                      {
-                        "objectType": "WriteToSymbol",
-                        "active": true,
-                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                        "value": {
-                          "objectType": "StaticValue",
-                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                          "value": "Contents/Screens/7_Statistics_LT_HW_VC.content"
-                        },
-                        "asyncWait": true
-                      }
-                    ]
-                  },
-                  {
-                    "else": [
-                      {
-                        "objectType": "Condition",
-                        "active": true,
-                        "parts": [
-                          {
-                            "if": [
-                              {
-                                "compare1": {
-                                  "objectType": "Symbol",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%"
-                                },
-                                "compare2": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:general#/definitions/BOOL",
-                                  "value": true
-                                },
-                                "compareOperator": "==",
-                                "logic": null
-                              }
-                            ],
-                            "then": [
-                              {
-                                "objectType": "WriteToSymbol",
-                                "active": true,
-                                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                "value": {
-                                  "objectType": "StaticValue",
-                                  "valueType": "tchmi:framework#/definitions/ContentPath",
-                                  "value": "Contents/Screens/7_Statistics_HW.content"
-                                },
-                                "asyncWait": true
-                              }
-                            ]
-                          },
-                          {
-                            "else": [
-                              {
-                                "objectType": "Condition",
-                                "active": true,
-                                "parts": [
-                                  {
-                                    "if": [
-                                      {
-                                        "compare1": {
-                                          "objectType": "Symbol",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.2%/s%"
-                                        },
-                                        "compare2": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:general#/definitions/BOOL",
-                                          "value": true
-                                        },
-                                        "compareOperator": "==",
-                                        "logic": null
-                                      }
-                                    ],
-                                    "then": [
-                                      {
-                                        "objectType": "WriteToSymbol",
-                                        "active": true,
-                                        "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
-                                        "value": {
-                                          "objectType": "StaticValue",
-                                          "valueType": "tchmi:framework#/definitions/ContentPath",
-                                          "value": "Contents/Screens/7_Statistics_LT.content"
-                                        },
-                                        "asyncWait": true
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "else": []
-                                  }
-                                ],
-                                "asyncWait": true
-                              }
-                            ]
-                          }
-                        ],
-                        "asyncWait": true
-                      }
-                    ]
-                  }
-                ],
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Screens/7_Statistics_LT_HW_IPX8.content"
+                },
                 "asyncWait": true
               }
             ]
@@ -1018,6 +520,91 @@
 
 </div>
 <div id="yes_no_popup" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="300" data-tchmi-height-unit="px" data-tchmi-left="409" data-tchmi-left-unit="px" data-tchmi-top="172" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-target-content="Contents/popup/popup6_ChangeSettings_ver2.content" data-tchmi-visibility="Collapsed" data-tchmi-creator-visibility="Visible">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.GVL_HMI.bEmptyRejectChute%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bEmptyRejectChute%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/popup/popup2_EmptyRejectChute.content"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/popup/popup6_ChangeSettings_ver2.content"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Collapsed"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
 <div id="RejectPart_popup" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="300" data-tchmi-height-unit="px" data-tchmi-left="409" data-tchmi-left-unit="px" data-tchmi-top="172" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-target-content="Contents/popup/popup1_RejectedPart.content" data-tchmi-visibility="Collapsed">
 

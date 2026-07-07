@@ -7,6 +7,8 @@ VAR
 	bResetTest				: BOOL;
 	i						: DINT;
 	n						: DINT;//TABLE INDEX
+	bProcessDoorClosed		: BOOL;
+	srRejectChuteFull		: SR; 
 
 END_VAR
 ]]></Declaration>
@@ -17,7 +19,14 @@ c_ACT_IO();
 
 bEnableSettings				:= (stMachineStatus.eMachineState = E_MachineState.STOPPED);
 bOpenRejectDialog			:= bRejectPartDialog[0] OR bRejectPartDialog[1] OR bRejectPartDialog[2];
-bProcessCylinderDownEnable	:= dw_T08_EL1809.iPartPresentNest1 AND dw_T08_EL1809.iPartPresentNest2 AND dw_T05_EL1918.iProcessDoorFB;]]></ST>
+
+bProcessDoorClosed			:= dw_T05_EL1918.iProcessDoorClosed1 AND dw_T05_EL1918.iProcessDoorClosed2 AND dw_T05_EL1918.iProcessDoorFB;
+
+bEnableSildeNest			:= bProcessDoorClosed AND  stTwinSAFE.qProcessCylinderRetracted;
+bEnableProcessCylinderDown	:= bProcessDoorClosed AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted);
+
+srRejectChuteFull(SET1 := stStationEvents[0].aEvents[18].bEventTimer.Q, RESET := bEmptyRejectChuteAcknowledge AND NOT dw_T08_EL1809.iRejectSensor , Q1 => bEmptyRejectChute);
+	]]></ST>
     </Implementation>
     <Action Name="a_ACT_MachineStatusBaner" Id="{0dc7bcd3-753a-4f06-be0f-fec0a8964021}">
       <Implementation>

@@ -102,23 +102,6 @@
         ]
       },
       {
-        "Name": "Cameras",
-        "children": [
-          {
-            "Name": "Camera 1"
-          },
-          {
-            "Name": "Camera 2"
-          },
-          {
-            "Name": "Camera 3"
-          },
-          {
-            "Name": "Camera 4"
-          }
-        ]
-      },
-      {
         "Name": "Probes set"
       }
     ]
@@ -436,86 +419,6 @@
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/Path",
                   "value": "Contents/Hardware/LeakTester2.content"
-                },
-                "asyncWait": true
-              }
-            ]
-          },
-          {
-            "caseValue": {
-              "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/Any",
-              "value": "Camera 1"
-            },
-            "actions": [
-              {
-                "objectType": "WriteToSymbol",
-                "active": true,
-                "symbolExpression": "%i%IO_Screen%/i%",
-                "value": {
-                  "objectType": "StaticValue",
-                  "valueType": "tchmi:framework#/definitions/Path",
-                  "value": "Contents/Hardware/KeyenceCamera1.content"
-                },
-                "asyncWait": true
-              }
-            ]
-          },
-          {
-            "caseValue": {
-              "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/Any",
-              "value": "Camera 2"
-            },
-            "actions": [
-              {
-                "objectType": "WriteToSymbol",
-                "active": true,
-                "symbolExpression": "%i%IO_Screen%/i%",
-                "value": {
-                  "objectType": "StaticValue",
-                  "valueType": "tchmi:framework#/definitions/Path",
-                  "value": "Contents/Hardware/KeyenceCamera2.content"
-                },
-                "asyncWait": true
-              }
-            ]
-          },
-          {
-            "caseValue": {
-              "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/Any",
-              "value": "Camera 3"
-            },
-            "actions": [
-              {
-                "objectType": "WriteToSymbol",
-                "active": true,
-                "symbolExpression": "%i%IO_Screen%/i%",
-                "value": {
-                  "objectType": "StaticValue",
-                  "valueType": "tchmi:framework#/definitions/Path",
-                  "value": "Contents/Hardware/KeyenceCamera3.content"
-                },
-                "asyncWait": true
-              }
-            ]
-          },
-          {
-            "caseValue": {
-              "objectType": "StaticValue",
-              "valueType": "tchmi:general#/definitions/Any",
-              "value": "Camera 4"
-            },
-            "actions": [
-              {
-                "objectType": "WriteToSymbol",
-                "active": true,
-                "symbolExpression": "%i%IO_Screen%/i%",
-                "value": {
-                  "objectType": "StaticValue",
-                  "valueType": "tchmi:framework#/definitions/Path",
-                  "value": "Contents/Hardware/KeyenceCamera4.content"
                 },
                 "asyncWait": true
               }

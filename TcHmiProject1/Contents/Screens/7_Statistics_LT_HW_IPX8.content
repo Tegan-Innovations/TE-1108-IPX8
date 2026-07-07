@@ -1,6 +1,6 @@
 <div id="Content1_6" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1340" data-tchmi-height="480" data-tchmi-zindex="1">
 
-<div id="TcHmiDatagrid_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiDatagrid" data-tchmi-height="470" data-tchmi-height-unit="px" data-tchmi-left="413" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="684" data-tchmi-width-unit="px" data-tchmi-row-height="50" data-tchmi-grid-font-style="Normal" data-tchmi-grid-font-weight="Bold" data-tchmi-grid-font-size="25" data-tchmi-zindex="1" data-tchmi-indirect-write="True" data-tchmi-is-enabled="True" data-tchmi-is-read-only="False" data-tchmi-combobox-drop-down-style="Mobile" data-tchmi-show-row-numbers="False" data-tchmi-src-data="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI%/s%">
+<div id="TcHmiDatagrid_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiDatagrid" data-tchmi-height="346" data-tchmi-height-unit="px" data-tchmi-left="413" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="684" data-tchmi-width-unit="px" data-tchmi-row-height="50" data-tchmi-grid-font-style="Normal" data-tchmi-grid-font-weight="Bold" data-tchmi-grid-font-size="25" data-tchmi-zindex="1" data-tchmi-indirect-write="True" data-tchmi-is-enabled="True" data-tchmi-is-read-only="False" data-tchmi-combobox-drop-down-style="Mobile" data-tchmi-show-row-numbers="False" data-tchmi-src-data="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI%/s%">
 
 <script data-tchmi-target-attribute="data-tchmi-cell-content-padding" type="application/json">
 {
@@ -261,7 +261,7 @@
           "objectType": "StaticValue",
           "valueType": "tchmi:framework#/definitions/TcHmi.Controls.System.TcHmiPopup.TargetFile",
           "value": {
-            "path": "Contents/Screens/9_Data_HistoryNest1_LT_HW_VC.content"
+            "path": "Contents/Screens/9_Data_HistoryNest1_LT_HW_IPX8.content"
           }
         },
         "asyncWait": true
@@ -293,7 +293,7 @@
           "objectType": "StaticValue",
           "valueType": "tchmi:framework#/definitions/TcHmi.Controls.System.TcHmiPopup.TargetFile",
           "value": {
-            "path": "Contents/Screens/9_Data_HistoryNest2_LT_HW_VC.content"
+            "path": "Contents/Screens/9_Data_HistoryNest2_LT_HW_IPX8.content"
           }
         },
         "asyncWait": true
@@ -325,10 +325,6 @@
 
 
 </div>
-<div id="TcHmiButton_111" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="798" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="344" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.6.bResetGood%/s%">
-
-
-</div>
 <div id="TcHmiButton_113" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="898" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.1.bResetBad%/s%">
 
 
@@ -349,20 +345,10 @@
 
 
 </div>
-<div id="TcHmiButton_118" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="898" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="344" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.6.bResetBad%/s%">
-
-
-</div>
 <div id="TcHmiButton_121" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="798" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="42" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.bResetGood%/s%">
 
 </div>
 <div id="TcHmiButton_122" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="898" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="42" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.bResetBad%/s%">
-
-</div>
-<div id="TcHmiButton_167" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="798" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="392" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.7.bResetGood%/s%">
-
-</div>
-<div id="TcHmiButton_168" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="45" data-tchmi-height-unit="px" data-tchmi-left="898" data-tchmi-left-unit="px" data-tchmi-text="RESET" data-tchmi-top="392" data-tchmi-top-unit="px" data-tchmi-width="90" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.7.bResetBad%/s%">
 
 </div>
 </div>

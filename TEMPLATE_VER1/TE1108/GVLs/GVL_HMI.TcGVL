@@ -20,6 +20,8 @@
 	tonHMIAliveOn						: TON;
 	tonHMIAliveOff						: TON;
 	bOutHMI								: BOOL;
+	bEmptyRejectChuteAcknowledge  		: BOOL;
+	bEmptyRejectChute					: BOOL;
 	
 /////////////////////////////////////////////////////////////////////////////////////SYSTEM INFO/////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,13 +46,16 @@
 	stAnimations						: ST_Animations;
 	
 	bProcessCylinder_Up					: BOOL;
-	bProcessCylinder_Down2				: BOOL;
+	bProcessCylinder_Down				: BOOL;
+	bEnableProcessCylinderDown			: BOOL;
 	
-	bProcessDoor_Up2					: BOOL;
+	
+	bProcessDoor_Up						: BOOL;
 	bProcessDoor_Down					: BOOL;
 	
 	bSlideNestRight						: BOOL;
 	bSlideNestLeft						: BOOL;
+	bEnableSildeNest					: BOOL;
 	
 	bLeaktester1_Start					: BOOL;
 	bLeaktester2_Start					: BOOL;
@@ -59,7 +64,7 @@
 	bLeaktester1_Reset					: BOOL;
 	bLeaktester2_Reset					: BOOL;
 	
-	bProcessCylinderDownEnable			: BOOL;
+	
 	
 	//Probes
 	bSetTolerances						: BOOL;

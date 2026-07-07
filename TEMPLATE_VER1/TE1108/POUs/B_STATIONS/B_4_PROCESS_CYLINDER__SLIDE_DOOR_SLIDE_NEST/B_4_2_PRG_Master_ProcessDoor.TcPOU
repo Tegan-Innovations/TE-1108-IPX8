@@ -16,6 +16,10 @@ VAR
 	tonDoorOpened						: TON;
 	bDoorOpened							: BOOL;
 	
+	bProcessCylinderNotHomed			: BOOL;
+	bSlideNestNotHomed					: BOOL;
+	
+	
 
 	
 	
@@ -33,6 +37,11 @@ c_Manual();
         <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES/////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
+IF stProcessDoor.State <> E_ProcessDoor_State.HOMING THEN
+	
+	bDoorClosingInitFlag											:= FALSE;
+
+END_IF
 
 
 IF stProcessDoor.CMD.bAbort THEN
@@ -56,10 +65,26 @@ CASE stProcessDoor.State OF
 								END_IF
 								
 		E_ProcessDoor_State.HOMING: 
-	
-								bOpenDoor							:= TRUE;
+		
+								IF bProcessCylinderNotHomed OR bSlideNestNotHomed THEN
+									
+									bCloseDoor						:= TRUE;
+									bOpenDoor						:= FALSE;
+									
+									IF NOT bDoorClosed AND bCloseDoor THEN
+										
+										bDoorClosingInitFlag		:= TRUE;
+									ELSE bDoorClosingInitFlag		:= FALSE;
+									END_IF
+									
+								ELSE
+									
+									bCloseDoor						:= FALSE;
+									bOpenDoor						:= TRUE;
+									
+								END_IF
 								
-								IF bDoorOpened THEN
+								IF bDoorOpened AND NOT (bProcessCylinderNotHomed OR bSlideNestNotHomed) THEN
 									
 									stProcessDoor.State				:= E_ProcessDoor_State.READY;									
 									bOpenDoor						:= FALSE;
@@ -162,12 +187,15 @@ stProcessDoor.Status.bStopped		:= 	NOT stProcessDoor.Status.bBusy;]]></ST>
 
 bDoorClosed								:= dw_T05_EL1918.iProcessDoorClosed1 AND dw_T05_EL1918.iProcessDoorClosed2 AND dw_T05_EL1918.iProcessDoorFB;
 bDoorOpened								:= tonDoorOpened.Q; 
+bProcessDoorClosed						:= bDoorClosed;
 
 bDoorOpenedFlag							:= bDoorOpened;
 
-dw_T09_EL2809.qOpenProcessDoor	:= bOpenDoor OR bOpenDoorHMI OR stTwinSAFE.iInitSafety OR bOpenDoorCycleFault;	
-dw_T09_EL2809.qCloseProcessDoor	:= bCloseDoor OR bCloseDoorHMI;
+dw_T09_EL2809.qOpenProcessDoor			:= bOpenDoor OR bOpenDoorHMI OR stStationEvents[4].aEvents[0].bEventTimer.Q;//OR bOpenDoorCycleFault;	
+dw_T09_EL2809.qCloseProcessDoor			:= bCloseDoor OR bCloseDoorHMI;
 
+bProcessCylinderNotHomed				:= NOT stTwinSAFE.qProcessCylinderRetracted;
+bSlideNestNotHomed						:= NOT dw_T08_EL1809.iSlideNestRetracted;
 
 ]]></ST>
       </Implementation>
@@ -188,7 +216,7 @@ ELSIF bDoorClosed  OR NOT stMachineStatus.bManualMode THEN
 
 END_IF
 
-IF bProcessDoor_UP2 THEN
+IF bProcessDoor_UP THEN
 	
 	bOpenDoorHMI					:= TRUE;
 	

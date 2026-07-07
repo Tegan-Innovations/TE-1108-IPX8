@@ -33,6 +33,7 @@ SAVE_DATA2						,
 CSV_NEST1						,
 CSV_NEST2						,
 WAIT_REJECT_PART				,
+REJECT_CHUTE_FULL				,
 
 RESET_ALL_CMD						
 
