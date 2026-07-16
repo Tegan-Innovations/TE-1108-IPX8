@@ -1,0 +1,410 @@
+<div id="NestSuport_9" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1080" data-tchmi-height="480" data-tchmi-zindex="1">
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+<div id="TcHmiTextblock_1373" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="33" data-tchmi-height-unit="px" data-tchmi-left="643" data-tchmi-left-unit="px" data-tchmi-text="Puck Gate Operation Mode" data-tchmi-top="106" data-tchmi-top-unit="px" data-tchmi-width="208" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="26" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="16" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "left": 0,
+  "right": 0,
+  "top": 0,
+  "bottom": 0,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_189" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="191" data-tchmi-height-unit="px" data-tchmi-left="631" data-tchmi-left-unit="px" data-tchmi-top="124" data-tchmi-top-unit="px" data-tchmi-width="326" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
+<script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
+{
+  "topLeft": 10.0,
+  "topRight": 10.0,
+  "bottomLeft": 10.0,
+  "bottomRight": 10.0,
+  "topLeftUnit": "px",
+  "topRightUnit": "px",
+  "bottomLeftUnit": "px",
+  "bottomRightUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-box-shadow" type="application/json">
+[]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+</div>
+<div id="TcHmiToggleSwitch_EnableGate_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleSwitch" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="654" data-tchmi-left-unit="px" data-tchmi-text="Enable Gate" data-tchmi-top="175" data-tchmi-top-unit="px" data-tchmi-width="230" data-tchmi-width-unit="px" data-tchmi-text-font-size="18" data-tchmi-is-enabled="%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onToggleStateChanged",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:framework#/definitions/ToggleState",
+                  "symbolExpression": "%ctrl%TcHmiToggleSwitch_EnableGate_8::ToggleState%/ctrl%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ToggleState",
+                  "value": "Active"
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerGateEnable%/s%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerGateEnable%/s%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerGateEnable%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::ToggleState%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ToggleState",
+                  "value": "Active"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::ToggleState%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ToggleState",
+                  "value": "Normal"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+
+</div>
+<div id="TcHmiToggleSwitch_EnableSkipButton_8"
+     data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiToggleSwitch"
+     data-tchmi-height="30"
+     data-tchmi-height-unit="px"
+     data-tchmi-left="654"
+     data-tchmi-left-unit="px"
+     data-tchmi-text="Enable Skip Button"
+     data-tchmi-top="228"
+     data-tchmi-top-unit="px"
+     data-tchmi-width="230"
+     data-tchmi-width-unit="px"
+     data-tchmi-text-font-size="18"
+     data-tchmi-is-enabled="%s%ADS.PLC1.GVL_HMI.bPuckLockerGateEnable%/s%">
+
+    <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+        [
+          {
+            "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onToggleStateChanged",
+            "actions": [
+              {
+                "objectType": "Condition",
+                "active": true,
+                "parts": [
+                  {
+                    "if": [
+                      {
+                        "compare1": {
+                          "objectType": "Symbol",
+                          "valueType": "tchmi:framework#/definitions/ToggleState",
+                          "symbolExpression": "%ctrl%TcHmiToggleSwitch_EnableSkipButton_8::ToggleState%/ctrl%"
+                        },
+                        "compare2": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/ToggleState",
+                          "value": "Active"
+                        },
+                        "compareOperator": "==",
+                        "logic": null
+                      }
+                    ],
+                    "then": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerSkipEnable%/s%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:general#/definitions/BOOL",
+                          "value": true
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  },
+                  {
+                    "else": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerSkipEnable%/s%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:general#/definitions/BOOL",
+                          "value": false
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onAttached",
+            "actions": [
+              {
+                "objectType": "Condition",
+                "active": true,
+                "parts": [
+                  {
+                    "if": [
+                      {
+                        "compare1": {
+                          "objectType": "Symbol",
+                          "valueType": "tchmi:general#/definitions/BOOL",
+                          "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bPuckLockerSkipEnable%/s%"
+                        },
+                        "compare2": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:general#/definitions/BOOL",
+                          "value": true
+                        },
+                        "compareOperator": "==",
+                        "logic": null
+                      }
+                    ],
+                    "then": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctx%owner::ToggleState%/ctx%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/ToggleState",
+                          "value": "Active"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  },
+                  {
+                    "else": [
+                      {
+                        "objectType": "WriteToSymbol",
+                        "active": true,
+                        "symbolExpression": "%ctx%owner::ToggleState%/ctx%",
+                        "value": {
+                          "objectType": "StaticValue",
+                          "valueType": "tchmi:framework#/definitions/ToggleState",
+                          "value": "Normal"
+                        },
+                        "asyncWait": true
+                      }
+                    ]
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          }
+        ]
+    </script>
+</div>
+<div id="TcHmiRegion_13" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="400" data-tchmi-height-unit="px" data-tchmi-left="50" data-tchmi-left-unit="px" data-tchmi-top="40" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-target-content="Contents/Settings/ProbePositions1.content">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.0%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Settings/ProbePositions1.content"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_Master.stMACHINE.bMachine.1%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::TargetContent%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/ContentPath",
+                  "value": "Contents/Settings/ProbePositions2.content"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+</div>

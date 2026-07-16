@@ -206,6 +206,11 @@ stStationEvents[0].aEvents[34].bEventFlag					:= stStationEvents[0].aEvents[34].
 stStationEvents[0].aEvents[34].bEventText					:= 'Auto Cycle Timeout' ;
 stStationEvents[0].aEvents[34].sSolution					:= 'Reset System';
 
+// PUCK LOCKER //Renan Added 06Jul26
+stStationEvents[0].aEvents[35].bFault 						:= TRUE;
+stStationEvents[0].aEvents[35].bEventFlag 					:= GVL_Stations.stPuckLocker.bUnexpectedRemovalFault;
+stStationEvents[0].aEvents[35].bEventText 					:= 'Puck removed while locker pin was engaged';
+stStationEvents[0].aEvents[35].sSolution 					:= 'Return puck to the locker position and acknowledge the alarm with Administrator access';
 
 
 

@@ -306,7 +306,7 @@
 </div>
 <div id="TcHmiTextblock_1135" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="px" data-tchmi-left="946" data-tchmi-left-unit="px" data-tchmi-text="%s%ADS.PLC1.B_2_1_PRG_Master_Height_Test.anMaximumDistance.2%/s%" data-tchmi-top="250" data-tchmi-top-unit="px" data-tchmi-width="88" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
 </div>
-<div id="TcHmiRegion_12" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="400" data-tchmi-height-unit="px" data-tchmi-left="50" data-tchmi-left-unit="px" data-tchmi-top="40" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px">
+<div id="TcHmiRegion_12" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="400" data-tchmi-height-unit="px" data-tchmi-left="50" data-tchmi-left-unit="px" data-tchmi-top="40" data-tchmi-top-unit="px" data-tchmi-width="500" data-tchmi-width-unit="px" data-tchmi-target-content="Contents/Settings/ProbePositions1.content">
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {

@@ -148,16 +148,58 @@
     "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
     "actions": [
       {
-        "objectType": "Function",
+        "objectType": "WriteToSymbol",
         "active": true,
-        "fn": "TcHmi.Functions.Beckhoff.LogoutEx",
-        "fnParams": [
-          {
-            "objectType": "StaticValue",
-            "valueType": "tchmi:general#/definitions/Boolean",
-            "value": true
-          }
-        ],
+        "symbolExpression": "%i%YESNOpopup_close%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": false
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%Popup_logoff::Visibility%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/Visibility",
+          "value": "Visible"
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%YESNOpopup_Header%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/String",
+          "value": "LOGOFF"
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%YESNOpopup_Text%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/String",
+          "value": "DO YOU WANT TO LOGOFF?"
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%YESNOpopup_setting_in%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/DINT",
+          "value": 1
+        },
         "asyncWait": true
       }
     ]

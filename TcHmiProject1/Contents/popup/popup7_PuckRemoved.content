@@ -1,0 +1,27 @@
+<div id="popup1_4"
+     data-tchmi-type="TcHmi.Controls.System.TcHmiContent"
+     data-tchmi-top="0"
+     data-tchmi-left="0"
+     data-tchmi-width="500"
+     data-tchmi-height="300">
+
+    <div id="Part_Rejected_18"
+         data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost"
+         data-tchmi-height="300"
+         data-tchmi-height-unit="px"
+         data-tchmi-left="0"
+         data-tchmi-left-unit="px"
+         data-tchmi-top="0"
+         data-tchmi-top-unit="px"
+         data-tchmi-width="500"
+         data-tchmi-width-unit="px"
+         data-tchmi-target-user-control="Contents/UserControl/PopUp/YesNoRed.usercontrol"
+         data-tchmi-header="PUCK WAS REMOVED INCORRECTLY"
+         data-tchmi-text="Please, put the PUCK back and call the SUPERVISOR"
+         data-tchmi-yes="%s%ADS.PLC1.GVL_HMI.stPuckLocker.bCmdAcknowledgeRemovalFault%/s%"
+         data-tchmi-no="%i%PuckRemoved_No%/i%"
+         data-tchmi-closepopup="%i%PuckRemoved_Close%/i%"
+         data-tchmi-enableyes="%s%ADS.PLC1.GVL_HMI.stPuckLocker.bPuckDetected%/s%">
+    </div>
+
+</div>

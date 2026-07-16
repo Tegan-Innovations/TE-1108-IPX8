@@ -139,7 +139,8 @@ END_CASE
 
 stSlideNest.Status.bBusy			:= 	stSlideNest.State	= E_SlideNest_State.MOVE_RIGHT OR
 										stSlideNest.State	= E_SlideNest_State.MOVE_LEFT OR 
-										stSlideNest.State	= E_SlideNest_State.STOPPING;
+										stSlideNest.State	= E_SlideNest_State.STOPPING OR
+										stSlideNest.State	= E_SlideNest_State.HOMING;
 								
 stSlideNest.Status.bDone			:=	stSlideNest.State	= E_SlideNest_State.DONE;
 

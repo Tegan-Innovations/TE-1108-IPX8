@@ -30,10 +30,13 @@ VAR
 	
 	tonProcessCylinderDelay		: TON;
 	
+	tonCylinderDwell			: TON; //Renan added - Buglist n13 - 08Jul26
+	
 	
 
 /////////////////////////////////////////////////////////////////////////////////////I/O/////////////////////////////////////////////////////////////////////////////////////	
 
+	bSlideNestNotHomed			: BOOL;
 	bPartPresentNest1			: BOOL;
 	bPartPresentNest2			: BOOL;
 	rRejectSensor				: R_TRIG;
@@ -42,6 +45,17 @@ VAR
 	
 	bProcessedPart				: ARRAY[0..1] OF BOOL;
 	fProcessedPart				: ARRAY[0..1] OF F_TRIG;
+	
+		(* Renan Added - Buglist n6 - 08Jul26 *)
+	bNest1StartOK				: BOOL;
+	bNest2StartOK				: BOOL;
+	bCycleHasFailure 			: BOOL;
+	bCycleAllProcessedPass		: BOOL;
+	(*\Renan Added - Buglist n6 - 08Jul26 *)
+	
+	bPuckLockerReadyToStart		: BOOL; (* Renan Added - Puck Locker Bug - 08Jul26 *)
+	nPucksToRelease 			: USINT;(* Renan Added - Puck Locker Bug - 08Jul26 *)
+	bPuckLockerEnable       	: BOOL; (* Renan added - Puck Locker Bug - 10Jul26*)
 	
 	
 	
@@ -186,6 +200,7 @@ E_MachineState.STOPPED:
 
 E_MachineState.SAFETY:
 
+				GVL_IO.dw_T09_EL2809.qOpenProcessDoor   := TRUE; // Thays added - Buglist n1 - 08Jul26
 				stTwinSAFE.iRunSafety					:= TRUE;
 				
 				IF stTwinSAFE.qSafetyOk THEN
@@ -213,7 +228,7 @@ E_MachineState.SYSTEM_INITIALISING:
 				stProcessCylinder.CMD.bAbort			:= FALSE;
 				stProcessDoor.CMD.bAbort				:= FALSE;	
 
-				IF NOT stTwinSAFE.qProcessCylinderRetracted AND NOT bProcessDoorClosed THEN
+				IF ( NOT stTwinSAFE.qProcessCylinderRetracted OR bSlideNestNotHomed) AND NOT bProcessDoorClosed THEN
 						
 						sMachineMessage					:= 'trigger both safety buttons to reset machine';
 						
@@ -228,13 +243,13 @@ E_MachineState.SYSTEM_INITIALISING:
 							sMachineMessage				:= '';
 							
 						END_IF
-					ELSE
-						
+				ELSIF stTwinSAFE.qProcessCylinderRetracted AND NOT bSlideNestNotHomed THEN
+					
 					stSlideNest.CMD.bEnable				:= TRUE;	
 					stLeakTesters.CMD.bEnable			:= TRUE;	
 					stHeightTests.CMD.bEnable			:= TRUE;
 					stProcessCylinder.CMD.bEnable		:= TRUE;
-					stProcessDoor.CMD.bEnable			:= TRUE;						
+					stProcessDoor.CMD.bEnable			:= TRUE;				
 				
 				END_IF
 				
@@ -291,6 +306,8 @@ E_MachineState.STOPPING:
 
 E_MachineState.FAULT:	
 				
+				GVL_IO.dw_T09_EL2809.qOpenProcessDoor   :=TRUE; // Thays added - Buglist n1 - 08Jul26
+
 				IF stMasterCtrl.bNoFault	THEN
 					stMachineStatus.eMachineState		:= E_MachineState.STOPPED;		
 				END_IF
@@ -373,12 +390,15 @@ tonExecute( IN := 	eCycleState = E_General_ProcessCycle.CLOSE_PROCESS_DOOR OR
 					eCycleState = E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER OR
 					eCycleState = E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER OR
 					eCycleState = E_General_ProcessCycle.RETRACT_MIDDLE_PROCESS_CYLINDER OR
+					eCycleState = E_General_ProcessCycle.WAIT_PRE_RETRACT_PROCESS_CYLINDER OR
 					eCycleState = E_General_ProcessCycle.MOVE_NEST_TO_RIGHT OR
 					eCycleState = E_General_ProcessCycle.MOVE_NEST_TO_LEFT OR
 					eCycleState = E_General_ProcessCycle.LEAK_TEST OR
 					eCycleState = E_General_ProcessCycle.HEIGHT_TEST OR
 					eCycleState = E_General_ProcessCycle.WAIT_TO_SAVE_DATA,
 					PT := T#500MS);
+					
+tonCylinderDwell( IN := eCycleState = E_General_ProcessCycle.PRE_RETRACT_PROCESS_CYLINDER, PT := T#250MS);
 					
 IF (stMachineStatus.eMachineState <> E_MachineState.SYSTEM_AUTO_CYCLE) THEN
 	
@@ -401,9 +421,30 @@ IF stMachineStatus.eMachineState <> E_MachineState.SYSTEM_AUTO_CYCLE THEN
 
 END_IF
 
+(* Renan Added 10Jul26*)
+bPuckLockerEnable := GVL_HMI.bPuckLockerGateEnable;
+(*\Renan Added 10Jul26*)
+
+(*Renan added - Puck Locker Bug - 08Jul26*)
+bPuckLockerReadyToStart := (NOT bPuckLockerEnable) OR (GVL_Stations.stPuckLocker.bPuckDetected AND
+							GVL_Stations.stPuckLocker.bPuckLocked AND GVL_Stations.stPuckLocker.eState = E_PuckLockerState.Locked);
+(*\Renan added - Puck Locker Bug - 08Jul26*)
+
+(*Renan Added 06Jul26*)
+IF bPuckLockerEnable THEN
+	GVL_Stations.stPuckLocker.bNestsEmpty := ((NOT bProcessedPart[0]) OR (NOT bPartPresentNest1)) AND ((NOT bProcessedPart[1]) OR (NOT bPartPresentNest2));
+ELSE
+	GVL_Stations.stPuckLocker.bNestsEmpty := TRUE;
+END_IF
+(*\Renan Added 06Jul26*)
+
 	
 /////////////////////////////////////////////////////////////////////////////////////CONDITIONS/////////////////////////////////////////////////////////////////////////////////////
 
+(* Renan Added - Buglist n6 - 08Jul26 *)
+bNest1StartOK := (NOT bNest1Flag) OR bPartPresentNest1;
+bNest2StartOK := (NOT bNest2Flag) OR bPartPresentNest2;
+(*\Renan Added - Buglist n6 - 08Jul26 *)
 
 bStartProcessCondition := bTwoHandsSignal AND bPartPresentNest1 AND bPartPresentNest2 AND (bNest1Flag OR bNest2Flag);
 
@@ -457,7 +498,7 @@ E_General_ProcessCycle.RESET_ALL_CMD:
 E_General_ProcessCycle.IDLE:
 		
 				//start cycle
-				IF bStartProcessCondition AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] THEN
+				IF bStartProcessCondition AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND bPuckLockerReadyToStart THEN (*Renan added - Puck Locker Bug - 08Jul26*) //Original: IF bStartProcessCondition AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] THEN
 					
 					MEMSET( destAddr := ADR(stCycleDataNest1), fillByte := 0, n := SIZEOF(stCycleDataNest1));
 					MEMSET( destAddr := ADR(stCycleDataNest2), fillByte := 0, n := SIZEOF(stCycleDataNest2));
@@ -497,29 +538,71 @@ E_General_ProcessCycle.IDLE:
 				//Messages to start cycle
 				
 					
-				IF  NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND ( NOT bPartPresentNest1 OR NOT bPartPresentNest2)  THEN
-					
-					sMachineMessage												:= 'Insert parts to continue';
+				(* Renan added - Puck Locker Messages - 08Jul26 *)
 				
-				ELSIF  NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND  bPartPresentNest1 AND bPartPresentNest2  THEN
-					
-					sMachineMessage												:= 'trigger both safety buttons to start cycle';
+				IF bPuckLockerEnable
+				AND GVL_Stations.stPuckLocker.eState = E_PuckLockerState.WaitingForNestsEmpty THEN
+				
+					IF bPartPresentNest1 OR bPartPresentNest2 THEN
+						
+						sMachineMessage := 'Remove parts from nests to release puck';
+						
+					ELSE
+						
+						sMachineMessage := 'Waiting for puck to be released';
+						
+					END_IF
 				
 				ELSIF bProcessedPart[0] AND NOT bProcessedPart[1] AND NOT bStartProcessCondition THEN
 					
-					sMachineMessage												:= 'Remove Processed part from nest 1';
+					IF bPuckLockerEnable THEN
+						sMachineMessage := 'Remove processed part from nest 1 to release puck';
+					ELSE
+						sMachineMessage := 'Remove Processed part from nest 1';
+					END_IF
 					
-				ELSIF NOT bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN
+				ELSIF NOT bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN 
 					
-					sMachineMessage												:= 'Remove Processed part from nest 2';
+					IF bPuckLockerEnable THEN
+						sMachineMessage := 'Remove processed part from nest 2 to release puck';
+					ELSE
+						sMachineMessage := 'Remove Processed part from nest 2';
+					END_IF
 					
-				ELSIF bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN
+				ELSIF bProcessedPart[0] AND bProcessedPart[1] AND NOT bStartProcessCondition THEN 
 					
-					sMachineMessage												:= 'Remove Processed parts';
+					IF bPuckLockerEnable THEN
+						sMachineMessage := 'Remove processed parts to release puck';
+					ELSE
+						sMachineMessage := 'Remove Processed parts';
+					END_IF
+				
+				ELSIF bPuckLockerEnable AND NOT bPuckLockerReadyToStart AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] THEN
+				
+					IF NOT GVL_Stations.stPuckLocker.bPuckDetected THEN
+						
+						sMachineMessage := 'Insert puck into locker to continue';
+						
+					ELSE
+						
+						sMachineMessage := 'Waiting for puck locker to lock puck';
+						
+					END_IF
+				
+				ELSIF NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND (NOT bPartPresentNest1 OR NOT bPartPresentNest2) THEN 
 					
-				ELSE sMachineMessage											:= '';
+					sMachineMessage := 'Insert parts to continue';
+				
+				ELSIF NOT bProcessedPart[0] AND NOT bProcessedPart[1] AND bPartPresentNest1 AND bPartPresentNest2 THEN 
+					
+					sMachineMessage := 'trigger both safety buttons to start cycle';
+				
+				ELSE 
+					
+					sMachineMessage := '';
 						
 				END_IF
+				(*\Renan added - Puck Locker Messages - 08Jul26*)
 			
 E_General_ProcessCycle.CLOSE_PROCESS_DOOR:
 
@@ -539,8 +622,30 @@ E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR:
 				stProcessDoor.CMD.ProcessDoorCMD.CloseDoor						:= FALSE;
 				stProcessDoor.CMD.bExecute										:= FALSE;
 				stProcessDoor.CMD.bAcknowledge									:= TRUE;
-				eCycleState														:= E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER;
+				eCycleState														:= E_General_ProcessCycle.PRE_RETRACT_PROCESS_CYLINDER;
 				
+				END_IF
+		
+E_General_ProcessCycle.PRE_RETRACT_PROCESS_CYLINDER:		
+
+				stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder		:= TRUE;	
+				stProcessCylinder.CMD.bExecute			:= TRUE;
+				
+				IF tonCylinderDwell.Q THEN
+					eCycleState							:= E_General_ProcessCycle.WAIT_PRE_RETRACT_PROCESS_CYLINDER;	
+				END_IF
+
+E_General_ProcessCycle.WAIT_PRE_RETRACT_PROCESS_CYLINDER:
+
+				IF 	stProcessCylinder.Status.bDone OR stProcessCylinder.Status.bReady THEN
+					
+					stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder		:= FALSE;
+					stProcessCylinder.CMD.bExecute		:= FALSE;
+					stProcessCylinder.CMD.bAcknowledge	:= TRUE;
+					
+					IF tonExecute.Q THEN
+						eCycleState							:= E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER;
+					END_IF	
 				END_IF
 								
 E_General_ProcessCycle.EXTEND_PROCESS_CYLINDER:
@@ -899,11 +1004,39 @@ E_General_ProcessCycle.WAIT_OPEN_PROCESS_DOOR:
 					stProcessDoor.CMD.bExecute									:= FALSE;
 					stProcessDoor.CMD.bAcknowledge								:= TRUE;
 					
-					IF stCycleDataNest1.bFail OR stCycleDataNest2.bFail THEN
+					(* Renan Added - Buglist n6 - 08Jul26 *)
+					bCycleHasFailure := (bProcessedPart[0] AND stCycleDataNest1.bFail) OR (bProcessedPart[1] AND stCycleDataNest2.bFail);
+
+					bCycleAllProcessedPass := (bProcessedPart[0] OR bProcessedPart[1]) AND ((NOT bProcessedPart[0]) OR stCycleDataNest1.bPass) AND ((NOT bProcessedPart[1]) OR stCycleDataNest2.bPass);
+					(*\Renan Added - Buglist n6 - 08Jul26 *)
 					
-						eCycleState												:= E_General_ProcessCycle.WAIT_REJECT_PART;
+					(* Renan Added 10Jul26 - Puck Locker *)
+					IF bPuckLockerEnable AND bCycleAllProcessedPass THEN
 					
-					ELSE eCycleState											:= E_General_ProcessCycle.RESET_ALL_CMD;
+						GVL_Stations.stPuckLocker.nRequestedRelease := USINT#0;
+					
+						IF bProcessedPart[0] AND stCycleDataNest1.bPass THEN
+							GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
+						END_IF
+					
+						IF bProcessedPart[1] AND stCycleDataNest2.bPass THEN
+							GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
+						END_IF
+					
+						GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+					
+					END_IF
+					(*\Renan Added 10Jul26 - Puck Locker *)
+					
+					
+					
+					IF bCycleHasFailure THEN //Bugfix 08Jul26
+					
+						eCycleState									:= E_General_ProcessCycle.WAIT_REJECT_PART;
+					
+					ELSIF bCycleAllProcessedPass THEN //Bugfix 08Jul26
+
+						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
 						
 					END_IF
 				
@@ -918,6 +1051,13 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 					sMachineMessage												:= 'REMOVE PART FROM NEST 1 AND PUT IN REJECT CHUTE';
 					
 					IF ctuRejectPart.CV > 0 AND NOT bPartPresentNest1 AND (bPartPresentNest2 OR NOT bProcessedPart[1])  THEN
+						
+						(* Renan Added 10Jul26 - Puck Locker *)
+						IF bPuckLockerEnable THEN
+							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#1;
+							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+						END_IF
+						(*\Renan Added 10Jul26 - Puck Locker *)
 						
 						eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
 						
@@ -944,6 +1084,13 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 					
 					IF ctuRejectPart.CV > 0 AND NOT bPartPresentNest2 AND (bPartPresentNest1 OR NOT bProcessedPart[0])  THEN
 						
+						(* Renan Added 10Jul26 - Puck Locker *)
+						IF bPuckLockerEnable THEN
+							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#1;
+							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+						END_IF
+						(*\Renan Added 10Jul26 - Puck Locker *)
+						
 						eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
 						
 					ELSIF ctuRejectPart.CV > 0 AND (bPartPresentNest1 OR (NOT bPartPresentNest1 AND bProcessedPart[0])) THEN
@@ -965,15 +1112,22 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 				
 				ELSIF stCycleDataNest1.bFail AND stCycleDataNest2.bFail THEN
 					
-					IF ctuRejectPart.CV > 1 AND NOT bPartPresentNest1 AND NOT bPartPresentNest1 THEN
+					IF ctuRejectPart.CV > 1 AND NOT bPartPresentNest1 AND NOT bPartPresentNest2 THEN
 						
-						eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
-					
-					ELSIF ctuRejectPart.CV > 1 AND ( bPartPresentNest1 OR bPartPresentNest1) THEN
+						(* Renan Added 10Jul26 - Puck Locker *)
+						IF bPuckLockerEnable THEN
+							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#0;
+							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+						END_IF
+						(*\Renan Added 10Jul26 - Puck Locker *)
 						
-						bRejectPartFault										:= TRUE; 		
+						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
 					
-					END_IF
+					ELSIF ctuRejectPart.CV > 1 AND ( bPartPresentNest1 OR bPartPresentNest2) THEN
+						
+						bRejectPartFault						:= TRUE; 		
+					
+					END_IF;
 					
 					sMachineMessage												:= 'REMOVE PART FROM BOTH NESTS AND PUT IN REJECT CHUTE';
 					
@@ -1160,7 +1314,9 @@ END_IF
 				
 stTwinSAFE.iMachineHoming_Manual		:= 	stMachineStatus.eMachineState = E_MachineState.SAFETY OR
 										stMachineStatus.eMachineState = E_MachineState.SYSTEM_INITIALISING OR 
-										stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE;												]]></ST>
+										stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE;												
+										
+bSlideNestNotHomed					:= NOT dw_T08_EL1809.iSlideNestRetracted;]]></ST>
       </Implementation>
     </Action>
   </POU>

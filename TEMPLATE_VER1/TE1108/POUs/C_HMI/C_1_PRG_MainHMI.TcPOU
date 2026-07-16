@@ -23,7 +23,8 @@ bOpenRejectDialog			:= bRejectPartDialog[0] OR bRejectPartDialog[1] OR bRejectPa
 bProcessDoorClosed			:= dw_T05_EL1918.iProcessDoorClosed1 AND dw_T05_EL1918.iProcessDoorClosed2 AND dw_T05_EL1918.iProcessDoorFB;
 
 bEnableSildeNest			:= bProcessDoorClosed AND  stTwinSAFE.qProcessCylinderRetracted;
-bEnableProcessCylinderDown	:= bProcessDoorClosed AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted);
+
+bEnableProcessCylinder1		:= bProcessDoorClosed AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted);
 
 srRejectChuteFull(SET1 := stStationEvents[0].aEvents[18].bEventTimer.Q, RESET := bEmptyRejectChuteAcknowledge AND NOT dw_T08_EL1809.iRejectSensor , Q1 => bEmptyRejectChute);
 	]]></ST>
@@ -149,7 +150,9 @@ stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut 
     </Action>
     <Action Name="c_ACT_IO" Id="{5594a5d6-af1e-4a8b-85d6-f9bf1b336af1}">
       <Implementation>
-        <ST><![CDATA[dw_T09_EL2809.qPanelLightLED				:= bLightsOnOff;]]></ST>
+        <ST><![CDATA[dw_T09_EL2809.qPanelLightLED				:= bLightsOnOff;
+
+]]></ST>
       </Implementation>
     </Action>
   </POU>

@@ -275,6 +275,9 @@
     <Content Include="Contents\popup\popup2_EmptyRejectChute.content">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Contents\popup\popup3_LogoffPage.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Contents\popup\popup6_ChangeSettings_ver2.content">
       <SubType>Content</SubType>
     </Content>
@@ -282,6 +285,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\popup\popup1_RejectedPart.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\popup\popup7_PuckRemoved.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\10_Manage_Users.content">
@@ -329,13 +335,16 @@
     <Content Include="Contents\Settings\Distances.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Settings\ProbePositions2.content">
+    <Content Include="Contents\Settings\NestOffset.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\ProbePositions1.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\EnableNests.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\PuckLockerMode.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\Tolerances.content">
@@ -431,6 +440,13 @@
     <Content Include="Contents\UserControl\PopUp\Acknowledge.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>Contents\UserControl\PopUp\Acknowledge.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNoRed.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNoRed.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\YesNoRed.usercontrol</DependentUpon>
     </Content>
     <Content Include="Contents\UserControl\PopUp\YesNo_ver2.usercontrol">
       <SubType>Content</SubType>

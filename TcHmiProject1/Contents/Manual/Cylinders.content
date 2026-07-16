@@ -67,9 +67,72 @@
 
 
 </div>
-<div id="TcHmiButton_168" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="27" data-tchmi-left-unit="px" data-tchmi-text="DOWN" data-tchmi-top="142" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinderDown%/s%" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinder_Down%/s%" data-tchmi-zindex="1">
+<div id="TcHmiButton_168" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="27" data-tchmi-left-unit="px" data-tchmi-text="DOWN" data-tchmi-top="142" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinder_Down|BindingMode=TwoWay%/s%" data-tchmi-zindex="1">
 
 
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::IsEnabled%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/Boolean",
+                  "value": true
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::IsEnabled%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/Boolean",
+                  "value": false
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
 <div id="Led_158" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="151" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="71" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_1_PRG_Master_ProcessCylinder.bRetracted%/s%" data-tchmi-zindex="1">
 </div>

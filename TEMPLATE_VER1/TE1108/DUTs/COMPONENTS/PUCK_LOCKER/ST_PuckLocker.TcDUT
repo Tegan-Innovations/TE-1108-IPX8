@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_PuckLocker" Id="{2d15082c-6875-4057-b4e5-762b11cb38bc}">
+    <Declaration><![CDATA[TYPE ST_PuckLocker :
+STRUCT
+	eState                  : E_PuckLockerState;
+	
+	bNestsEmpty 			: BOOL;
+    
+	bPuckSensorUp           : BOOL;
+    bPuckSensorDown         : BOOL;
+    bPuckDetected           : BOOL;
+    bPuckSensorMismatch     : BOOL;
+
+    bPinCommandUp           : BOOL;
+    bPuckLocked             : BOOL;
+
+    bRemovalAllowed         : BOOL;
+    bUnexpectedRemovalFault : BOOL;
+
+    nPucksAllowedToPass     : USINT;
+    nPucksToRemove          : USINT;
+
+    bApplyDisposition       : BOOL;
+    nRequestedRelease       : USINT;
+    nRequestedRemoval       : USINT;
+
+    bDispositionPending     : BOOL;
+    bDispositionHandled     : BOOL;
+
+    sMessage                : STRING(255);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

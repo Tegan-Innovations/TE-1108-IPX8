@@ -1,6 +1,6 @@
 <div id="Content1_33" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1340" data-tchmi-height="480">
 
-<div id="TcHmiDatagrid_15" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiDatagrid" data-tchmi-height="480" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="1249" data-tchmi-width-unit="px" data-tchmi-grid-font-size="20" data-tchmi-grid-font-style="Normal" data-tchmi-grid-font-weight="Bold" data-tchmi-zindex="2" data-tchmi-header-font-size="10" data-tchmi-show-row-numbers="True" data-tchmi-is-enabled="True" data-tchmi-is-read-only="False" data-tchmi-src-data="%s%ADS.PLC1.GVL_Persistent.aDataHistoryNest2%/s%">
+<div id="TcHmiDatagrid_15" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiDatagrid" data-tchmi-height="400" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="70" data-tchmi-top-unit="px" data-tchmi-width="1249" data-tchmi-width-unit="px" data-tchmi-grid-font-size="20" data-tchmi-grid-font-style="Normal" data-tchmi-grid-font-weight="Bold" data-tchmi-zindex="2" data-tchmi-header-font-size="10" data-tchmi-show-row-numbers="True" data-tchmi-is-enabled="True" data-tchmi-is-read-only="False" data-tchmi-src-data="%s%ADS.PLC1.GVL_Persistent.aDataHistoryNest2%/s%">
 <script data-tchmi-target-attribute="data-tchmi-cell-content-padding" type="application/json">
 {
   "left": 3,
@@ -353,6 +353,15 @@
   "topRightUnit": "px",
   "bottomLeftUnit": "px",
   "bottomRightUnit": "px"
+}
+</script>
+
+
+</div>
+<div id="TcHmiTextblock_1376" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="509" data-tchmi-left-unit="px" data-tchmi-text="TEST ZONE - RH" data-tchmi-top="19" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="150" data-tchmi-text-font-size-unit="%" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
 }
 </script>
 

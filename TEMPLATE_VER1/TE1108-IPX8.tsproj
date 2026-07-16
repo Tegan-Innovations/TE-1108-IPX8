@@ -684,13 +684,13 @@
 				<Cpu CpuId="3"/>
 			</Settings>
 			<Licenses IgnoreProjectLicenses="true">
-				<Target BkhfOrder="01825039">
+				<Target BkhfOrder=" 01825039">
 					<ManualSelect>{796D380F-D49E-4C0C-A05F-500052FAC883}</ManualSelect>
 					<ManualSelect>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</ManualSelect>
 					<ManualSelect>{8C57D0A8-BD63-4554-BAE1-E9C797EF0D0E}</ManualSelect>
 					<TargetSelect TargetId="2">{796D380F-D49E-4C0C-A05F-500052FAC883}</TargetSelect>
 					<TargetSelect TargetId="2">{8C57D0A8-BD63-4554-BAE1-E9C797EF0D0E}</TargetSelect>
-					<LicenseDevice DongleHardwareId="2" DongleDevice="#x03020002" DongleLevel="50" DongleSystemId="{B2900920-B36A-1DFC-6A10-2BC0D8A07B93}" DongleSerialNumber="000btri0" DongleCacheLicense="true"/>
+					<LicenseDevice DongleHardwareId="2" DongleDevice="#x03020002" DongleLevel="50" DongleSystemId="{6BDA4D23-1EA3-A83B-E8D9-BB6590633B02}" DongleSerialNumber="000btrhk" DongleCacheLicense="true"/>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -701,7 +701,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{997013A6-75D1-424B-98F5-A30289B2B96E}" Name="TE1108" PrjFilePath="TE1108\TE1108.plcproj" TmcFilePath="TE1108\TE1108.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{965CE1D3-C43E-93EA-AE5D-0E2259655A61}" TmcPath="TE1108\TE1108.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{FE7D138D-DF36-5129-A07F-28D0D8B5A267}" TmcPath="TE1108\TE1108.tmc">
 					<Name>TE1108 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -802,8 +802,8 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qiEL2809_Ch16</Name>
-							<Comment><![CDATA[ EL2809 channel 16  ]]></Comment>
+							<Name>GVL_IO.dw_T09_EL2809.qPuckLockerPinCommand</Name>
+							<Comment><![CDATA[ EL2809 channel 16]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -845,6 +845,10 @@
 						</Var>
 						<Var>
 							<Name>GVL_IO.stTwinSAFE.iMachineHoming_Manual</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.stTwinSAFE.iPuckError</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -1218,12 +1222,12 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.dw_T08_EL1809.iEL1809_Ch15</Name>
+							<Name>GVL_IO.dw_T08_EL1809.iPuckSensorUp</Name>
 							<Comment><![CDATA[ EL1809 channel 15  ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.dw_T08_EL1809.iEL1809_Ch16</Name>
+							<Name>GVL_IO.dw_T08_EL1809.iPuckSensorDown</Name>
 							<Comment><![CDATA[ EL1809 channel 16  	]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -3448,7 +3452,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 					<Box Id="13" BoxType="9171" BoxFlags="#x00000020">
 						<Name>Term 12 (EL6633)</Name>
 						<ImageId>1001</ImageId>
-						<EtherCAT SlaveType="8" AdsServerAddress="a9fe4f0302010000" FixedAdsServerNetId="true" PdiType="#x0408" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e93052" RevisionNo="#x00110000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="60000" TimeoutStateChange2="30000" TimeoutStateChange3="30000" TimeoutStateChange4="300" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6633 PROFINET IO Controller" Desc="EL6633" PortABoxInfo="#x0100000c">
+						<EtherCAT SlaveType="8" AdsServerAddress="ac12eb2c02010000" FixedAdsServerNetId="true" PdiType="#x0408" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e93052" RevisionNo="#x00110000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="60000" TimeoutStateChange2="30000" TimeoutStateChange3="30000" TimeoutStateChange4="300" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6633 PROFINET IO Controller" Desc="EL6633" PortABoxInfo="#x0100000c">
 							<SyncMan>001000042600010001000000400000040004001026010000</SyncMan>
 							<SyncMan>001400042200010002000000400000040004001422010000</SyncMan>
 							<SyncMan>0018ba006400010003000000000000000000001864010000</SyncMan>
@@ -7775,6 +7779,8 @@ Submodule Info: Barcode_data
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iPartPresentNest1" VarB="Channel 5^Input"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iPartPresentNest2" VarB="Channel 6^Input"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iProcessCylinderExtended" VarB="Channel 10^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iPuckSensorDown" VarB="Channel 16^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iPuckSensorUp" VarB="Channel 15^Input"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iRejectSensor" VarB="Channel 11^Input"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iSlideNestExtended" VarB="Channel 7^Input"/>
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T08_EL1809.iSlideNestRetracted" VarB="Channel 8^Input"/>
@@ -7795,6 +7801,7 @@ Submodule Info: Barcode_data
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qIndicatorLED2_Red" VarB="Channel 10^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qOpenProcessDoor" VarB="Channel 3^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qPanelLightLED" VarB="Channel 7^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qPuckLockerPinCommand" VarB="Channel 16^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qResetButtonLED" VarB="Channel 2^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qRetractProcessCylinder" VarB="Channel 5^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qRetractSlideNest" VarB="Channel 12^Output"/>
