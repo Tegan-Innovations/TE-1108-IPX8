@@ -36,6 +36,8 @@ VAR
 	i									: DINT;
 	j									: DINT; //Index for settings
 	
+	testTon								: TON;
+	
 	
 	
 
@@ -49,7 +51,9 @@ b_ACT_IO();
 c_ACT_Statistics_Station_2();
 e_ACT_Measurement();
 f_ACT_ManualMode();
-g_ACT_Settings();]]></ST>
+g_ACT_Settings();
+
+testTon( IN := (stHeightTests.State = E_HeightTest_State.WAIT_MEASUREMENT), PT := T#3S);	]]></ST>
     </Implementation>
     <Action Name="a_ACT_Ctrl_Station_2" Id="{c76df57f-a608-46ce-a480-681c36fd146a}">
       <Implementation>
@@ -109,7 +113,7 @@ CASE stHeightTests.State OF
 								
 	E_HeightTest_State.WAIT_MEASUREMENT:						
 								
-								e_ACT_Measurement();
+								//e_ACT_Measurement();
 								
 								IF stHeightTests.CMD.HeightTest_CMD.Measurement1 THEN
 									
@@ -127,7 +131,7 @@ CASE stHeightTests.State OF
 								END_IF
 								
 								
-								IF bMeasurementDone THEN
+								IF (*bMeasurementDone*) testTon.Q THEN
 			
 									stHeightTests.State		:= E_HeightTest_State.DONE;
 								
@@ -237,14 +241,14 @@ stHeightTests.Status.bStopped := NOT stHeightTests.Status.bBusy;
         <ST><![CDATA[
 	abProbeError1					:= Probes.stProbesSet[1].abProbeError;
 	abProbeError2					:= Probes.stProbesSet[2].abProbeError;
-	bGeneralError					:= Probes.bGeneralError;
+	//bGeneralError					:= Probes.bGeneralError;
 	anRawMesurement1				:= Probes.stProbesSet[1].anScaledRawMeasurement;
 	anRawMesurement2				:= Probes.stProbesSet[2].anScaledRawMeasurement;
 	
 
 
-	bGeneralProbeError				:= 	abProbeError1[1] OR abProbeError1[2] OR abProbeError1[3] OR abProbeError1[4] OR
-										abProbeError2[1] OR abProbeError2[2] OR abProbeError2[3] OR abProbeError2[4];
+	//bGeneralProbeError				:= 	abProbeError1[1] OR abProbeError1[2] OR abProbeError1[3] OR abProbeError1[4] OR
+										//abProbeError2[1] OR abProbeError2[2] OR abProbeError2[3] OR abProbeError2[4];
 										
 	stCycleDataNest1.HeightTest_anSetPoint := stProbesSettings.anExpectedDistances;
 	stCycleDataNest2.HeightTest_anSetPoint := stProbesSettings.anExpectedDistances;]]></ST>
@@ -326,7 +330,7 @@ END_IF
     <Action Name="d_ACT_Set_Events_Station_2" Id="{6b5d796c-fea6-4e93-a1a0-85599a4684bc}">
       <Implementation>
         <ST><![CDATA[//FAULTS
-
+(*
 stStationEvents[2].aEvents[0].bFault						:= TRUE;
 stStationEvents[2].aEvents[0].bEventFlag					:= bGeneralError;
 stStationEvents[2].aEvents[0].bEventText					:= 'Probes general error';
@@ -378,7 +382,7 @@ stStationEvents[2].aEvents[9].bEventFlag					:= stStationEvents[2].aEvents[9].bE
 stStationEvents[2].aEvents[9].bEventText					:= 'Height test cycle Timeout';
 stStationEvents[2].aEvents[9].sSolution						:= 'Reset System';
 
-]]></ST>
+*)]]></ST>
       </Implementation>
     </Action>
     <Action Name="e_ACT_Measurement" Id="{4c79a236-7589-4d28-bfec-9644f041c168}">

@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="B_5_1_PRG_PuckLocker" Id="{6d4e6e78-e15d-49c9-aba4-d67c6645b01e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM B_5_1_PRG_PuckLocker
+VAR
+	// ============================================================
+    // Local process variables
+    // ============================================================
+    eMode                       : E_PuckLockerMode;
+
+    bPuckPresentRaw             : BOOL;
+    bPuckPresent                : BOOL;
+
+    bPuckSensorsMismatchRaw     : BOOL;
+    bPuckSensorsMismatch        : BOOL;
+
+    bEnableEmptyPuckBypass      : BOOL;
+
+
+    // ============================================================
+    // Edge detection
+    // ============================================================
+    rTrigPuckPresent          : R_TRIG;
+    fTrigPuckPresent          : F_TRIG;
+
+    rTrigApplyDisposition     : R_TRIG;
+    rTrigEmptyPuckBypass      : R_TRIG;
+    rTrigAcknowledgeFault     : R_TRIG;
+
+
+    // ============================================================
+    // Timers
+    // ============================================================
+    tonPuckPresentOnDelay        : TON;
+    tonPuckPresentOffDelay       : TON;
+
+    tonPuckMismatchDelay         : TON;
+	tonPuckPresentDebounce		 : TON;
+	
+    tonPinLockDelay              : TON;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// =================================================================
+// 1. Engineering / HMI configuration
+// =================================================================
+// eMode should be persistent through your existing GVL_HMI Persistent
+// implementation, or copied there from the Engineering page.
+// =================================================================
+// Puck locker HMI mode selection
+// =================================================================
+
+
+(* Renan Added 10Jul26 - Puck Locker common code *)
+
+
+    IF NOT GVL_HMI.bPuckLockerGateEnable THEN
+        GVL_HMI.bPuckLockerSkipEnable := FALSE;
+    END_IF;
+
+    IF NOT GVL_HMI.bPuckLockerGateEnable THEN
+
+        eMode := E_PuckLockerMode.Disabled;
+
+    ELSIF GVL_HMI.bPuckLockerSkipEnable THEN
+
+        eMode := E_PuckLockerMode.EnabledWithEmptyPuckBypass;
+
+    ELSE
+
+        eMode := E_PuckLockerMode.Enabled;
+
+    END_IF;
+
+    GVL_HMI.ePuckLockerMode := eMode;
+    GVL_HMI.stPuckLocker.eMode := eMode;
+
+
+(*\Renan Added 10Jul26 - Puck Locker common code *)
+
+// Skip option is never allowed while gate is disabled.
+IF NOT GVL_HMI.bPuckLockerGateEnable THEN
+    GVL_HMI.bPuckLockerSkipEnable := FALSE;
+END_IF;
+
+// Convert HMI toggles into the internal locker mode.
+IF NOT GVL_HMI.bPuckLockerGateEnable THEN
+
+    eMode := E_PuckLockerMode.Disabled;
+
+ELSIF GVL_HMI.bPuckLockerSkipEnable THEN
+
+    eMode := E_PuckLockerMode.EnabledWithEmptyPuckBypass;
+
+ELSE
+
+    eMode := E_PuckLockerMode.Enabled;
+
+END_IF;
+
+// Keep existing status/interface compatible.
+GVL_HMI.ePuckLockerMode := eMode;
+GVL_HMI.stPuckLocker.eMode := eMode;
+
+
+// =================================================================
+// 2. Read physical inputs
+// =================================================================
+GVL_Stations.stPuckLocker.bPuckSensorUp 	:= GVL_IO.dw_T08_EL1809.iPuckSensorUp;
+GVL_Stations.stPuckLocker.bPuckSensorDown 	:= GVL_IO.dw_T08_EL1809.iPuckSensorDown;
+
+// =================================================================
+// 3. Validate puck presence
+// =================================================================
+// The puck is considered correctly positioned only when both sensors
+// are active simultaneously.
+bPuckPresentRaw := GVL_Stations.stPuckLocker.bPuckSensorUp AND GVL_Stations.stPuckLocker.bPuckSensorDown;
+
+GVL_IO.stTwinSAFE.iPuckError := GVL_Stations.stPuckLocker.bUnexpectedRemovalFault;
+
+// One sensor ON and the other OFF may be caused by:
+// - puck moving through the sensing area;
+// - puck not aligned;
+// - puck partially lifted;
+// - sensor issue.
+bPuckSensorsMismatchRaw :=GVL_Stations.stPuckLocker.bPuckSensorUp XOR GVL_Stations.stPuckLocker.bPuckSensorDown;
+
+// Require both sensors active for 100 ms before confirming puck.
+tonPuckPresentOnDelay(IN := bPuckPresentRaw,PT := T#100MS);
+
+// Require both sensors inactive for 100 ms before confirming absence.
+tonPuckPresentOffDelay(IN := NOT bPuckPresentRaw,PT := T#100MS);
+
+
+IF tonPuckPresentOnDelay.Q THEN
+
+    bPuckPresent := TRUE;
+
+ELSIF tonPuckPresentOffDelay.Q THEN
+
+    bPuckPresent := FALSE;
+
+END_IF
+
+// Debounce puck present
+tonPuckPresentDebounce(IN := bPuckPresentRaw, PT := T#100MS);
+
+// Debounced puck detection
+GVL_Stations.stPuckLocker.bPuckDetected := tonPuckPresentDebounce.Q;
+
+// Keep mismatch indication only after a short delay, so normal puck
+// movement does not generate false warnings.
+tonPuckMismatchDelay(IN := bPuckSensorsMismatchRaw,PT := T#500MS);
+
+bPuckSensorsMismatch := tonPuckMismatchDelay.Q;
+
+// =================================================================
+// 4. Edge detection
+// =================================================================
+rTrigPuckPresent(CLK := bPuckPresent);
+
+fTrigPuckPresent(CLK := bPuckPresent);
+
+rTrigApplyDisposition(CLK := GVL_Stations.stPuckLocker.bApplyDisposition);
+
+rTrigEmptyPuckBypass(CLK := GVL_HMI.stPuckLocker.bCmdEmptyPuckBypass);
+
+rTrigAcknowledgeFault(CLK := GVL_HMI.stPuckLocker.bCmdAcknowledgeRemovalFault);
+
+
+// =================================================================
+// 5. Latch disposition request from MachineCtrl
+// =================================================================
+// MachineCtrl should write these values once, after both final nest
+// results are known:
+//
+// PASS / PASS:
+// nRequestedRelease := 2;
+// nRequestedRemoval := 0;
+//
+// PASS / FAIL or FAIL / PASS:
+// nRequestedRelease := 1;
+// nRequestedRemoval := 0;
+//
+// FAIL / FAIL:
+// nRequestedRelease := 0;
+// nRequestedRemoval := 1;
+//
+// bApplyDisposition := TRUE;
+IF rTrigApplyDisposition.Q THEN
+
+    IF GVL_Stations.stPuckLocker.nRequestedRelease > USINT#2 THEN
+        GVL_Stations.stPuckLocker.nPucksAllowedToPass := USINT#2;
+    ELSE
+        GVL_Stations.stPuckLocker.nPucksAllowedToPass :=
+            GVL_Stations.stPuckLocker.nRequestedRelease;
+    END_IF
+
+    GVL_Stations.stPuckLocker.bDispositionPending := TRUE;
+    GVL_Stations.stPuckLocker.bApplyDisposition := FALSE;
+
+END_IF
+
+
+// =================================================================
+// 6. Default values
+// =================================================================
+GVL_Stations.stPuckLocker.bRemovalAllowed := FALSE;
+bEnableEmptyPuckBypass := FALSE;
+
+tonPinLockDelay(IN := GVL_Stations.stPuckLocker.eState = E_PuckLockerState.LockingPuck AND bPuckPresent, PT := T#300MS);
+
+IF stMachineStatus.bInitialising OR stMachineStatus.eMachineState = E_MachineState.SYSTEM_INITIALISING THEN
+
+    f_ACT_ResetPuckLocker();
+    RETURN;
+
+END_IF
+
+// =================================================================
+// 8. Main Puck Locker State Machine
+// =================================================================
+CASE GVL_Stations.stPuckLocker.eState OF
+
+
+    // ------------------------------------------------------------
+    // Locker disabled.
+    // Pin remains down and does not interfere with puck movement.
+    // ------------------------------------------------------------
+    E_PuckLockerState.Disabled:
+
+        GVL_Stations.stPuckLocker.bPinCommandUp := FALSE;
+
+        GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+        GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := FALSE;
+
+        GVL_Stations.stPuckLocker.nPucksAllowedToPass := 0;
+        GVL_Stations.stPuckLocker.nPucksToRemove := 0;
+
+        GVL_Stations.stPuckLocker.bDispositionPending := FALSE;
+        GVL_Stations.stPuckLocker.bDispositionHandled := FALSE;
+
+        IF eMode <> E_PuckLockerMode.Disabled THEN
+
+            GVL_Stations.stPuckLocker.eState := E_PuckLockerState.WaitingForPuck;
+
+        END_IF
+
+
+    // ------------------------------------------------------------
+    // Pin remains down. Wait for a properly centred puck.
+    // ------------------------------------------------------------
+    E_PuckLockerState.WaitingForPuck:
+
+        GVL_Stations.stPuckLocker.bPinCommandUp := FALSE;
+        GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+
+        IF eMode = E_PuckLockerMode.Disabled THEN
+
+            GVL_Stations.stPuckLocker.eState := E_PuckLockerState.Disabled;
+
+        ELSIF bPuckPresent
+              AND GVL_Stations.stPuckLocker.nPucksAllowedToPass = 0
+              AND GVL_Stations.stPuckLocker.nPucksToRemove = 0 THEN
+
+            GVL_Stations.stPuckLocker.eState := E_PuckLockerState.LockingPuck;
+
+        END_IF
+
+
+    // ------------------------------------------------------------
+    // Pin command is up.
+    // No physical feedback exists, so locking is accepted after
+    // 300 ms while the puck stays detected.
+    // ------------------------------------------------------------
+    E_PuckLockerState.LockingPuck:
+
+        GVL_Stations.stPuckLocker.bPinCommandUp := TRUE;
+		GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+	
+		IF eMode = E_PuckLockerMode.Disabled THEN
+	
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.Disabled;
+	
+		ELSIF NOT bPuckPresent THEN
+	
+			// Puck was not fully captured yet.
+			// Return to waiting state without fault.
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.WaitingForPuck;
+	
+		ELSIF tonPinLockDelay.Q THEN
+	
+			GVL_Stations.stPuckLocker.bPuckLocked := TRUE;
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.Locked;
+	
+		END_IF
+
+
+    // ------------------------------------------------------------
+    // Puck captured by locker pin.
+    // Wait for process disposition, bypass request or fault.
+    // ------------------------------------------------------------
+    E_PuckLockerState.Locked:
+
+        GVL_Stations.stPuckLocker.bPinCommandUp := TRUE;
+        GVL_Stations.stPuckLocker.bPuckLocked := TRUE;
+
+
+        // Bypass is only allowed in the configured bypass mode.
+        // It is disabled once a process disposition is pending.
+        bEnableEmptyPuckBypass := (eMode = E_PuckLockerMode.EnabledWithEmptyPuckBypass) AND NOT GVL_Stations.stPuckLocker.bDispositionPending AND NOT GVL_Stations.stPuckLocker.bUnexpectedRemovalFault;
+
+
+        // Puck disappeared while pin should have been holding it.
+        IF NOT bPuckPresent THEN
+
+            GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := TRUE;
+            GVL_Stations.stPuckLocker.eState := E_PuckLockerState.UnexpectedPuckRemovalFault;
+
+
+        // Empty puck bypass confirmed through HMI.
+        ELSIF rTrigEmptyPuckBypass.Q
+              AND bEnableEmptyPuckBypass THEN
+
+            GVL_Stations.stPuckLocker.nPucksAllowedToPass := 1;
+            GVL_Stations.stPuckLocker.nPucksToRemove := 0;
+
+            GVL_HMI.stPuckLocker.bCmdEmptyPuckBypass := FALSE;
+
+            GVL_Stations.stPuckLocker.eState := E_PuckLockerState.ReleasingPucks;
+
+
+        // Final disposition received from MachineCtrl.
+		ELSIF GVL_Stations.stPuckLocker.bDispositionPending THEN
+
+			GVL_Stations.stPuckLocker.bDispositionPending := FALSE;
+		
+			// Release is authorised, but the pin must remain up until
+			// both nests are empty. This ensures the PASS part was placed
+			// back onto the locked puck before it can be released.
+			IF GVL_Stations.stPuckLocker.nPucksAllowedToPass > 0 THEN
+		
+				GVL_Stations.stPuckLocker.eState := E_PuckLockerState.WaitingForNestsEmpty;
+		
+			END_IF
+		END_IF
+
+
+    E_PuckLockerState.WaitingForNestsEmpty:
+
+		// Keep puck physically locked while either nest still contains
+		// a product.
+		GVL_Stations.stPuckLocker.bPinCommandUp := TRUE;
+		GVL_Stations.stPuckLocker.bPuckLocked := TRUE;
+	
+		IF NOT bPuckPresent THEN
+	
+			GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := TRUE;
+	
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.UnexpectedPuckRemovalFault;
+	
+		ELSIF GVL_Stations.stPuckLocker.bNestsEmpty AND GVL_Stations.stPuckLocker.nPucksAllowedToPass > 0 THEN
+	
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.ReleasingPucks;
+	
+		END_IF
+		
+    // ------------------------------------------------------------
+    // Pin is down. One or two authorised pucks may pass.
+    // A puck is counted when it clears both sensors.
+    // ------------------------------------------------------------
+    E_PuckLockerState.ReleasingPucks:
+
+        GVL_Stations.stPuckLocker.bPinCommandUp := FALSE;
+        GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+
+        IF fTrigPuckPresent.Q
+           AND GVL_Stations.stPuckLocker.nPucksAllowedToPass > 0 THEN
+
+            GVL_Stations.stPuckLocker.nPucksAllowedToPass := GVL_Stations.stPuckLocker.nPucksAllowedToPass - 1;
+
+        END_IF
+
+        // All authorised pucks passed through the locker.
+		// Return to rest/waiting state. No timeout is required here.
+		IF GVL_Stations.stPuckLocker.nPucksAllowedToPass = 0
+		AND NOT bPuckPresent THEN
+		
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.WaitingForPuck;
+		
+		END_IF
+
+
+    // ------------------------------------------------------------
+    // Puck was removed unexpectedly while locked.
+    // Pin stays down for safe recovery.
+    //
+    // Operator must return the puck to the sensor area and an
+    // authorised user must acknowledge the event.
+    // ------------------------------------------------------------
+    E_PuckLockerState.UnexpectedPuckRemovalFault:
+
+		GVL_Stations.stPuckLocker.bPinCommandUp := TRUE;
+		GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+	
+		GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := TRUE;
+	
+		IF eMode = E_PuckLockerMode.Disabled THEN
+	
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.Disabled;
+	
+		ELSIF bPuckPresent AND rTrigAcknowledgeFault.Q THEN
+		
+			GVL_HMI.stPuckLocker.bCmdAcknowledgeRemovalFault := FALSE;
+			GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := FALSE;
+			GVL_Stations.stPuckLocker.eState := E_PuckLockerState.LockingPuck;
+
+		END_IF
+
+END_CASE
+
+
+// =================================================================
+// 8. Write HMI interface
+// =================================================================
+GVL_HMI.stPuckLocker.bEnableEmptyPuckBypass := bEnableEmptyPuckBypass;
+
+GVL_HMI.stPuckLocker.bPuckDetected := bPuckPresent;
+
+GVL_HMI.stPuckLocker.bPuckLocked := GVL_Stations.stPuckLocker.bPuckLocked;
+
+GVL_HMI.stPuckLocker.bPuckSensorMismatch := bPuckSensorsMismatch;
+
+GVL_HMI.stPuckLocker.bUnexpectedRemovalFault := GVL_Stations.stPuckLocker.bUnexpectedRemovalFault;
+
+GVL_HMI.stPuckLocker.bShowUnexpectedRemovalPopup := GVL_Stations.stPuckLocker.bUnexpectedRemovalFault;
+
+GVL_HMI.stPuckLocker.nPucksAllowedToPass := GVL_Stations.stPuckLocker.nPucksAllowedToPass;
+
+
+// This can remain FALSE if the HMI itself opens the confirmation
+// popup after the operator presses the bypass button.
+GVL_HMI.stPuckLocker.bShowEmptyPuckPopup := FALSE;
+
+
+
+GVL_HMI.stPuckLocker.sMessage := GVL_Stations.stPuckLocker.sMessage;
+
+// =================================================================
+// 10. Physical output
+// =================================================================
+// This PRG must remain the only writer of the locker output.
+GVL_IO.dw_T09_EL2809.qPuckLockerPinCommand := NOT GVL_Stations.stPuckLocker.bPinCommandUp;]]></ST>
+    </Implementation>
+    <Action Name="f_ACT_ResetPuckLocker" Id="{b3accd14-0296-4354-a5e6-54e3181de4c2}">
+      <Implementation>
+        <ST><![CDATA[// ================================================================
+// f_ACT_ResetPuckLocker
+//
+// Safe reset of puck locker internal state.
+// Pin is commanded to release position.
+// ================================================================
+
+GVL_Stations.stPuckLocker.eState := E_PuckLockerState.WaitingForPuck;
+
+GVL_Stations.stPuckLocker.bPinCommandUp := FALSE;
+GVL_Stations.stPuckLocker.bPuckLocked := FALSE;
+GVL_Stations.stPuckLocker.bRemovalAllowed := FALSE;
+
+GVL_Stations.stPuckLocker.bUnexpectedRemovalFault := FALSE;
+
+GVL_Stations.stPuckLocker.nPucksAllowedToPass := 0;
+GVL_Stations.stPuckLocker.nPucksToRemove := 0;
+
+GVL_Stations.stPuckLocker.nRequestedRelease := 0;
+GVL_Stations.stPuckLocker.nRequestedRemoval := 0;
+
+GVL_Stations.stPuckLocker.bApplyDisposition := FALSE;
+GVL_Stations.stPuckLocker.bDispositionPending := FALSE;
+GVL_Stations.stPuckLocker.bDispositionHandled := FALSE;
+
+GVL_HMI.stPuckLocker.bCmdEmptyPuckBypass := FALSE;
+GVL_HMI.stPuckLocker.bCmdAcknowledgeRemovalFault := FALSE;
+
+GVL_HMI.stPuckLocker.bEnableEmptyPuckBypass := FALSE;
+GVL_HMI.stPuckLocker.bShowUnexpectedRemovalPopup := FALSE;
+GVL_HMI.stPuckLocker.bShowEmptyPuckPopup := FALSE;
+
+GVL_HMI.stPuckLocker.bUnexpectedRemovalFault := FALSE;
+GVL_HMI.stPuckLocker.nPucksAllowedToPass := 0;
+GVL_HMI.stPuckLocker.sMessage := '';]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>

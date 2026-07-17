@@ -22,7 +22,7 @@ STRUCT
     qExtendSlideNest			        	AT %Q*	 		: 	BOOL;	// EL2809 channel 13 
 	qiEL2809_Ch14                 			AT %Q*	 		: 	BOOL;	// EL2809 channel 14 
 	qiEL2809_Ch15							AT %Q*	 		: 	BOOL;	// EL2809 channel 15 
-    qiEL2809_Ch16         		        	AT %Q*	 		: 	BOOL;	// EL2809 channel 16  
+    qPuckLockerPinCommand  	        		AT %Q*	 		: 	BOOL;	// EL2809 channel 16
 	
 	stTerminalInfo											: 	ST_Terminal_Info;
 	

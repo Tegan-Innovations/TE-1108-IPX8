@@ -21,8 +21,8 @@ STRUCT
 	iEL1809_Ch12			              	AT %I*          :   BOOL;   // EL1809 channel 12	   
 	iEL1809_Ch13         		   			AT %I*	 		: 	BOOL;	// EL1809 channel 13   
 	iEL1809_Ch14       						AT %I*	 		: 	BOOL;	// EL1809 channel 14 
-	iEL1809_Ch15							AT %I*			: 	BOOL;	// EL1809 channel 15  
-	iEL1809_Ch16							AT %I*	 		: 	BOOL;	// EL1809 channel 16  	
+	iPuckSensorUp	(*Renan Added 06/07*)	AT %I*			: 	BOOL;	// EL1809 channel 15  
+	iPuckSensorDown	(*Renan Added 06/07*)	AT %I*	 		: 	BOOL;	// EL1809 channel 16  	
 	
 	stTerminalInfo											: 	ST_Terminal_Info;
 

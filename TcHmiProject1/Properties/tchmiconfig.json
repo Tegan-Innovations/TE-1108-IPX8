@@ -139,6 +139,9 @@
       "url": "Contents/UserControl/PopUp/YesNo_ver2.usercontrol"
     },
     {
+      "url": "Contents/UserControl/PopUp/YesNoRed.usercontrol"
+    },
+    {
       "url": "Contents/UserControl/ProbeLevel_V2.usercontrol"
     }
   ],
@@ -195,34 +198,6 @@
     },
     {
       "url": "Contents/Hardware/Keyence_Probe_Set.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Hardware/KeyenceCamera1.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Hardware/KeyenceCamera2.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Hardware/KeyenceCamera3.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Hardware/KeyenceCamera4.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -334,28 +309,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Manual/Cameras/CameraInterface.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Manual/Cameras/CameraTriggerPopup.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Manual/Cameras_CAP.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Manual/Cameras_FPB.content",
+      "url": "Contents/Manual/Cylinders.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -390,6 +344,20 @@
       "preloadBindings": false
     },
     {
+      "url": "Contents/popup/popup2_EmptyRejectChute.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "Contents/popup/popup3_LogoffPage.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
       "url": "Contents/popup/popup5_UserManagement.content",
       "preload": false,
       "keepAlive": false,
@@ -404,28 +372,14 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/1_Main_HW.content",
+      "url": "Contents/popup/popup7_PuckRemoved.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/1_Main_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/1_Main_LT_HW_VC.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/1_Main_LT_HW_VC_ver2.content",
+      "url": "Contents/Screens/1_Main_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -453,21 +407,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/3_IO_HW_VC.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/3_IO_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/3_IO_LT_HW_VC.content",
+      "url": "Contents/Screens/3_IO_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -481,28 +421,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/5_Manual_HW_VC.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/5_Manual_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/5_Manual_LT_HW_VC.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/6_Settings_NoProbes.content",
+      "url": "Contents/Screens/5_Manual_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -516,21 +435,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/7_Statistics_HW.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/7_Statistics_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/7_Statistics_LT_HW_VC.content",
+      "url": "Contents/Screens/7_Statistics_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -544,42 +449,14 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/9_Data_HistoryNest1_HW.content",
+      "url": "Contents/Screens/9_Data_HistoryNest1_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
       "preloadBindings": false
     },
     {
-      "url": "Contents/Screens/9_Data_HistoryNest1_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/9_Data_HistoryNest1_LT_HW_VC.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/9_Data_HistoryNest2_HW.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/9_Data_HistoryNest2_LT.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Contents/Screens/9_Data_HistoryNest2_LT_HW_VC.content",
+      "url": "Contents/Screens/9_Data_HistoryNest2_LT_HW_IPX8.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -614,6 +491,13 @@
       "preloadBindings": false
     },
     {
+      "url": "Contents/Settings/NestOffset.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
       "url": "Contents/Settings/ProbePositions1.content",
       "preload": false,
       "keepAlive": false,
@@ -621,7 +505,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Settings/ProbePositions2.content",
+      "url": "Contents/Settings/PuckLockerMode.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
@@ -879,6 +763,12 @@
       "PopupRejectPart_Text": {
         "value": "",
         "type": "tchmi:general#/definitions/String",
+        "persist": false,
+        "readonly": false
+      },
+      "PuckRemoved_Close": {
+        "value": false,
+        "type": "tchmi:general#/definitions/BOOL",
         "persist": false,
         "readonly": false
       }

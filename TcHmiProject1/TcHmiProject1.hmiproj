@@ -133,11 +133,9 @@
     <Folder Include="Contents\Events" />
     <Folder Include="Contents\M" />
     <Folder Include="Contents\IOs" />
-    <Folder Include="Contents\Manual\Cameras" />
     <Folder Include="Contents\Screens" />
     <Folder Include="Contents\UserControl" />
     <Folder Include="Contents\popup" />
-    <Folder Include="Contents\pdf" />
     <Folder Include="Contents\Settings" />
     <Folder Include="Contents\UserControl\HeightTest" />
     <Folder Include="Contents\UserControl\HeightTest\Settings" />
@@ -217,18 +215,6 @@
     <Content Include="Contents\Hardware\Keyence_Probe_Set.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Hardware\KeyenceCamera4.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Hardware\KeyenceCamera3.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Hardware\KeyenceCamera2.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Hardware\KeyenceCamera1.content">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Contents\Hardware\LeakTester2.content">
       <SubType>Content</SubType>
     </Content>
@@ -271,16 +257,7 @@
     <Content Include="Contents\Hardware\T02_EL6070.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Manual\Cameras\CameraTriggerPopup.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Manual\Cameras\CameraInterface.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Manual\Cameras_FPB.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Manual\Cameras_CAP.content">
+    <Content Include="Contents\Manual\Cylinders.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Manual\Leak_Test.content">
@@ -295,10 +272,10 @@
     <Content Include="Contents\M\HeadMenu.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\pdf\TE1096_ EMALC_Stopper_Insertion.SDS.pdf">
+    <Content Include="Contents\popup\popup2_EmptyRejectChute.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\pdf\TM429-EMALC-4_StopperInsertion_ScrewStation_Rev_1.0.pdf">
+    <Content Include="Contents\popup\popup3_LogoffPage.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\popup\popup6_ChangeSettings_ver2.content">
@@ -310,82 +287,43 @@
     <Content Include="Contents\popup\popup1_RejectedPart.content">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Contents\popup\popup7_PuckRemoved.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Contents\Screens\10_Manage_Users.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\13_Develop.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\1_Main_LT_HW_VC.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\1_Main_HW.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\1_Main_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\1_Main_LT_HW_VC_ver2.content">
+    <Content Include="Contents\Screens\1_Main_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\2_Menu.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\3_IO_HW_VC.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\3_IO_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\3_IO_LT_HW_VC.content">
+    <Content Include="Contents\Screens\3_IO_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\4_Events.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\5_Manual_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\5_Manual_HW_VC.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\5_Manual_LT_HW_VC.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\6_Settings_NoProbes.content">
+    <Content Include="Contents\Screens\5_Manual_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\6_Settings_Probes.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\7_Statistics_HW.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\7_Statistics_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\7_Statistics_LT_HW_VC.content">
+    <Content Include="Contents\Screens\7_Statistics_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Screens\8_Info.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest1_HW.content">
+    <Content Include="Contents\Screens\9_Data_HistoryNest1_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest1_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest1_LT_HW_VC.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest2_HW.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest2_LT.content">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\Screens\9_Data_HistoryNest2_LT_HW_VC.content">
+    <Content Include="Contents\Screens\9_Data_HistoryNest2_LT_HW_IPX8.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\Calibration_Set1.content">
@@ -397,13 +335,16 @@
     <Content Include="Contents\Settings\Distances.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Settings\ProbePositions2.content">
+    <Content Include="Contents\Settings\NestOffset.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\ProbePositions1.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\EnableNests.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\Settings\PuckLockerMode.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\Tolerances.content">
@@ -500,6 +441,13 @@
       <SubType>Content</SubType>
       <DependentUpon>Contents\UserControl\PopUp\Acknowledge.usercontrol</DependentUpon>
     </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNoRed.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Contents\UserControl\PopUp\YesNoRed.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Contents\UserControl\PopUp\YesNoRed.usercontrol</DependentUpon>
+    </Content>
     <Content Include="Contents\UserControl\PopUp\YesNo_ver2.usercontrol">
       <SubType>Content</SubType>
     </Content>
@@ -521,16 +469,10 @@
       <SubType>Content</SubType>
       <DependentUpon>Contents\UserControl\ProbeLevel_V2.usercontrol</DependentUpon>
     </Content>
-    <Content Include="Images\40-408925_png-file-svg-file-eps-file-psd-file-cdr-file-milk-bottle-Photoroom.png">
+    <Content Include="Images\background.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Images\40-408925_png-file-svg-file-eps-file-psd-file-cdr-file-milk-bottle.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\animation_base.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\animation_cylinder.png">
+    <Content Include="Images\background2.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Buttons\AlarmButton.png">
@@ -549,15 +491,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Buttons\Shutdown_Box_Red.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\camera amplifier.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\camera.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\dinesh.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\ethercat unit.png">
@@ -785,9 +718,6 @@
     <Content Include="Images\JabilMasterLogo.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Images\keyence camera.png">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Images\leak tester.png">
       <SubType>Content</SubType>
     </Content>
@@ -803,10 +733,7 @@
     <Content Include="Images\probe.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Images\probepositions2.png">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\probes positions.png">
+    <Content Include="Images\processcylinder.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\right_hand - green.png">
@@ -815,7 +742,10 @@
     <Content Include="Images\right_hand.png">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Images\Screenshot 2026-03-25 140933.png">
+    <Content Include="Images\slidenest.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\slidenest2.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\TeganInfo.png">

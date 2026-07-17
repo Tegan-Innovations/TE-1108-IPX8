@@ -27,7 +27,7 @@
 	bDoorOpenedFlag					: BOOL;
 	
 	bRejectPartFault				: BOOL;
-	bRejectPartOutTime				: BOOL;
+	
 	bCSVError						: BOOL;
 	
 	NetAmsIdLocal        	       	: T_AmsNetId;// := '172.18.236.164.1.1'; // AMS-ID for com port setup 
@@ -38,16 +38,18 @@
 	NetAmsIdDevice					: T_AmsNetId;
 	
 	bOpenDoorCycleFault				: BOOL;
+	bProcessDoorClosed				: BOOL;
 	
 	
 	
 /////////////////////////////////////////////////////////////////////////////////////Event Log/////////////////////////////////////////////////////////////////////////////////////
 	
-	stStationEvents				: ARRAY[0..4] OF  ST_StationEvents;//0: GENERAL
+	stStationEvents				: ARRAY[0..5] OF  ST_StationEvents;//0: GENERAL
 																	//1: Leak Test
 																	//1: Height Test
 																	//3: Vision Inspection
 																	//4: Cylinders
+																	//5: Slide Nest
 	astActiveEvents				: ARRAY [0..50] OF ST_ActiveEvents;
 	stEventsAssigment			: ST_EventsAssigmentGeneral;
 	bMachineMessages			: BOOL;
@@ -69,6 +71,7 @@
 ////////////////////////////////////////////////////////////////////////////////////SAFETY////////////////////////////////////////////////////////////////////////////
 
 	bDoorClosingFlag				: BOOL;
+	bDoorClosingInitFlag			: BOOL;
 	bDoorOpeningFlag				: BOOL;
 	bProcessDoorClosedConditionFlag	: BOOL;
 	tonSafety						: TON;

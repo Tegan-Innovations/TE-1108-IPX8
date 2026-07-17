@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="FB_EventsManager" Id="{a5f89ae0-d262-4bc0-baad-f557f917db4a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_EventsManager
 
@@ -38,7 +38,7 @@ END_VAR
 
 VAR_IN_OUT
 	
-	stStationEvents			: ARRAY[0..4] OF ST_StationEvents;
+	stStationEvents			: ARRAY[0..5] OF ST_StationEvents;
 	stEventsAssigment		: ST_EventsAssigmentGeneral;
 	bResetFaults			: BOOL;
 	

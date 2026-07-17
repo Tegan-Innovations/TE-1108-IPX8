@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <DUT Name="ST_ProbesSettings" Id="{a88f077e-6c66-4a83-be94-fdfa4e9dc786}">
     <Declaration><![CDATA[TYPE ST_ProbesSettings :
 STRUCT
@@ -11,6 +11,10 @@ STRUCT
 	anHeightSetByCalibration1			: ARRAY [1..4] OF REAL;	
 	anHeightSetByCalibration2			: ARRAY [1..4] OF REAL;	
 	anTolerances						: ARRAY [1..3] OF REAL;	
+	(*Renan Added 30Jun26 - Nests offset*)
+	anNestOffsetByProbe1         		: ARRAY [1..4] OF REAL;
+    anNestOffsetByProbe2         		: ARRAY [1..4] OF REAL;
+	(*/Renan Added 30Jun26*)
 
 
 END_STRUCT

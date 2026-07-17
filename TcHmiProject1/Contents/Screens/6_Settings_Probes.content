@@ -49,6 +49,9 @@
               },
               {
                 "Name": "Test Zone - RH"
+              },
+              {
+                "Name": "Nest Offset"
               }
             ]
           }
@@ -56,6 +59,9 @@
       },
       {
         "Name": "Enable Nests"
+      },
+      {
+        "Name": "Puck Locker Mode"
       }
     ]
   }
@@ -192,6 +198,46 @@
                   "objectType": "StaticValue",
                   "valueType": "tchmi:general#/definitions/DINT",
                   "value": "Contents/Settings/EnableNests.content"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/Any",
+              "value": "Nest Offset"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%Settings_Screen%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/DINT",
+                  "value": "Contents/Settings/NestOffset.content"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "caseValue": {
+              "objectType": "StaticValue",
+              "valueType": "tchmi:general#/definitions/Any",
+              "value": "Puck Locker Mode"
+            },
+            "actions": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%Settings_Screen%/i%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/DINT",
+                  "value": "Contents/Settings/PuckLockerMode.content"
                 },
                 "asyncWait": true
               }

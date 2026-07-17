@@ -8,6 +8,7 @@
 	stProcessCylinder						: ST_ProcessCylinder;
 	stProcessDoor							: ST_ProcessDoor;
 	stSlideNest								: ST_SlideNest;
+	stPuckLocker 							: ST_PuckLocker;
 	
 END_VAR]]></Declaration>
   </GVL>

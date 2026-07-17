@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_PuckLockerHMI" Id="{5fb5f684-8678-4401-a8b8-f09f46c54224}">
+    <Declaration><![CDATA[TYPE ST_PuckLockerHMI :
+STRUCT
+	eMode                       : E_PuckLockerMode;
+
+    bEnableEmptyPuckBypass      : BOOL;
+    bCmdEmptyPuckBypass         : BOOL;
+    bCmdAcknowledgeRemovalFault : BOOL;
+
+    bPuckDetected               : BOOL;
+    bPuckLocked                 : BOOL;
+    bPuckSensorMismatch         : BOOL;
+
+    bUnexpectedRemovalFault     : BOOL;
+    bShowUnexpectedRemovalPopup : BOOL;
+    bShowEmptyPuckPopup         : BOOL;
+
+    nPucksAllowedToPass         : USINT;
+    sMessage                    : STRING(255);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
