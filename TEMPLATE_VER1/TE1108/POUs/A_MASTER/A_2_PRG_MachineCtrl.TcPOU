@@ -56,6 +56,7 @@ VAR
 	bPuckLockerReadyToStart		: BOOL; (* Renan Added - Puck Locker Bug - 08Jul26 *)
 	nPucksToRelease 			: USINT;(* Renan Added - Puck Locker Bug - 08Jul26 *)
 	bPuckLockerEnable       	: BOOL; (* Renan added - Puck Locker Bug - 10Jul26*)
+	bTest						: BOOL;
 	
 	
 	
@@ -232,7 +233,7 @@ E_MachineState.SYSTEM_INITIALISING:
 						
 						sMachineMessage					:= 'trigger both safety buttons to reset machine';
 						
-						IF bTwoHandsSignal THEN
+						IF bTwoHandsSignal  THEN
 							
 							tonSys_InitTimeout.IN		:= TRUE;	
 							stLeakTesters.CMD.bEnable	:= TRUE;	
@@ -243,7 +244,7 @@ E_MachineState.SYSTEM_INITIALISING:
 							sMachineMessage				:= '';
 							
 						END_IF
-				ELSIF stTwinSAFE.qProcessCylinderRetracted AND NOT bSlideNestNotHomed THEN
+				ELSIF stTwinSAFE.qProcessCylinderRetracted AND dw_T08_EL1809.iSlideNestRetracted THEN
 					
 					stSlideNest.CMD.bEnable				:= TRUE;	
 					stLeakTesters.CMD.bEnable			:= TRUE;	
@@ -486,6 +487,9 @@ E_General_ProcessCycle.RESET_ALL_CMD:
 				
 				bHeightTestDoneFlag												:= FALSE;
 				bLeakTestDoneFlag												:= FALSE;
+				
+				bProcessedPart[0]												:= FALSE;
+				bProcessedPart[1]												:= FALSE;
 			
 				//add reset command to reset all cycle data
 				
@@ -519,27 +523,42 @@ E_General_ProcessCycle.IDLE:
 					
 				END_IF
 				
-				//Make sure operator remove processed part
-				fProcessedPart[0]( CLK := bPartPresentNest1);
-				fProcessedPart[1]( CLK := bPartPresentNest2);
+				IF bPuckLockerEnable AND NOT bPuckLockerReadyToStart AND NOT bProcessedPart[0] AND NOT bProcessedPart[1] THEN
 				
-				IF fProcessedPart[0].Q THEN
+					IF NOT GVL_Stations.stPuckLocker.bPuckDetected THEN
+						
+						sMachineMessage 		:= 'Insert puck into locker to continue';
+						
+					ELSE
+						
+						sMachineMessage := 'Waiting for puck locker to lock puck';
+						
+					END_IF					
+				
+				ELSIF  bPuckLockerReadyToStart AND bPartPresent[0] AND bPartPresent[1] THEN
 					
-					bProcessedPart[0]											:= FALSE;
+					sMachineMessage := 'trigger both safety buttons to start cycle';
+					
+				ELSIF bPuckLockerReadyToStart AND ( NOT bPartPresent[0] AND NOT bPartPresent[1]) THEN
+					
+					sMachineMessage 			:= 'Place parts to continue';
+					
+				ELSIF bPuckLockerReadyToStart AND ( bPartPresent[0] AND NOT bPartPresent[1]) THEN
+					
+					sMachineMessage 			:= 'Place part in nest 2 to continue';
+				
+				ELSIF bPuckLockerReadyToStart AND ( NOT bPartPresent[0] AND bPartPresent[1]) THEN
+					
+					sMachineMessage 			:= 'Place part in nest 1 to continue';
 					
 				END_IF
 				
-				IF fProcessedPart[1].Q THEN
-					
-					bProcessedPart[1]											:= FALSE;
-					
-				END_IF
 				
 				//Messages to start cycle
 				
 					
 				(* Renan added - Puck Locker Messages - 08Jul26 *)
-				
+				(*
 				IF bPuckLockerEnable
 				AND GVL_Stations.stPuckLocker.eState = E_PuckLockerState.WaitingForNestsEmpty THEN
 				
@@ -601,7 +620,7 @@ E_General_ProcessCycle.IDLE:
 					
 					sMachineMessage := '';
 						
-				END_IF
+				END_IF*)
 				(*\Renan added - Puck Locker Messages - 08Jul26*)
 			
 E_General_ProcessCycle.CLOSE_PROCESS_DOOR:
@@ -1004,47 +1023,54 @@ E_General_ProcessCycle.WAIT_OPEN_PROCESS_DOOR:
 					stProcessDoor.CMD.bExecute									:= FALSE;
 					stProcessDoor.CMD.bAcknowledge								:= TRUE;
 					
-					(* Renan Added - Buglist n6 - 08Jul26 *)
-					bCycleHasFailure := (bProcessedPart[0] AND stCycleDataNest1.bFail) OR (bProcessedPart[1] AND stCycleDataNest2.bFail);
-
-					bCycleAllProcessedPass := (bProcessedPart[0] OR bProcessedPart[1]) AND ((NOT bProcessedPart[0]) OR stCycleDataNest1.bPass) AND ((NOT bProcessedPart[1]) OR stCycleDataNest2.bPass);
-					(*\Renan Added - Buglist n6 - 08Jul26 *)
-					
-					(* Renan Added 10Jul26 - Puck Locker *)
-					IF bPuckLockerEnable AND bCycleAllProcessedPass THEN
-					
-						GVL_Stations.stPuckLocker.nRequestedRelease := USINT#0;
-					
-						IF bProcessedPart[0] AND stCycleDataNest1.bPass THEN
-							GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
-						END_IF
-					
-						IF bProcessedPart[1] AND stCycleDataNest2.bPass THEN
-							GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
-						END_IF
-					
-						GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
-					
-					END_IF
-					(*\Renan Added 10Jul26 - Puck Locker *)
-					
-					
-					
-					IF bCycleHasFailure THEN //Bugfix 08Jul26
-					
-						eCycleState									:= E_General_ProcessCycle.WAIT_REJECT_PART;
-					
-					ELSIF bCycleAllProcessedPass THEN //Bugfix 08Jul26
-
-						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
-						
-					END_IF
+					eCycleState							:= E_General_ProcessCycle.PUCK_DEFINITION;
+			
 				
 				END_IF
 				
+E_General_ProcessCycle.PUCK_DEFINITION:
+		
+				(* Renan Added - Buglist n6 - 08Jul26 *)
+				bCycleHasFailure := (bProcessedPart[0] AND stCycleDataNest1.bFail) OR (bProcessedPart[1] AND stCycleDataNest2.bFail);
+
+				bCycleAllProcessedPass := (bProcessedPart[0] OR bProcessedPart[1]) AND ((NOT bProcessedPart[0]) OR stCycleDataNest1.bPass) AND ((NOT bProcessedPart[1]) OR stCycleDataNest2.bPass);
+					(*\Renan Added - Buglist n6 - 08Jul26 *)
+					
+					(* Renan Added 10Jul26 - Puck Locker *)
+				IF bPuckLockerEnable AND bCycleAllProcessedPass THEN
+					
+					GVL_Stations.stPuckLocker.nRequestedRelease := USINT#0;
+					
+					IF bProcessedPart[0] AND stCycleDataNest1.bPass THEN
+						
+						GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
+						
+					END_IF
+					
+					IF bProcessedPart[1] AND stCycleDataNest2.bPass THEN
+						
+						GVL_Stations.stPuckLocker.nRequestedRelease := GVL_Stations.stPuckLocker.nRequestedRelease + USINT#1;
+							
+					END_IF
+					
+					GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+					
+				END_IF
+				
+				
+				IF bCycleHasFailure THEN //Bugfix 08Jul26
+					
+					eCycleState								:= E_General_ProcessCycle.WAIT_REJECT_PART;
+					
+				ELSIF bCycleAllProcessedPass THEN //Bugfix 08Jul26
+
+					eCycleState								:= E_General_ProcessCycle.NEST_CLEARING;
+						
+				END_IF		
+			
 E_General_ProcessCycle.WAIT_REJECT_PART:
 					
-				ctuRejectPart.CU 												:= rRejectSensor.Q;				
+				ctuRejectPart.CU 								:= rRejectSensor.Q;				
 
 				IF stCycleDataNest1.bFail AND NOT stCycleDataNest2.bFail THEN
 					
@@ -1054,12 +1080,12 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 						
 						(* Renan Added 10Jul26 - Puck Locker *)
 						IF bPuckLockerEnable THEN
-							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#1;
-							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+							GVL_Stations.stPuckLocker.nRequestedRelease 		:= USINT#1;
+							GVL_Stations.stPuckLocker.bApplyDisposition 		:= TRUE;
 						END_IF
 						(*\Renan Added 10Jul26 - Puck Locker *)
 						
-						eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
+						eCycleState												:= E_General_ProcessCycle.NEST_CLEARING;
 						
 					ELSIF ctuRejectPart.CV > 0 AND (bPartPresentNest1 OR (NOT bPartPresentNest2 AND bProcessedPart[1])) THEN
 						
@@ -1086,12 +1112,13 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 						
 						(* Renan Added 10Jul26 - Puck Locker *)
 						IF bPuckLockerEnable THEN
-							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#1;
-							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+							GVL_Stations.stPuckLocker.nRequestedRelease 		:= USINT#1;
+							GVL_Stations.stPuckLocker.bApplyDisposition 		:= TRUE;
 						END_IF
 						(*\Renan Added 10Jul26 - Puck Locker *)
 						
-						eCycleState												:= E_General_ProcessCycle.RESET_ALL_CMD;
+						
+						eCycleState												:= E_General_ProcessCycle.NEST_CLEARING;
 						
 					ELSIF ctuRejectPart.CV > 0 AND (bPartPresentNest1 OR (NOT bPartPresentNest1 AND bProcessedPart[0])) THEN
 						
@@ -1116,21 +1143,78 @@ E_General_ProcessCycle.WAIT_REJECT_PART:
 						
 						(* Renan Added 10Jul26 - Puck Locker *)
 						IF bPuckLockerEnable THEN
-							GVL_Stations.stPuckLocker.nRequestedRelease := USINT#0;
-							GVL_Stations.stPuckLocker.bApplyDisposition := TRUE;
+							GVL_Stations.stPuckLocker.nRequestedRelease 		:= USINT#0;
+							GVL_Stations.stPuckLocker.bApplyDisposition 		:= TRUE;
 						END_IF
 						(*\Renan Added 10Jul26 - Puck Locker *)
 						
-						eCycleState								:= E_General_ProcessCycle.RESET_ALL_CMD;
+						eCycleState												:= E_General_ProcessCycle.NEST_CLEARING;
 					
 					ELSIF ctuRejectPart.CV > 1 AND ( bPartPresentNest1 OR bPartPresentNest2) THEN
 						
-						bRejectPartFault						:= TRUE; 		
+						bRejectPartFault										:= TRUE; 		
 					
 					END_IF;
 					
 					sMachineMessage												:= 'REMOVE PART FROM BOTH NESTS AND PUT IN REJECT CHUTE';
 					
+				END_IF
+				
+E_General_ProcessCycle.NEST_CLEARING:
+				
+				IF bPuckLockerEnable AND GVL_Stations.stPuckLocker.eState = E_PuckLockerState.WaitingForNestsEmpty THEN
+				
+					IF (bPartPresentNest1 AND bNest1Flag) OR (bPartPresentNest2 AND bNest2Flag) THEN
+						
+						sMachineMessage 										:= 'Remove parts from nests to release puck';
+						
+					ELSE
+						
+						sMachineMessage 										:= 'Waiting for puck to be released';
+						
+					END_IF
+				
+				ELSIF (bPartPresentNest1 AND bNest1Flag) AND NOT (bPartPresentNest2 AND bNest2Flag)  THEN
+					
+					IF bPuckLockerEnable THEN
+						
+						sMachineMessage 										:= 'Remove processed part from nest 1 to release puck';
+						
+					ELSE
+						
+						sMachineMessage 										:= 'Remove Processed part from nest 1';
+						
+					END_IF
+					
+				ELSIF NOT (bPartPresentNest1 AND bNest1Flag) AND (bPartPresentNest2 AND bNest2Flag)  THEN 
+					
+					IF bPuckLockerEnable THEN
+						
+						sMachineMessage 										:= 'Remove processed part from nest 2 to release puck';
+						
+					ELSE
+						
+						sMachineMessage 										:= 'Remove Processed part from nest 2';
+						
+					END_IF
+					
+				ELSIF (bPartPresentNest1 AND bNest1Flag) AND (bPartPresentNest2 AND bNest2Flag) THEN 
+					
+					IF bPuckLockerEnable THEN
+						
+						sMachineMessage 										:= 'Remove processed parts to release puck';
+						
+					ELSE
+						
+						sMachineMessage 										:= 'Remove Processed parts';
+						
+					END_IF
+					
+				ELSIF (NOT bPartPresentNest1 OR NOT bNest1Flag) AND (NOT bPartPresentNest2 OR NOT bNest2Flag)  THEN
+					
+					sMachineMessage 											:= '';
+					eCycleState													:= E_General_ProcessCycle.RESET_ALL_CMD;
+									
 				END_IF
 				
 END_CASE

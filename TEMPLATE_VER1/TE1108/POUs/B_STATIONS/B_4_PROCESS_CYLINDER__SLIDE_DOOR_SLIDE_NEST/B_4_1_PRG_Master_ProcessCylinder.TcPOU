@@ -151,7 +151,7 @@ stProcessCylinder.Status.bStopped	:= 	NOT stProcessCylinder.Status.bBusy;]]></ST
 bExtended								:= dw_T08_EL1809.iProcessCylinderExtended;
 bRetracted								:= stTwinSAFE.qProcessCylinderRetracted;
 
-IF bExtend OR bProcessCylinder_Down AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted) THEN
+IF bExtend OR bProcessCylinderDown AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted) THEN
 	
 	dw_T09_EL2809.qExtendProcessCylinder	:= TRUE ;
 	dw_T09_EL2809.qRetractProcessCylinder	:= FALSE;

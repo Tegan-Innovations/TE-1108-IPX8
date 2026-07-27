@@ -13,7 +13,7 @@
     <HmiTitle>Please enter your Title...</HmiTitle>
     <HmiVerboseLevel>2</HmiVerboseLevel>
     <HmiVersion>1.0.0.0</HmiVersion>
-    <HmiCommunicationServerPort>3002</HmiCommunicationServerPort>
+    <HmiCommunicationServerPort>3004</HmiCommunicationServerPort>
     <HmiLogTcHmiServerMessages>false</HmiLogTcHmiServerMessages>
     <HmiLogDesignerModeComMessages>false</HmiLogDesignerModeComMessages>
     <HmiDefaultLanguage>client</HmiDefaultLanguage>
@@ -27,7 +27,7 @@
     <HmiPostProcessing>True</HmiPostProcessing>
     <Name>TcHmiProject1</Name>
     <HmiCommunicationRouterPort>10104</HmiCommunicationRouterPort>
-    <HmiCommunicationServerAuthPort>13002</HmiCommunicationServerAuthPort>
+    <HmiCommunicationServerAuthPort>13003</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.762.46</HmiInitial>
     <HmiRecent>14.3.765.1</HmiRecent>
     <HmiServerNodeAdvancedView>False</HmiServerNodeAdvancedView>

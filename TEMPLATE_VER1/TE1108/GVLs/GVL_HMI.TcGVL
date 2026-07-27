@@ -46,7 +46,7 @@
 	stAnimations						: ST_Animations;
 	
 	bProcessCylinder_Up					: BOOL;
-	bProcessCylinder_Down				: BOOL;
+	bProcessCylinderDown				: BOOL;
 	bEnableProcessCylinder1				: BOOL;
 	
 	
