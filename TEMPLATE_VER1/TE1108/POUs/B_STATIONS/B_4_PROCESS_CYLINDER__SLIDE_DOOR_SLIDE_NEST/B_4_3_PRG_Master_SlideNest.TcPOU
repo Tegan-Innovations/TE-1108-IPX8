@@ -155,8 +155,22 @@ stSlideNest.Status.bStopped		:= 	NOT stSlideNest.Status.bBusy;]]></ST>
 bNestInLeftPos									:= dw_T08_EL1809.iSlideNestRetracted;
 bNestInRightPos									:= dw_T08_EL1809.iSlideNestExtended; 
 
-dw_T09_EL2809.qExtendSlideNest					:= (bNestRight OR bSlideNestRight) AND bProcessCylinderUp;	
-dw_T09_EL2809.qRetractSlideNest					:= (bNestLeft OR bSlideNestLeft) AND bProcessCylinderUp;;
+IF bNestRight OR bSlideNestRight AND bProcessCylinderUp THEN
+	
+	dw_T09_EL2809.qExtendSlideNest	:= TRUE ;
+	dw_T09_EL2809.qRetractSlideNest	:= FALSE;
+
+ELSIF bNestLeft OR bSlideNestLeft AND bProcessCylinderUp THEN
+	
+	dw_T09_EL2809.qExtendSlideNest	:= FALSE;
+	dw_T09_EL2809.qRetractSlideNest	:= TRUE;
+	
+ELSIF stMachineStatus.bFault THEN
+	
+	dw_T09_EL2809.qExtendSlideNest	:= FALSE;
+	dw_T09_EL2809.qRetractSlideNest	:= FALSE;
+
+END_IF
 
 bProcessCylinderUp								:= stTwinSAFE.qProcessCylinderRetracted;
 
