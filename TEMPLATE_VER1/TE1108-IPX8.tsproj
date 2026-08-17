@@ -678,7 +678,7 @@
 		<ImageData Id="1007">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1008">424de8000000000000007600000028000000100000000e000000010004000000000072000000120b0000120b00000000000000000000464646003333330012121200999999008080800044444400706262005e4545005252520000007a002d2d2d000000ab00008a2200b8b8b80045454500ff00ff00ff0ffff0ffffffff11112111121112ff134524345267722f18952889524772a218b5288b526772a21b9528b9524772a21cb528cb528d42a218952889528dd2a218e5238e528882a218852488828d42a254442444428dd2a2f544424444888822ff55552555533382fffffffffff888880000</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{AAED4EA2-0931-43D2-8590-E4ACDEB76CAB}" TargetNetId="172.18.235.44.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
+	<Project ProjectGUID="{AAED4EA2-0931-43D2-8590-E4ACDEB76CAB}" TargetNetId="169.254.79.3.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
 			<Settings MaxCpus="20" NonWinCpus="1">
 				<Cpu CpuId="3"/>
@@ -700,7 +700,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{997013A6-75D1-424B-98F5-A30289B2B96E}" Name="TE1108" PrjFilePath="TE1108\TE1108.plcproj" TmcFilePath="TE1108\TE1108.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{ADC59AA5-C731-8FA7-917F-C83A39FBE203}" TmcPath="TE1108\TE1108.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{DF8D67D5-9740-DE2B-6E5C-D506A62D5EC4}" TmcPath="TE1108\TE1108.tmc">
 					<Name>TE1108 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2044,7 +2044,7 @@
 			</Project>
 		</Safety>
 		<Io>
-			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="172.18.235.44.4.1" RemoteName="Device1(EtherCAT)" InfoImageId="3">
+			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="192.168.7.156.4.1" RemoteName="Device1(EtherCAT)" InfoImageId="3">
 				<Name>Device1(EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
@@ -4526,7 +4526,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				</Box>
 				<EtherCAT/>
 			</Device>
-			<Device Id="1" DevType="164" AmsPort="28673" AmsNetId="172.18.235.44.2.1" RemoteName="Profinet1 (EL6633)">
+			<Device Id="1" DevType="164" AmsPort="28673" AmsNetId="192.168.7.156.2.1" RemoteName="Profinet1 (EL6633)">
 				<Name>Profinet1 (EL6633)</Name>
 				<AddressInfo>
 					<Ecat>
