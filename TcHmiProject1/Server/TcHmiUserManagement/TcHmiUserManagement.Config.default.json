@@ -32,21 +32,13 @@
             "SALT": "YUc6xAXryHSihUmmzGOwgvMp7M2Qj988WyKm9K3VRVNSzzapL4LhVvoAxv9sUMoG7WVHbXyiHDEFhhT4CnKmEg==",
             "TWO_FACTOR_AUTHENTICATION_ENABLED": false
         },
-        "TESTER": {
-            "ALGORITHM": 1,
-            "ENABLED": true,
-            "LAST_PASSWORD_CHANGE": "2026-07-15T15:10:43.8445057Z",
-            "PASSWORD": "13d893443a9311db159a117fa20917eb5b5586dce3c1e939f20120d0e4d96a37871ca1b651648d78f0b1a4d6a5664b460ac0ee1a507db2679f28e7fd78c3c976",
-            "SALT": "i87bkV6ltIneKn7Er19Z6Aufjd6KW7vSSZ4vq/z8EMlbUbWzPs9cFvgJeQuYSbGMBSLXx8AGcHManDHi3B4amQ==",
-            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
-        },
         "__SystemAdministrator": {
             "ALGORITHM": 1,
             "ENABLED": true,
-            "LAST_PASSWORD_CHANGE": "2026-03-10T09:52:33.6895507Z",
-            "PASSWORD": "d8d991781635634815cbbb9470763d774190b3b0dc1dacebf3b582abb028e94d4022613371e97919fb697b1d05e56bbf0f89287b874f2af9376cab3879fd4e22",
+            "LAST_PASSWORD_CHANGE": "2026-08-17T09:00:26.9190289Z",
+            "PASSWORD": "07b4f15fdbbe53697db06c97099a403eacaee59bf43ee5db1a703062d12d01eaf80bad22b213296f3f6a2c4ad2c27e244eac469953d257b710e833be568756fc",
             "PASSWORD_HISTORY": [],
-            "SALT": "y6NVqC4C3ffjF0tE/0ZqxSD0p9l6NSqGH9Za/MXAcnZeLrHHBU1depqjzyH+67l4JdiYO3B4ugpjgcSVldVeng==",
+            "SALT": "9AyRVC4RukZLE0sBwAu78fqKyO05Rd+MGqbNaXNLw3QIU6l4HYUE40W+6FMQ7PQHYJIxxCcdR8NX2/J1ovAnCw==",
             "TWO_FACTOR_AUTHENTICATION_ENABLED": false
         },
         "__SystemGuest": {
@@ -63,14 +55,6 @@
             "PASSWORD": "",
             "PASSWORD_HISTORY": [],
             "SALT": "",
-            "TWO_FACTOR_AUTHENTICATION_ENABLED": false
-        },
-        "sebastian.ulloa": {
-            "ALGORITHM": 1,
-            "ENABLED": true,
-            "LAST_PASSWORD_CHANGE": "2026-04-07T10:45:40.4048519Z",
-            "PASSWORD": "def7bc992c133b7fce454e62257bf21bb01ea11c5a44c1ff119753da59c0aff31eb5b36d3f181f8a8f8e99f8dc5e3dfe88136ba5e3d97d3f4a8920f5487e27e5",
-            "SALT": "vjbB/L/FgjNnSp/q558iZtFBBChcMqhuR0h02dQvVWwSD/w2OYLS8DMvmbopK5ANv2zgZxeo7mBB1c9VT6urCw==",
             "TWO_FACTOR_AUTHENTICATION_ENABLED": false
         }
     }

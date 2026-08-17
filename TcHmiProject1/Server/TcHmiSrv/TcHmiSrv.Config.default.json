@@ -11959,7 +11959,7 @@
     "USERGROUPUSERS": {
         "TcHmiUserManagement": {
             "Administrator": {
-                "USERGROUPUSERS_AUTO_LOGOFF": "PT15M",
+                "USERGROUPUSERS_AUTO_LOGOFF": "PT10M",
                 "USERGROUPUSERS_FORCE_PASSWORD_CHANGE": false,
                 "USERGROUPUSERS_GROUPS": [
                     "__SystemUsers",
@@ -11970,7 +11970,7 @@
                 "USERGROUPUSERS_TIMEZONE": "project"
             },
             "Engineer": {
-                "USERGROUPUSERS_AUTO_LOGOFF": "PT15M",
+                "USERGROUPUSERS_AUTO_LOGOFF": "PT10M",
                 "USERGROUPUSERS_FORCE_PASSWORD_CHANGE": false,
                 "USERGROUPUSERS_GROUPS": [
                     "__SystemUsers",
@@ -11991,24 +11991,9 @@
                 "USERGROUPUSERS_TIMEFORMATLOCALE": "project",
                 "USERGROUPUSERS_TIMEZONE": "project"
             },
-            "TESTER": {
-                "USERGROUPUSERS_AUTO_LOGOFF": "P30D",
-                "USERGROUPUSERS_FORCE_PASSWORD_CHANGE": false,
-                "USERGROUPUSERS_GROUPS": [
-                    "__SystemUsers",
-                    "Administrator",
-                    "Developer",
-                    "Engineer",
-                    "Operator",
-                    "__SystemAdministrators",
-                    "__SystemGuests"
-                ],
-                "USERGROUPUSERS_LOCALE": "client",
-                "USERGROUPUSERS_TIMEFORMATLOCALE": "project",
-                "USERGROUPUSERS_TIMEZONE": "project"
-            },
             "__SystemAdministrator": {
                 "USERGROUPUSERS_AUTO_LOGOFF": "PT0S",
+                "USERGROUPUSERS_FORCE_PASSWORD_CHANGE": false,
                 "USERGROUPUSERS_GROUPS": [
                     "__SystemAdministrators"
                 ],
@@ -12031,22 +12016,6 @@
                     "__SystemUsers"
                 ],
                 "USERGROUPUSERS_LOCALE": "project",
-                "USERGROUPUSERS_TIMEFORMATLOCALE": "project",
-                "USERGROUPUSERS_TIMEZONE": "project"
-            },
-            "sebastian.ulloa": {
-                "USERGROUPUSERS_AUTO_LOGOFF": "PT1H",
-                "USERGROUPUSERS_FORCE_PASSWORD_CHANGE": false,
-                "USERGROUPUSERS_GROUPS": [
-                    "__SystemUsers",
-                    "Developer",
-                    "Administrator",
-                    "Engineer",
-                    "Operator",
-                    "__SystemAdministrators",
-                    "__SystemGuests"
-                ],
-                "USERGROUPUSERS_LOCALE": "client",
                 "USERGROUPUSERS_TIMEFORMATLOCALE": "project",
                 "USERGROUPUSERS_TIMEZONE": "project"
             }
