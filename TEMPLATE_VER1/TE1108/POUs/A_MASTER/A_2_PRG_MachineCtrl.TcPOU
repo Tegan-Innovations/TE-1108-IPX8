@@ -361,7 +361,7 @@ stMasterCtrl.bAllStationsReady			:= stSlideNest.Status.bReady  AND stLeakTesters
         <ST><![CDATA[/////////////////////////////////////////////////////////////////////////////////////UTILITIES & TRIGGERS/////////////////////////////////////////////////////////////////////////////////////
 //ADD REJECT SENSOR FUNCTION. IF PART FAIL WE SHOULD WAIT UNTIL THE OPERATOR LEAVE THE FAIL PART IN THE CONTAINER
 
-tonProcessCylinderDelay(IN := eCycleState = E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR, PT := T#1S);
+tonProcessCylinderDelay(IN := eCycleState = E_General_ProcessCycle.WAIT_CLOSE_PROCESS_DOOR, PT := T#100MS);
 
 ctuRejectPart();
 IF eCycleState = E_General_ProcessCycle.RESET_ALL_CMD THEN
@@ -689,7 +689,7 @@ E_General_ProcessCycle.WAIT_EXTEND_PROCESS_CYLINDER:
 					
 					IF bHeightTestDoneFlag	THEN
 
-						eCycleState												:= E_General_ProcessCycle.LEAK_TEST;	
+						eCycleState												:= E_General_ProcessCycle.WAIT_LEAK_TEST;	
 					
 					ELSE eCycleState											:= E_General_ProcessCycle.HEIGHT_TEST;	
 					END_IF							
@@ -720,7 +720,7 @@ E_General_ProcessCycle.WAIT_HEIGHT_TEST:
 					stHeightTests.CMD.bExecute									:= FALSE;
 					stHeightTests.CMD.bAcknowledge 								:= TRUE;	
 					bHeightTestDoneFlag											:= TRUE;
-					eCycleState													:= E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER;
+					eCycleState													:= E_General_ProcessCycle.LEAK_TEST;
 					
 				END_IF
 (*			
@@ -749,6 +749,19 @@ E_General_ProcessCycle.WAIT_RETRACT_MIDDLE_PROCESS_CYLINDER:
 										
 				END_IF
 *)
+
+E_General_ProcessCycle.LEAK_TEST:
+
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1					:= bNest1Flag;
+				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2					:= bNest2Flag;
+				stLeakTesters.CMD.bExecute										:= TRUE;
+				
+				IF tonExecute.Q THEN
+					
+					eCycleState													:= E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER;	
+					
+				END_IF
+				
 E_General_ProcessCycle.MOVE_NEST_TO_RIGHT:		
 
 				stSlideNest.CMD.SlideCylinderCMD.MoveRight						:= TRUE;
@@ -773,18 +786,6 @@ E_General_ProcessCycle.WAIT_MOVE_NEST_TO_RIGHT:
 										
 				END_IF
 	
-
-E_General_ProcessCycle.LEAK_TEST:
-
-				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester1					:= bNest1Flag;
-				stLeakTesters.CMD.LeakTestersCMD.RunLeakTester2					:= bNest2Flag;
-				stLeakTesters.CMD.bExecute										:= TRUE;
-				
-				IF tonExecute.Q THEN
-					
-					eCycleState													:= E_General_ProcessCycle.WAIT_LEAK_TEST;	
-					
-				END_IF
 
 E_General_ProcessCycle.WAIT_LEAK_TEST:
 
