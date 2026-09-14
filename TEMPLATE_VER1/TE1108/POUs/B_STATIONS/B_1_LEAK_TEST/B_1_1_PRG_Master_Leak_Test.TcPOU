@@ -443,17 +443,29 @@ stStationEvents[1].aEvents[23].bEventFlag					:=  bError[1] AND bNest2Flag;
 stStationEvents[1].aEvents[23].bEventText					:= 'Leak Tester 2 malfunction';
 stStationEvents[1].aEvents[23].sSolution					:= 'Check Leak tester 2';
 
-(*
 stStationEvents[1].aEvents[24].bCycleStopRequest			:= TRUE;
-stStationEvents[1].aEvents[24].bEventFlag					:=  LeakTester1_IO.sti28LiveMeasurement.inMeasurement1 = 1;
+stStationEvents[1].aEvents[24].rEventTrigger( CLK := LeakTester1_IO.sti28LasResult.inPartEvaluation = 13);
+stStationEvents[1].aEvents[24].bEventFlag					:=  stStationEvents[1].aEvents[24].rEventTrigger.Q;
 stStationEvents[1].aEvents[24].bEventText					:= 'Leak Tester 1 Low Pressure';
 stStationEvents[1].aEvents[24].sSolution					:= 'Check Leak tester 1 pneumatic circuit ';
 
 stStationEvents[1].aEvents[25].bCycleStopRequest			:= TRUE;
-stStationEvents[1].aEvents[25].bEventFlag					:=  LeakTester2_IO.sti28LiveMeasurement.inMeasurement1 = 1;
-stStationEvents[1].aEvents[25].bEventText					:= 'Leak Tester 2 Low Pressure';
-stStationEvents[1].aEvents[25].sSolution					:= 'Check Leak tester 2 pneumatic circuit ';
-*)
+stStationEvents[1].aEvents[25].rEventTrigger( CLK := LeakTester1_IO.sti28LasResult.inPartEvaluation = 14);
+stStationEvents[1].aEvents[25].bEventFlag					:=  stStationEvents[1].aEvents[25].rEventTrigger.Q;
+stStationEvents[1].aEvents[25].bEventText					:= 'Leak Tester 1 High Pressure';
+stStationEvents[1].aEvents[25].sSolution					:= 'Check Leak tester 1 parameters';
+
+stStationEvents[1].aEvents[26].bCycleStopRequest			:= TRUE;
+stStationEvents[1].aEvents[26].rEventTrigger( CLK := LeakTester2_IO.sti28LasResult.inPartEvaluation = 13);
+stStationEvents[1].aEvents[26].bEventFlag					:=  stStationEvents[1].aEvents[26].rEventTrigger.Q;
+stStationEvents[1].aEvents[26].bEventText					:= 'Leak Tester 2 Low Pressure';
+stStationEvents[1].aEvents[26].sSolution					:= 'Check Leak tester 2 pneumatic circuit ';
+
+stStationEvents[1].aEvents[27].bCycleStopRequest			:= TRUE;
+stStationEvents[1].aEvents[27].rEventTrigger( CLK := LeakTester2_IO.sti28LasResult.inPartEvaluation = 14);
+stStationEvents[1].aEvents[27].bEventFlag					:=  stStationEvents[1].aEvents[27].rEventTrigger.Q;
+stStationEvents[1].aEvents[27].bEventText					:= 'Leak Tester 2 High Pressure';
+stStationEvents[1].aEvents[27].sSolution					:= 'Check Leak tester 2 parameters';
 
 
 //Message
