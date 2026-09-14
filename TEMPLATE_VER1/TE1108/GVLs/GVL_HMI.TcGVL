@@ -22,10 +22,11 @@
 	bOutHMI								: BOOL;
 	bEmptyRejectChuteAcknowledge  		: BOOL;
 	bEmptyRejectChute					: BOOL;
+	bSavePersistentData					: BOOL;
 	
 /////////////////////////////////////////////////////////////////////////////////////SYSTEM INFO/////////////////////////////////////////////////////////////////////////////////////
 
-	sSoftwareVersion					: STRING := ' v1.0.0-rc.2';
+	sSoftwareVersion					: STRING := ' v1.0.0-rc.3';
 	sSoftwareDate						: STRING := '03/06/2026';
 	sTC3Version							: STRING := ' v3.1.4026.22, Runtime v3.1.4026.22 ';
 	sHMIVersion							: STRING := ' 14.13';

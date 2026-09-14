@@ -443,6 +443,17 @@ stStationEvents[1].aEvents[23].bEventFlag					:=  bError[1] AND bNest2Flag;
 stStationEvents[1].aEvents[23].bEventText					:= 'Leak Tester 2 malfunction';
 stStationEvents[1].aEvents[23].sSolution					:= 'Check Leak tester 2';
 
+(*
+stStationEvents[1].aEvents[24].bCycleStopRequest			:= TRUE;
+stStationEvents[1].aEvents[24].bEventFlag					:=  LeakTester1_IO.sti28LiveMeasurement.inMeasurement1 = 1;
+stStationEvents[1].aEvents[24].bEventText					:= 'Leak Tester 1 Low Pressure';
+stStationEvents[1].aEvents[24].sSolution					:= 'Check Leak tester 1 pneumatic circuit ';
+
+stStationEvents[1].aEvents[25].bCycleStopRequest			:= TRUE;
+stStationEvents[1].aEvents[25].bEventFlag					:=  LeakTester2_IO.sti28LiveMeasurement.inMeasurement1 = 1;
+stStationEvents[1].aEvents[25].bEventText					:= 'Leak Tester 2 Low Pressure';
+stStationEvents[1].aEvents[25].sSolution					:= 'Check Leak tester 2 pneumatic circuit ';
+*)
 
 
 //Message

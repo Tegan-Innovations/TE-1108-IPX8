@@ -700,7 +700,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{997013A6-75D1-424B-98F5-A30289B2B96E}" Name="TE1108" PrjFilePath="TE1108\TE1108.plcproj" TmcFilePath="TE1108\TE1108.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{DF8D67D5-9740-DE2B-6E5C-D506A62D5EC4}" TmcPath="TE1108\TE1108.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{42FAC598-121B-D091-9347-2215EEE70B13}" TmcPath="TE1108\TE1108.tmc">
 					<Name>TE1108 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -3451,7 +3451,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 					<Box Id="13" BoxType="9171" BoxFlags="#x00000020">
 						<Name>Term 12 (EL6633)</Name>
 						<ImageId>1001</ImageId>
-						<EtherCAT SlaveType="8" AdsServerAddress="ac12eb2c02010000" FixedAdsServerNetId="true" PdiType="#x0408" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e93052" RevisionNo="#x00110000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="60000" TimeoutStateChange2="30000" TimeoutStateChange3="30000" TimeoutStateChange4="300" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6633 PROFINET IO Controller" Desc="EL6633" PortABoxInfo="#x0100000c">
+						<EtherCAT SlaveType="8" AdsServerAddress="c0a8079c02010000" FixedAdsServerNetId="true" PdiType="#x0408" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e93052" RevisionNo="#x00110000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="60000" TimeoutStateChange2="30000" TimeoutStateChange3="30000" TimeoutStateChange4="300" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6633 PROFINET IO Controller" Desc="EL6633" PortABoxInfo="#x0100000c">
 							<SyncMan>001000042600010001000000400000040004001026010000</SyncMan>
 							<SyncMan>001400042200010002000000400000040004001422010000</SyncMan>
 							<SyncMan>0018ba006400010003000000000000000000001864010000</SyncMan>
@@ -4539,7 +4539,10 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				</Image>
 				<Box Id="10" BoxType="9121">
 					<Name>fpc1</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.33-CTS-I28-20210819.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.33-CTS-I28-20210819.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Cincinnati Test Systems
 OrderNumber: 00210
@@ -6092,7 +6095,10 @@ Submodule Info: Barcode_data
 				</Box>
 				<Box Id="15" BoxType="9121">
 					<Name>fpc2</Name>
-					<Comment><![CDATA[GSDML Name: GSDML-V2.33-CTS-I28-20210819.xml
+					<Comment><![CDATA[
+The GSDML is not available!
+
+GSDML Name: GSDML-V2.33-CTS-I28-20210819.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: Cincinnati Test Systems
 OrderNumber: 00210

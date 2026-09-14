@@ -66,6 +66,11 @@ stStationEvents[0].aEvents[6].bEventFlag					:= stTwinSAFE.qSafetyOk AND NOT stT
 stStationEvents[0].aEvents[6].bEventText					:= 'Safe system error' ;
 stStationEvents[0].aEvents[6].sSolution						:= 'Check safety elements';
 
+stStationEvents[0].aEvents[7].bFault						:= TRUE;
+stStationEvents[0].aEvents[7].bEventFlag					:= NOT dw_T08_EL1809.iUP_OK;
+stStationEvents[0].aEvents[7].bEventText					:= 'UP (Primary Power Supply) Stop Working' ;
+stStationEvents[0].aEvents[7].sSolution						:= 'Check UP Power Supply';
+
 stStationEvents[0].aEvents[8].bFault						:= TRUE;
 stStationEvents[0].aEvents[8].bEventFlag					:= stTwinSAFE.qProcessDoorUnSafe;
 stStationEvents[0].aEvents[8].bEventText					:= 'Process door movement unsafe' ;
@@ -85,6 +90,11 @@ stStationEvents[0].aEvents[11].bFault						:= TRUE;
 stStationEvents[0].aEvents[11].bEventFlag					:= stTwinSAFE.qMainDoorUnsafe AND stTwinSAFE.qSafetyOk;
 stStationEvents[0].aEvents[11].bEventText					:= 'Main Door Unsafe' ;
 stStationEvents[0].aEvents[11].sSolution					:= 'Reset system';
+
+stStationEvents[0].aEvents[12].bFault						:= TRUE;
+stStationEvents[0].aEvents[12].bEventFlag					:= NOT dw_T08_EL1809.iUS_OK;
+stStationEvents[0].aEvents[12].bEventText					:= 'US (Secondary Power Supply) Stop Working' ;
+stStationEvents[0].aEvents[12].sSolution					:= 'Check US Power Supply';
 
 stStationEvents[0].aEvents[13].bFault						:= TRUE;
 stStationEvents[0].aEvents[13].bEventFlag					:= stTwinSAFE.qMainDoorUnsafe;

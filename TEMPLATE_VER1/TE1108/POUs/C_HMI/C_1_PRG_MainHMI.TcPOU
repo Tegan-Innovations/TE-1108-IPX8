@@ -9,6 +9,9 @@ VAR
 	n						: DINT;//TABLE INDEX
 	bProcessDoorClosed		: BOOL;
 	srRejectChuteFull		: SR; 
+	
+	fbSavePersistent 		: FB_WritePersistentData;
+	tonSavePersistentData	: TON;
 
 END_VAR
 ]]></Declaration>
@@ -27,7 +30,22 @@ bEnableSildeNest			:= bProcessDoorClosed AND  stTwinSAFE.qProcessCylinderRetract
 bEnableProcessCylinder1		:= bProcessDoorClosed AND (dw_T08_EL1809.iSlideNestExtended OR dw_T08_EL1809.iSlideNestRetracted);
 
 srRejectChuteFull(SET1 := stStationEvents[0].aEvents[18].bEventTimer.Q, RESET := bEmptyRejectChuteAcknowledge AND NOT dw_T08_EL1809.iRejectSensor , Q1 => bEmptyRejectChute);
-	]]></ST>
+	
+
+fbSavePersistent(
+    NETID := NetAmsIdLocal, 
+    PORT  := 851, 
+    START := bSavePersistentData, 
+    TMOUT := T#5S
+);
+
+tonSavePersistentData( IN := bSavePersistentData, PT := T#1S);
+
+IF tonSavePersistentData.Q THEN
+	
+	bSavePersistentData			:= FALSE;
+
+END_IF]]></ST>
     </Implementation>
     <Action Name="a_ACT_MachineStatusBaner" Id="{0dc7bcd3-753a-4f06-be0f-fec0a8964021}">
       <Implementation>

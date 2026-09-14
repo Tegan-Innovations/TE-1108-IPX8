@@ -730,6 +730,9 @@
     <Content Include="Images\messagebox.png">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\part.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\probe.png">
       <SubType>Content</SubType>
     </Content>
