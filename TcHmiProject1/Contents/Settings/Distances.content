@@ -300,8 +300,104 @@
 }
 </script>
 </div>
-<div id="TcHmiContainer_57" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="265" data-tchmi-height-unit="px" data-tchmi-left="129" data-tchmi-left-unit="px" data-tchmi-top="104" data-tchmi-top-unit="px" data-tchmi-width="295" data-tchmi-width-unit="px">
-<div id="TcHmiRectangle_132" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="265" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="295" data-tchmi-width-unit="px" data-tchmi-creator-locked="True">
+<div id="TcHmiContainer_62" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="230" data-tchmi-height-unit="px" data-tchmi-left="104" data-tchmi-left-unit="px" data-tchmi-top="12" data-tchmi-top-unit="px" data-tchmi-width="231" data-tchmi-width-unit="px" data-tchmi-zindex="2">
+<div id="TcHmiButton_220" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="23" data-tchmi-left-unit="px" data-tchmi-text="UP" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="2" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessDoor_Up%/s%">
+
+
+
+
+</div>
+<div id="TcHmiButton_221" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="23" data-tchmi-left-unit="px" data-tchmi-text="DOWN" data-tchmi-top="154" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%!%s%ADS.PLC1.B_4_2_PRG_Master_ProcessDoor.bDoorClosed%/s%%/f%" data-tchmi-zindex="2">
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onStatePressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bProcessDoor_Down%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="Led_164" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="147" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_2_PRG_Master_ProcessDoor.bDoorOpened%/s%" data-tchmi-zindex="2">
+</div>
+<div id="Led_165" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="147" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="154" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_2_PRG_Master_ProcessDoor.bDoorClosed%/s%" data-tchmi-zindex="2">
+</div>
+<div id="TcHmiTextbox_32" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="42" data-tchmi-height-unit="px" data-tchmi-horizontal-scroll="Auto" data-tchmi-left="11" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="True" data-tchmi-text="PROCESS DOOR" data-tchmi-top="31" data-tchmi-top-unit="px" data-tchmi-vertical-scroll="Auto" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-text-font-size="20" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="2">
+<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
+{
+  "top": 3,
+  "right": 3,
+  "bottom": 3,
+  "left": 3
+}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-text-color" type="application/json">
+{
+  "color": "rgba(0, 0, 0, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_194" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="210" data-tchmi-height-unit="px" data-tchmi-left="6" data-tchmi-left-unit="px" data-tchmi-top="22" data-tchmi-top-unit="px" data-tchmi-width="211" data-tchmi-width-unit="px" data-tchmi-zindex="1">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 2,
+  "right": 2,
+  "top": 2,
+  "bottom": 2,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
+{
+  "topLeft": 10.0,
+  "topRight": 10.0,
+  "bottomLeft": 10.0,
+  "bottomRight": 10.0,
+  "topLeftUnit": "px",
+  "topRightUnit": "px",
+  "bottomLeftUnit": "px",
+  "bottomRightUnit": "px"
+}
+</script>
+</div>
+</div>
+<div id="TcHmiContainer_63" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="230" data-tchmi-height-unit="px" data-tchmi-left="104" data-tchmi-left-unit="px" data-tchmi-top="241" data-tchmi-top-unit="px" data-tchmi-width="231" data-tchmi-width-unit="px" data-tchmi-zindex="2">
+<div id="TcHmiRectangle_195" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="210" data-tchmi-height-unit="px" data-tchmi-left="6" data-tchmi-left-unit="px" data-tchmi-top="22" data-tchmi-top-unit="px" data-tchmi-width="211" data-tchmi-width-unit="px" data-tchmi-zindex="2">
 
 <script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
 {
@@ -344,19 +440,15 @@
 }
 </script>
 </div>
-<div id="TcHmiButton_165" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="52" data-tchmi-left-unit="px" data-tchmi-text="UP" data-tchmi-top="75" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%s%ADS.PLC1.B_4_2_PRG_Master_ProcessDoor.bDoorClosed%/s%" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinder_Up%/s%">
+<div id="TcHmiButton_222" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="23" data-tchmi-left-unit="px" data-tchmi-text="UP" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%s%ADS.PLC1.B_4_2_PRG_Master_ProcessDoor.bDoorClosed%/s%" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinder_Up%/s%" data-tchmi-zindex="2">
 
 
 </div>
-<div id="TcHmiButton_166" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="52" data-tchmi-left-unit="px" data-tchmi-text="DOWN" data-tchmi-top="173" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinderDown|BindingMode=TwoWay%/s%">
-
-
+<div id="Led_166" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="147" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="83" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_1_PRG_Master_ProcessCylinder.bRetracted%/s%" data-tchmi-zindex="2">
 </div>
-<div id="Led_156" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="176" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="75" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_1_PRG_Master_ProcessCylinder.bRetracted%/s%">
+<div id="Led_167" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="147" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="154" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_1_PRG_Master_ProcessCylinder.bExtended%/s%" data-tchmi-zindex="2">
 </div>
-<div id="Led_157" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="176" data-tchmi-left-unit="px" data-tchmi-target-user-control="Contents/UserControl/led_RedAndGreen_1In.usercontrol" data-tchmi-top="173" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-input="%s%ADS.PLC1.B_4_1_PRG_Master_ProcessCylinder.bExtended%/s%">
-</div>
-<div id="TcHmiTextbox_27" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="42" data-tchmi-height-unit="px" data-tchmi-horizontal-scroll="Auto" data-tchmi-left="42" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="True" data-tchmi-text="PROCESS CYLINDER" data-tchmi-top="16" data-tchmi-top-unit="px" data-tchmi-vertical-scroll="Auto" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-text-font-size="20" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-weight="Bold">
+<div id="TcHmiTextbox_33" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextbox" data-tchmi-height="42" data-tchmi-height-unit="px" data-tchmi-horizontal-scroll="Auto" data-tchmi-left="11" data-tchmi-left-unit="px" data-tchmi-reset-to-last-valid-value="True" data-tchmi-text="PROCESS CYLINDER" data-tchmi-top="31" data-tchmi-top-unit="px" data-tchmi-vertical-scroll="Auto" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-text-font-size="20" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="2">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "top": 3,
@@ -373,5 +465,134 @@
 }
 </script>
 </div>
+<div id="TcHmiButton_223" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="21" data-tchmi-left-unit="px" data-tchmi-text="DOWN" data-tchmi-top="158" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="5" data-tchmi-state-symbol="%s%ADS.PLC1.GVL_HMI.bProcessCylinderDown|BindingMode=TwoWay%/s%" data-tchmi-is-enabled="%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bEnableProcessCylinder1%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::IsEnabled%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/Boolean",
+                  "value": true
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::IsEnabled%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/Boolean",
+                  "value": false
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+</div>
+<div id="CloseProcessDoorMessage_2" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="250" data-tchmi-height-unit="px" data-tchmi-left="216" data-tchmi-left-unit="px" data-tchmi-top="-47" data-tchmi-top-unit="px" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-target-content="Contents/Manual/MessageBox.content" data-tchmi-visibility="Visible" data-tchmi-zindex="29">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.GVL_HMI.bProcessDoor_Down%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.GVL_HMI.bProcessDoor_Down%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Visible"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::Visibility%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Visibility",
+                  "value": "Collapsed"
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
 </div>

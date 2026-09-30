@@ -156,14 +156,14 @@ END_IF
     <Action Name="b_ACT_Timers" Id="{66f47bca-34fc-4901-8482-712d454221dd}">
       <Implementation>
         <ST><![CDATA[
-stTimers.tAutoCycleTimeOut		:= DINT_TO_TIME(stTimers.nAutoCycleTimeOut * 1000) ;
-stTimers.tDoorOpenedSignal		:= DINT_TO_TIME(stTimers.nDoorOpenedSignal * 1000) ;
-stTimers.tStation1TimeOut		:= DINT_TO_TIME(stTimers.nStation1TimeOut * 1000) ;
-stTimers.tStation2TimeOut		:= DINT_TO_TIME(stTimers.nStation2TimeOut * 1000) ;
-stTimers.tStation3TimeOut		:= DINT_TO_TIME(stTimers.nStation3TimeOut * 1000) ;
-stTimers.tTwoHandsSignal		:= DINT_TO_TIME(stTimers.nTwoHandsSignal * 1000) ;
-stTimers.tHeightTest			:= DINT_TO_TIME(stTimers.nHeightTest * 1000) ;
-stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut * 1000) ;]]></ST>
+stTimers.tAutoCycleTimeOut		:= DINT_TO_TIME(stTimers.nAutoCycleTimeOut) ;
+stTimers.tDoorOpenedSignal		:= DINT_TO_TIME(stTimers.nDoorOpenedSignal);
+stTimers.tStation1TimeOut		:= DINT_TO_TIME(stTimers.nStation1TimeOut) ;
+stTimers.tStation2TimeOut		:= DINT_TO_TIME(stTimers.nStation2TimeOut) ;
+stTimers.tStation3TimeOut		:= DINT_TO_TIME(stTimers.nStation3TimeOut) ;
+stTimers.tTwoHandsSignal		:= DINT_TO_TIME(stTimers.nTwoHandsSignal) ;
+stTimers.tHeightTest			:= DINT_TO_TIME(stTimers.nHeightTest) ;
+stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut) ;]]></ST>
       </Implementation>
     </Action>
     <Action Name="c_ACT_IO" Id="{5594a5d6-af1e-4a8b-85d6-f9bf1b336af1}">

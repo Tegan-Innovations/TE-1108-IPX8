@@ -678,7 +678,7 @@
 		<ImageData Id="1007">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1008">424de8000000000000007600000028000000100000000e000000010004000000000072000000120b0000120b00000000000000000000464646003333330012121200999999008080800044444400706262005e4545005252520000007a002d2d2d000000ab00008a2200b8b8b80045454500ff00ff00ff0ffff0ffffffff11112111121112ff134524345267722f18952889524772a218b5288b526772a21b9528b9524772a21cb528cb528d42a218952889528dd2a218e5238e528882a218852488828d42a254442444428dd2a2f544424444888822ff55552555533382fffffffffff888880000</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{AAED4EA2-0931-43D2-8590-E4ACDEB76CAB}" TargetNetId="172.18.235.44.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
+	<Project ProjectGUID="{AAED4EA2-0931-43D2-8590-E4ACDEB76CAB}" TargetNetId="169.254.79.3.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
 			<Settings MaxCpus="20" NonWinCpus="1">
 				<Cpu CpuId="3"/>
@@ -700,7 +700,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{997013A6-75D1-424B-98F5-A30289B2B96E}" Name="TE1108" PrjFilePath="TE1108\TE1108.plcproj" TmcFilePath="TE1108\TE1108.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{2FEBC135-FE1F-C47F-8436-F721DE0B3A24}" TmcPath="TE1108\TE1108.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{80E84EE2-B997-8307-DACB-F285DE3A708B}" TmcPath="TE1108\TE1108.tmc">
 					<Name>TE1108 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -723,86 +723,6 @@
 						<Var>
 							<Name>GVL_IO.dw_T06_EL2904.qLockProcessCylinder</Name>
 							<Comment><![CDATA[ EL2904 channel 4 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qStartButtonLED</Name>
-							<Comment><![CDATA[ EL2809 channel 1]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qResetButtonLED</Name>
-							<Comment><![CDATA[ EL2809 channel 2]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qOpenProcessDoor</Name>
-							<Comment><![CDATA[ EL2809 channel 3 			]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qCloseProcessDoor</Name>
-							<Comment><![CDATA[ EL2809 channel 4 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qRetractProcessCylinder</Name>
-							<Comment><![CDATA[ EL2809 channel 5]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qExtendProcessCylinder</Name>
-							<Comment><![CDATA[ EL2809 channel 6 	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qPanelLightLED</Name>
-							<Comment><![CDATA[ EL2809 channel 7	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED1_Red</Name>
-							<Comment><![CDATA[ EL2809 channel 8	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED1_Green</Name>
-							<Comment><![CDATA[ EL2809 channel 9]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED2_Red</Name>
-							<Comment><![CDATA[ EL2809 channel 10   	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED2_Green</Name>
-							<Comment><![CDATA[ EL2809 channel 11	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qRetractSlideNest</Name>
-							<Comment><![CDATA[ EL2809 channel 12 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qExtendSlideNest</Name>
-							<Comment><![CDATA[ EL2809 channel 13 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qiEL2809_Ch14</Name>
-							<Comment><![CDATA[ EL2809 channel 14 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qiEL2809_Ch15</Name>
-							<Comment><![CDATA[ EL2809 channel 15 ]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.qPuckLockerPinCommand</Name>
-							<Comment><![CDATA[ EL2809 channel 16]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -1032,6 +952,86 @@
 							<Name>GVL_IO.Probes.abPresetProbe</Name>
 							<Type>DINT</Type>
 						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qStartButtonLED</Name>
+							<Comment><![CDATA[ EL2809 channel 1]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qResetButtonLED</Name>
+							<Comment><![CDATA[ EL2809 channel 2]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qOpenProcessDoor</Name>
+							<Comment><![CDATA[ EL2809 channel 3 			]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qCloseProcessDoor</Name>
+							<Comment><![CDATA[ EL2809 channel 4 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qRetractProcessCylinder</Name>
+							<Comment><![CDATA[ EL2809 channel 5]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qExtendProcessCylinder</Name>
+							<Comment><![CDATA[ EL2809 channel 6 	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qPanelLightLED</Name>
+							<Comment><![CDATA[ EL2809 channel 7	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED1_Red</Name>
+							<Comment><![CDATA[ EL2809 channel 8	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED1_Green</Name>
+							<Comment><![CDATA[ EL2809 channel 9]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED2_Red</Name>
+							<Comment><![CDATA[ EL2809 channel 10   	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qIndicatorLED2_Green</Name>
+							<Comment><![CDATA[ EL2809 channel 11	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qRetractSlideNest</Name>
+							<Comment><![CDATA[ EL2809 channel 12 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qExtendSlideNest</Name>
+							<Comment><![CDATA[ EL2809 channel 13 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qBottomSealer</Name>
+							<Comment><![CDATA[ EL2809 channel 14 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qTopSealer</Name>
+							<Comment><![CDATA[ EL2809 channel 15 ]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.qPuckLockerPinCommand</Name>
+							<Comment><![CDATA[ EL2809 channel 16]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
@@ -1232,11 +1232,6 @@
 						</Var>
 						<Var>
 							<Name>GVL_IO.dw_T08_EL1809.stTerminalInfo.nTerminal_State</Name>
-							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_IO.dw_T09_EL2809.stTerminalInfo.nTerminal_State</Name>
 							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
 							<Type>UINT</Type>
 						</Var>
@@ -1883,6 +1878,11 @@
 							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
 							<Type>UINT</Type>
 						</Var>
+						<Var>
+							<Name>GVL_IO.dw_T09_EL2809.stTerminalInfo.nTerminal_State</Name>
+							<Comment><![CDATA[ Terminal State from IO Terminal Info Data]]></Comment>
+							<Type>UINT</Type>
+						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2026-02-16T14:24:37">
 						<OwnerA Name="InputDst" Prefix="TIPC^TE1108^TE1108 Instance" Type="1">
@@ -2048,9 +2048,9 @@
 				<Name>Device1(EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>EtherCAT (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{8F32429E-9A37-4F04-A309-BFE72B6AEE37}</DeviceName>
-						<DeviceData>000105a8eecd</DeviceData>
+						<DeviceDesc>EtheCAT (TwinCAT-Intel PCI Ethernet Adapter (Gigabi</DeviceDesc>
+						<DeviceName>\DEVICE\{7E841689-C521-48DD-8716-4C4467345031}</DeviceName>
+						<DeviceData>000105a8eee3</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="2" AddrType="9" ImageType="3">
@@ -7797,6 +7797,7 @@ Submodule Info: Barcode_data
 			</OwnerB>
 			<OwnerB Name="TIID^Device1(EtherCAT)^Term 1 (EK1100)^Term 9 (EL2809)">
 				<Link VarA="PlcTask Inputs^GVL_IO.dw_T09_EL2809.stTerminalInfo.nTerminal_State" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qBottomSealer" VarB="Channel 14^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qCloseProcessDoor" VarB="Channel 4^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qExtendProcessCylinder" VarB="Channel 6^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qExtendSlideNest" VarB="Channel 13^Output"/>
@@ -7811,6 +7812,7 @@ Submodule Info: Barcode_data
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qRetractProcessCylinder" VarB="Channel 5^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qRetractSlideNest" VarB="Channel 12^Output"/>
 				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qStartButtonLED" VarB="Channel 1^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.dw_T09_EL2809.qTopSealer" VarB="Channel 15^Output"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Profinet1 (EL6633)^fpc1">
 				<Link VarA="PlcTask Inputs^GVL_IO.LeakTester1_IO.sti28General_I_O.bInstrumentReady" VarB="API^Term 2 (PLC Input)^Subterm 4 (Instrument Status)^Inputs^Instrument Status^Instrument_Ready"/>

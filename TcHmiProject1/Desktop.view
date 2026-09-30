@@ -31,7 +31,7 @@
 </div>
 <div id="Time_Icon" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="35" data-tchmi-height-unit="px" data-tchmi-left="832" data-tchmi-left-unit="px" data-tchmi-src="Images/Icons/clock.svg" data-tchmi-top="43" data-tchmi-top-unit="px" data-tchmi-width="35" data-tchmi-width-unit="px" data-tchmi-zindex="2">
 </div>
-<div id="Main_Region" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="480" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="88" data-tchmi-top-unit="px" data-tchmi-width="1346" data-tchmi-width-unit="px" data-tchmi-zindex="0">
+<div id="Main_Region" data-tchmi-type="TcHmi.Controls.System.TcHmiRegion" data-tchmi-height="480" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="88" data-tchmi-top-unit="px" data-tchmi-width="1346" data-tchmi-width-unit="px" data-tchmi-zindex="0" data-tchmi-creator-locked="True">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [

@@ -29,6 +29,7 @@ VAR
 	ctuRejectPart				: CTU;
 	
 	tonProcessCylinderDelay		: TON;
+	tonSealing					: TON;
 	
 	tonCylinderDwell			: TON; //Renan added - Buglist n13 - 08Jul26
 	
@@ -58,7 +59,8 @@ VAR
 	bPuckLockerEnable       	: BOOL; (* Renan added - Puck Locker Bug - 10Jul26*)
 	bTest						: BOOL;
 	
-	
+	bBottomSealer				: BOOL;
+	bTopSealer					: BOOL;
 	
 	
 END_VAR
@@ -378,7 +380,7 @@ IF eCycleState = E_General_ProcessCycle.IDLE THEN
 ELSE bAutocycleIDLE																:= FALSE;
 
 END_IF
-
+tonSealing(PT := T#500MS);
 tonGettingResults( IN := eCycleState = E_General_ProcessCycle.WAIT_RESULTS, PT := T#100MS);
 
 tonCMD_Done( IN := , PT := T#500MS);
@@ -490,6 +492,10 @@ E_General_ProcessCycle.RESET_ALL_CMD:
 				
 				bProcessedPart[0]												:= FALSE;
 				bProcessedPart[1]												:= FALSE;
+				
+				bTopSealer														:= FALSE;
+				bBottomSealer													:= FALSE;
+				tonSealing.IN													:= FALSE;
 			
 				//add reset command to reset all cycle data
 				
@@ -685,13 +691,24 @@ E_General_ProcessCycle.WAIT_EXTEND_PROCESS_CYLINDER:
 					
 					stProcessCylinder.CMD.ProcessCylinderCMD.ExtendCylinder		:= FALSE;
 					stProcessCylinder.CMD.bExecute								:= FALSE;
-					stProcessCylinder.CMD.bAcknowledge							:= TRUE;
 					
 					IF bHeightTestDoneFlag	THEN
-
-						eCycleState												:= E_General_ProcessCycle.WAIT_LEAK_TEST;	
+						tonSealing.IN											:= TRUE;
+						bTopSealer												:= TRUE;	
+						IF tonSealing.Q THEN
+							
+							bBottomSealer										:= TRUE;
+							tonSealing.IN										:= FALSE;
+							stProcessCylinder.CMD.bAcknowledge					:= TRUE;
+							eCycleState											:= E_General_ProcessCycle.WAIT_LEAK_TEST;
+							
+						END_IF	
 					
-					ELSE eCycleState											:= E_General_ProcessCycle.HEIGHT_TEST;	
+					ELSE 
+
+						eCycleState												:= E_General_ProcessCycle.HEIGHT_TEST;
+						stProcessCylinder.CMD.bAcknowledge						:= TRUE;
+						
 					END_IF							
 					
 						
@@ -938,6 +955,8 @@ E_General_ProcessCycle.RETRACT_PROCESS_CYLINDER:
 						
 				stProcessCylinder.CMD.ProcessCylinderCMD.RetractCylinder		:= TRUE;	
 				stProcessCylinder.CMD.bExecute									:= TRUE;
+				bTopSealer														:= FALSE;
+				bBottomSealer													:= FALSE;
 				
 				IF tonExecute.Q THEN
 					
@@ -1401,7 +1420,11 @@ stTwinSAFE.iMachineHoming_Manual		:= 	stMachineStatus.eMachineState = E_MachineS
 										stMachineStatus.eMachineState = E_MachineState.SYSTEM_INITIALISING OR 
 										stMachineStatus.eMachineState = E_MachineState.MANUAL_MODE;												
 										
-bSlideNestNotHomed					:= NOT dw_T08_EL1809.iSlideNestRetracted;]]></ST>
+bSlideNestNotHomed					:= NOT dw_T08_EL1809.iSlideNestRetracted;
+
+dw_T09_EL2809.qTopSealer			:= bTopSealer OR (stMachineStatus.bManualMode AND bTopSealer_HMI);												
+dw_T09_EL2809.qBottomSealer			:= bBottomSealer OR (stMachineStatus.bManualMode AND bBottomSealer_HMI);
+]]></ST>
       </Implementation>
     </Action>
   </POU>

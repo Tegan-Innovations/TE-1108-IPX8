@@ -29,7 +29,6 @@ VAR
 	rFail								: ARRAY [0..1] OF R_TRIG;	
 	bFail								: ARRAY [0..1] OF BOOL;
 	rReset								: ARRAY [0..1] OF R_TRIG;
-
 	
 END_VAR
 ]]></Declaration>

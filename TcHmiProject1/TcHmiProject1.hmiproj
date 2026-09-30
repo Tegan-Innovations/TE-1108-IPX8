@@ -125,7 +125,6 @@
   <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
   <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
   <ItemGroup>
-    <Folder Include="Contents\CSS_JAVA\UserManagerControl" />
     <Folder Include="Contents\CSS_JAVA\PDF Maker" />
     <Folder Include="Contents\Hardware" />
     <Folder Include="Contents\Manual" />
@@ -166,6 +165,9 @@
     <Content Include=".eslintrc.json">
       <Visible>false</Visible>
     </Content>
+    <Content Include="Contents\CSS_JAVA\autologouttimer.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Contents\CSS_JAVA\Enable buttons.js">
       <SubType>Content</SubType>
     </Content>
@@ -186,9 +188,6 @@
       <DependentUpon>Contents\CSS_JAVA\RowClassesProvider.js</DependentUpon>
     </Content>
     <Content Include="Contents\CSS_JAVA\RowClassesProvider.js">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Contents\CSS_JAVA\UserManagerControl\userManagerScript 1.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Events\Messages_CycleStopReq.content">
@@ -341,7 +340,7 @@
     <Content Include="Contents\Settings\ProbePositions1.content">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Contents\Settings\EnableNests.content">
+    <Content Include="Contents\Settings\GeneralSettings.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Contents\Settings\PuckLockerMode.content">

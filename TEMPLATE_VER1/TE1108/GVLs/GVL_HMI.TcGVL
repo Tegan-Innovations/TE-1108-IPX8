@@ -26,7 +26,7 @@
 	
 /////////////////////////////////////////////////////////////////////////////////////SYSTEM INFO/////////////////////////////////////////////////////////////////////////////////////
 
-	sSoftwareVersion					: STRING := ' v1.0.0-rc.3';
+	sSoftwareVersion					: STRING := ' v1.0.0-rc.4';
 	sSoftwareDate						: STRING := '03/06/2026';
 	sTC3Version							: STRING := ' v3.1.4026.22, Runtime v3.1.4026.22 ';
 	sHMIVersion							: STRING := ' 14.13';
@@ -64,6 +64,9 @@
 	bLeaktester2_Stop					: BOOL;
 	bLeaktester1_Reset					: BOOL;
 	bLeaktester2_Reset					: BOOL;
+	
+	bBottomSealer_HMI					: BOOL;
+	bTopSealer_HMI						: BOOL;
 	
 	
 	

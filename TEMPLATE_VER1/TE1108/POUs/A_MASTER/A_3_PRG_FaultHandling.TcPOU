@@ -19,10 +19,12 @@ END_VAR
 
 
 stMasterCtrl.bNoFault 												:= 	NOT stStationEvents[0].bFault AND NOT stStationEvents[1].bFault AND
-                                            							NOT stStationEvents[2].bFault AND NOT stStationEvents[3].bFault AND NOT stStationEvents[4].bFault;
+                                            							NOT stStationEvents[2].bFault AND NOT stStationEvents[3].bFault AND NOT stStationEvents[4].bFault
+																		AND NOT stStationEvents[5].bFault;
 
 stMasterCtrl.bCycleStopRequest										:= stStationEvents[0].bCycleStopRequest OR stStationEvents[1].bCycleStopRequest OR
-																		stStationEvents[2].bCycleStopRequest OR stStationEvents[3].bCycleStopRequest OR stStationEvents[4].bCycleStopRequest;
+																		stStationEvents[2].bCycleStopRequest OR stStationEvents[3].bCycleStopRequest OR stStationEvents[4].bCycleStopRequest
+																		OR stStationEvents[5].bCycleStopRequest;
 
 
 ]]></ST>
