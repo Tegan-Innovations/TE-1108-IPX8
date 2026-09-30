@@ -729,6 +729,9 @@
     <Content Include="Images\messagebox.png">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\minimed logo.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\part.png">
       <SubType>Content</SubType>
     </Content>

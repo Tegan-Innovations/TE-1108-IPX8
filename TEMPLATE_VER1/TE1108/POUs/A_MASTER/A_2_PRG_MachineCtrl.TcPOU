@@ -380,7 +380,7 @@ IF eCycleState = E_General_ProcessCycle.IDLE THEN
 ELSE bAutocycleIDLE																:= FALSE;
 
 END_IF
-tonSealing(PT := T#500MS);
+tonSealing(PT := T#1000MS);
 tonGettingResults( IN := eCycleState = E_General_ProcessCycle.WAIT_RESULTS, PT := T#100MS);
 
 tonCMD_Done( IN := , PT := T#500MS);
@@ -449,7 +449,7 @@ bNest1StartOK := (NOT bNest1Flag) OR bPartPresentNest1;
 bNest2StartOK := (NOT bNest2Flag) OR bPartPresentNest2;
 (*\Renan Added - Buglist n6 - 08Jul26 *)
 
-bStartProcessCondition := bTwoHandsSignal AND bPartPresentNest1 AND bPartPresentNest2 AND (bNest1Flag OR bNest2Flag);
+bStartProcessCondition := bTwoHandsSignal AND (bPartPresentNest1 OR NOT bNest1Flag) AND (bPartPresentNest2 OR NOT bNest2Flag) AND (bNest1Flag OR bNest2Flag);
 
 
 
@@ -541,19 +541,19 @@ E_General_ProcessCycle.IDLE:
 						
 					END_IF					
 				
-				ELSIF  bPuckLockerReadyToStart AND bPartPresent[0] AND bPartPresent[1] THEN
+				ELSIF  bPuckLockerReadyToStart AND (bPartPresent[0] OR NOT bNest1Flag) AND (bPartPresent[1] OR NOT bNest2Flag) THEN
 					
 					sMachineMessage := 'trigger both safety buttons to start cycle';
 					
-				ELSIF bPuckLockerReadyToStart AND ( NOT bPartPresent[0] AND NOT bPartPresent[1]) THEN
+				ELSIF bPuckLockerReadyToStart AND ( (NOT bPartPresent[0] AND bNest1Flag) AND (NOT bPartPresent[1] AND bNest2Flag)) THEN
 					
 					sMachineMessage 			:= 'Place parts to continue';
 					
-				ELSIF bPuckLockerReadyToStart AND ( bPartPresent[0] AND NOT bPartPresent[1]) THEN
+				ELSIF bPuckLockerReadyToStart AND ( (bPartPresent[0] OR NOT bNest1Flag) AND (NOT bPartPresent[1] AND bNest2Flag)) THEN
 					
 					sMachineMessage 			:= 'Place part in nest 2 to continue';
 				
-				ELSIF bPuckLockerReadyToStart AND ( NOT bPartPresent[0] AND bPartPresent[1]) THEN
+				ELSIF bPuckLockerReadyToStart AND ( (NOT bPartPresent[0] AND bNest1Flag) AND (bPartPresent[1] OR NOT bNest2Flag)) THEN
 					
 					sMachineMessage 			:= 'Place part in nest 1 to continue';
 					

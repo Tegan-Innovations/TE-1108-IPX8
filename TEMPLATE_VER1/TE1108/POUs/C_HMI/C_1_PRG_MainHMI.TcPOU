@@ -163,7 +163,7 @@ stTimers.tStation2TimeOut		:= DINT_TO_TIME(stTimers.nStation2TimeOut) ;
 stTimers.tStation3TimeOut		:= DINT_TO_TIME(stTimers.nStation3TimeOut) ;
 stTimers.tTwoHandsSignal		:= DINT_TO_TIME(stTimers.nTwoHandsSignal) ;
 stTimers.tHeightTest			:= DINT_TO_TIME(stTimers.nHeightTest) ;
-stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut) ;]]></ST>
+stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut*60000) ;]]></ST>
       </Implementation>
     </Action>
     <Action Name="c_ACT_IO" Id="{5594a5d6-af1e-4a8b-85d6-f9bf1b336af1}">
