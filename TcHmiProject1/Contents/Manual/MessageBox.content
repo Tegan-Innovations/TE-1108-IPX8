@@ -1,6 +1,6 @@
 <div id="MessageBox" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="300" data-tchmi-height="250" data-tchmi-zindex="1">
 
-<div id="TcHmiImage_74" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="250" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-src="Images/messagebox.png" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-zindex="0">
+<div id="TcHmiImage_74" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="250" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-src="Images/messagebox.png" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-zindex="0" data-tchmi-is-enabled="True">
 
 
 

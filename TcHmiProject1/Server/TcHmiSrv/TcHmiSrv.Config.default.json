@@ -2871,6 +2871,16 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.GVL_HMI.bBottomSealer_HMI": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_HMI::bBottomSealer_HMI",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.GVL_HMI.bCameraResetStatistics.0": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -3520,6 +3530,16 @@
             "DOMAIN": "ADS",
             "DYNAMIC": true,
             "MAPPING": "PLC1::GVL_HMI::bSlideNestRight",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.GVL_HMI.bTopSealer_HMI": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::GVL_HMI::bTopSealer_HMI",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
             },
@@ -10841,6 +10861,61 @@
             "SCHEMA": {},
             "USEMAPPING": true
         },
+        "TcHmiSrv.GetCurrentUser.autoLogoff": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "format": "timespan",
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::autoLogoff",
+            "USEMAPPING": true
+        },
+        "TcHmiSrv.GetCurrentUser.configTimeFormatLocale": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::configTimeFormatLocale",
+            "USEMAPPING": true
+        },
+        "TcHmiSrv.GetCurrentUser.configTimeZone": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::configTimeZone",
+            "USEMAPPING": true
+        },
         "TcHmiSrv.GetCurrentUser.groups": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -10880,6 +10955,24 @@
             "SUBSYMBOL_MAPPING": "::groups[0]",
             "USEMAPPING": true
         },
+        "TcHmiSrv.GetCurrentUser.locale": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::locale",
+            "USEMAPPING": true
+        },
         "TcHmiSrv.GetCurrentUser.name": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -10896,6 +10989,60 @@
                 ]
             },
             "SUBSYMBOL_MAPPING": "::name",
+            "USEMAPPING": true
+        },
+        "TcHmiSrv.GetCurrentUser.session": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::session",
+            "USEMAPPING": true
+        },
+        "TcHmiSrv.GetCurrentUser.timeFormatLocale": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::timeFormatLocale",
+            "USEMAPPING": true
+        },
+        "TcHmiSrv.GetCurrentUser.timeZone": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiSrv",
+            "DYNAMIC": true,
+            "MAPPING": "GetCurrentUser",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "function": true
+                    }
+                ]
+            },
+            "SUBSYMBOL_MAPPING": "::timeZone",
             "USEMAPPING": true
         },
         "TcHmiUserManagement.AddUser": {
@@ -11524,6 +11671,7 @@
                 "ADS.PLC1.GVL_HMI.anNestOffsetByProbe2.1": 3,
                 "ADS.PLC1.GVL_HMI.anNestOffsetByProbe2.2": 3,
                 "ADS.PLC1.GVL_HMI.anNestOffsetByProbe2.3": 3,
+                "ADS.PLC1.GVL_HMI.bBottomSealer_HMI": 3,
                 "ADS.PLC1.GVL_HMI.bCameraResetStatistics.0": 3,
                 "ADS.PLC1.GVL_HMI.bCameraResetStatistics.1": 3,
                 "ADS.PLC1.GVL_HMI.bCameraResetStatistics.2": 3,
@@ -11588,6 +11736,7 @@
                 "ADS.PLC1.GVL_HMI.bSetTolerances": 3,
                 "ADS.PLC1.GVL_HMI.bSlideNestLeft": 3,
                 "ADS.PLC1.GVL_HMI.bSlideNestRight": 3,
+                "ADS.PLC1.GVL_HMI.bTopSealer_HMI": 3,
                 "ADS.PLC1.GVL_HMI.nAirPressureMaxValue": 3,
                 "ADS.PLC1.GVL_HMI.nAirPressureMinValue": 3,
                 "ADS.PLC1.GVL_HMI.nMachineDefinitionIndex2": 3,
@@ -11941,9 +12090,16 @@
                 "SetLocale": 3,
                 "SubscribeEvents": 3,
                 "TcHmiSqliteLogger.Diagnostics": 3,
+                "TcHmiSrv.GetCurrentUser.autoLogoff": 3,
+                "TcHmiSrv.GetCurrentUser.configTimeFormatLocale": 3,
+                "TcHmiSrv.GetCurrentUser.configTimeZone": 3,
                 "TcHmiSrv.GetCurrentUser.groups": 3,
                 "TcHmiSrv.GetCurrentUser.groups.0": 3,
+                "TcHmiSrv.GetCurrentUser.locale": 3,
                 "TcHmiSrv.GetCurrentUser.name": 3,
+                "TcHmiSrv.GetCurrentUser.session": 3,
+                "TcHmiSrv.GetCurrentUser.timeFormatLocale": 3,
+                "TcHmiSrv.GetCurrentUser.timeZone": 3,
                 "TcHmiUserManagement.ChangePassword": 3,
                 "TcHmiUserManagement.Disable2FA": 3,
                 "TcHmiUserManagement.Enable2FA": 3,

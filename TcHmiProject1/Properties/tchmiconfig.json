@@ -82,12 +82,12 @@
       "type": "JavaScript"
     },
     {
-      "name": "Contents/CSS_JAVA/UserManagerControl/userManagerScript 1.js",
+      "name": "Contents/CSS_JAVA/Heartbeat.js",
       "description": "",
       "type": "JavaScript"
     },
     {
-      "name": "Contents/CSS_JAVA/Heartbeat.js",
+      "name": "Contents/CSS_JAVA/autologouttimer.js",
       "description": "",
       "type": "JavaScript"
     }
@@ -484,7 +484,7 @@
       "preloadBindings": false
     },
     {
-      "url": "Contents/Settings/EnableNests.content",
+      "url": "Contents/Settings/GeneralSettings.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
