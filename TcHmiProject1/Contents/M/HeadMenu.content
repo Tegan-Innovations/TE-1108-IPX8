@@ -21,20 +21,7 @@
 
 
 
-<script data-tchmi-target-attribute="data-tchmi-access-config" type="application/json">
-[
-  {
-    "accessright": "operate",
-    "group": "Operator",
-    "permission": "Deny"
-  },
-  {
-    "accessright": "observe",
-    "group": "Operator",
-    "permission": "Deny"
-  }
-]
-</script>
+
 </div>
 <div id="Menu_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="77.8" data-tchmi-height-unit="%" data-tchmi-left="18.8" data-tchmi-left-unit="%" data-tchmi-src="Images/Buttons/MenuButton.png" data-tchmi-top="11.1" data-tchmi-top-unit="%" data-tchmi-width="13.9" data-tchmi-width-unit="%" data-tchmi-zindex="1">
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
@@ -91,20 +78,7 @@
   }
 ]</script>
 
-<script data-tchmi-target-attribute="data-tchmi-access-config" type="application/json">
-[
-  {
-    "accessright": "operate",
-    "group": "Operator",
-    "permission": "Deny"
-  },
-  {
-    "accessright": "observe",
-    "group": "Operator",
-    "permission": "Deny"
-  }
-]
-</script>
+
 </div>
 <div id="IO_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="77.8" data-tchmi-height-unit="%" data-tchmi-left="51.5" data-tchmi-left-unit="%" data-tchmi-src="Images/Buttons/IOButton.png" data-tchmi-top="11.1" data-tchmi-top-unit="%" data-tchmi-width="13.9" data-tchmi-width-unit="%" data-tchmi-zindex="1">
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[

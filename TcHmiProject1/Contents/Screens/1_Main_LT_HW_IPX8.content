@@ -1087,7 +1087,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 </script>
 </div>
 </div>
-<div id="TcHmiRectangle_133" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="284" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
+<div id="TcHmiRectangle_133" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="283" data-tchmi-left-unit="px" data-tchmi-top="245" data-tchmi-top-unit="px" data-tchmi-width="76" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
 <script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
 {
   "topLeft": 10.0,
@@ -1111,7 +1111,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiRectangle_134" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="370" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
+<div id="TcHmiRectangle_134" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="370" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
 <script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
 {
   "topLeft": 10.0,
@@ -1135,7 +1135,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiTextblock_1294" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="284" data-tchmi-left-unit="px" data-tchmi-text="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.nBad%/s%" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<div id="TcHmiTextblock_1294" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="283" data-tchmi-left-unit="px" data-tchmi-text="%f%(%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.nBad%/s%).toString().padStart(4,'0')%/f%" data-tchmi-top="245" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="46" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "left": 0,
@@ -1155,7 +1155,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiTextblock_1295" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="370" data-tchmi-left-unit="px" data-tchmi-text="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.nGood%/s%" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<div id="TcHmiTextblock_1295" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="370" data-tchmi-left-unit="px" data-tchmi-text="%f%(%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.0.nGood%/s%).toString().padStart(4,'0')%/f%" data-tchmi-top="245" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "left": 0,
@@ -1175,7 +1175,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiRectangle_135" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="901" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
+<div id="TcHmiRectangle_135" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="901" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
 <script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
 {
   "topLeft": 10.0,
@@ -1199,7 +1199,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiRectangle_136" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="987" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
+<div id="TcHmiRectangle_136" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="987" data-tchmi-left-unit="px" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
 <script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
 {
   "topLeft": 10.0,
@@ -1223,7 +1223,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiTextblock_1296" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="901" data-tchmi-left-unit="px" data-tchmi-text="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.1.nBad%/s%" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<div id="TcHmiTextblock_1296" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="901" data-tchmi-left-unit="px" data-tchmi-text="%f%(%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.1.nBad%/s%).toString().padStart(4,'0')%/f%" data-tchmi-top="247" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "left": 0,
@@ -1243,7 +1243,7 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
 }
 </script>
 </div>
-<div id="TcHmiTextblock_1297" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="66" data-tchmi-height-unit="px" data-tchmi-left="987" data-tchmi-left-unit="px" data-tchmi-text="%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.1.nGood%/s%" data-tchmi-top="246" data-tchmi-top-unit="px" data-tchmi-width="70" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
+<div id="TcHmiTextblock_1297" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="41" data-tchmi-height-unit="px" data-tchmi-left="986" data-tchmi-left-unit="px" data-tchmi-text="%f%(%s%ADS.PLC1.GVL_HMI.stStatisticsHMI.1.nGood%/s%).toString().padStart(4,'0')%/f%" data-tchmi-top="245" data-tchmi-top-unit="px" data-tchmi-width="75" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-zindex="13" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-vertical-alignment="Center">
 <script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
 {
   "left": 0,
