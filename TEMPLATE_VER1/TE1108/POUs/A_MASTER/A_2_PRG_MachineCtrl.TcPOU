@@ -1422,7 +1422,7 @@ stTwinSAFE.iMachineHoming_Manual		:= 	stMachineStatus.eMachineState = E_MachineS
 										
 bSlideNestNotHomed					:= NOT dw_T08_EL1809.iSlideNestRetracted;
 
-dw_T09_EL2809.qTopSealer			:= bTopSealer OR (stMachineStatus.bManualMode AND bTopSealer_HMI);												
+//dw_T09_EL2809.qTopSealer			:= bTopSealer OR (stMachineStatus.bManualMode AND bTopSealer_HMI);												
 dw_T09_EL2809.qBottomSealer			:= bBottomSealer OR (stMachineStatus.bManualMode AND bBottomSealer_HMI);
 ]]></ST>
       </Implementation>

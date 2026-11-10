@@ -12,6 +12,7 @@ VAR
 	
 	fbSavePersistent 		: FB_WritePersistentData;
 	tonSavePersistentData	: TON;
+	fSettingsScreen			: F_TRIG;
 
 END_VAR
 ]]></Declaration>
@@ -31,11 +32,13 @@ bEnableProcessCylinder1		:= bProcessDoorClosed AND (dw_T08_EL1809.iSlideNestExte
 
 srRejectChuteFull(SET1 := stStationEvents[0].aEvents[18].bEventTimer.Q, RESET := bEmptyRejectChuteAcknowledge AND NOT dw_T08_EL1809.iRejectSensor , Q1 => bEmptyRejectChute);
 	
+fSettingsScreen( CLK := nMainRegion = 6);
+
 
 fbSavePersistent(
     NETID := NetAmsIdLocal, 
     PORT  := 851, 
-    START := bSavePersistentData, 
+    START := bSavePersistentData OR fSettingsScreen.Q, 
     TMOUT := T#5S
 );
 
