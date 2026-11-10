@@ -32,6 +32,11 @@
     "accessright": "observe",
     "group": "Developer",
     "permission": "Allow"
+  },
+  {
+    "accessright": "operate",
+    "group": "Tech",
+    "permission": "Deny"
   }
 ]
 </script>
@@ -260,6 +265,11 @@
   {
     "accessright": "operate",
     "group": "Operator",
+    "permission": "Deny"
+  },
+  {
+    "accessright": "operate",
+    "group": "Tech",
     "permission": "Deny"
   }
 ]

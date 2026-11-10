@@ -1422,10 +1422,30 @@ stTwinSAFE.iMachineHoming_Manual		:= 	stMachineStatus.eMachineState = E_MachineS
 										
 bSlideNestNotHomed					:= NOT dw_T08_EL1809.iSlideNestRetracted;
 
-dw_T09_EL2809.qTopSealer			:= bTopSealer OR (stMachineStatus.bManualMode AND bTopSealer_HMI);												
+//dw_T09_EL2809.qTopSealer			:= bTopSealer OR (stMachineStatus.bManualMode AND bTopSealer_HMI);												
 dw_T09_EL2809.qBottomSealer			:= bBottomSealer OR (stMachineStatus.bManualMode AND bBottomSealer_HMI);
 ]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="A_2_PRG_MachineCtrl">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="A_2_PRG_MachineCtrl.a_ACT_MachineStatus">
+      <LineId Id="2" Count="278" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="A_2_PRG_MachineCtrl.b_ACT_ProcessCycle">
+      <LineId Id="2" Count="882" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="A_2_PRG_MachineCtrl.c_ACT_SaveData">
+      <LineId Id="2" Count="106" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="A_2_PRG_MachineCtrl.d_ACT_IO">
+      <LineId Id="66" Count="63" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
