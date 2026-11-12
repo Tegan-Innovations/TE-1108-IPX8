@@ -1127,6 +1127,16 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
   "color": "rgba(255, 255, 255, 1)"
 }
 </script>
+
+<script data-tchmi-target-attribute="data-tchmi-access-config" type="application/json">
+[
+  {
+    "accessright": "observe",
+    "group": "Operator",
+    "permission": "Deny"
+  }
+]
+</script>
 </div>
 <div id="TcHmiRectangle_127" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="81" data-tchmi-height-unit="px" data-tchmi-left="467" data-tchmi-left-unit="px" data-tchmi-top="18" data-tchmi-top-unit="px" data-tchmi-width="148" data-tchmi-width-unit="px" data-tchmi-width-mode="Value" data-tchmi-zindex="0" data-tchmi-radius-x="10" data-tchmi-stroke-thickness="2" data-tchmi-radius-y="10">
 <script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
@@ -1158,46 +1168,6 @@ TEST ZONE - RH" data-tchmi-top="14" data-tchmi-top-unit="px" data-tchmi-width="1
     "accessright": "observe",
     "group": "Operator",
     "permission": "Deny"
-  }
-]
-</script>
-</div>
-<div id="TcHmiButton_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="403" data-tchmi-left-unit="px" data-tchmi-text="MANUAL" data-tchmi-top="122" data-tchmi-top-unit="px" data-tchmi-width="122" data-tchmi-width-unit="px" data-tchmi-word-wrap="true" data-tchmi-text-font-size="20" data-tchmi-zindex="1" data-tchmi-opacity="1" data-tchmi-visibility="Visible" data-tchmi-is-enabled="%f%%s%PLC1.GVL_HMI.bEnableManual%/s%%/f%">
-<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
-[
-  {
-    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%i%MainFrame%/i%",
-        "value": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/DINT",
-          "value": 5
-        },
-        "asyncWait": true
-      }
-    ]
-  }
-]
-</script>
-
-
-
-
-
-
-
-
-
-<script data-tchmi-target-attribute="data-tchmi-access-config" type="application/json">
-[
-  {
-    "accessright": "operate",
-    "group": "Engineer",
-    "permission": "Allow"
   },
   {
     "accessright": "operate",
