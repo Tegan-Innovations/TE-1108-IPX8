@@ -176,5 +176,21 @@ stTimers.tAutoCycleIDLETimeOut			:= DINT_TO_TIME(stTimers.nAutoCycleIDLETimeOut*
 ]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="C_1_PRG_MainHMI">
+      <LineId Id="32" Count="30" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="C_1_PRG_MainHMI.a_ACT_MachineStatusBaner">
+      <LineId Id="2" Count="100" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="C_1_PRG_MainHMI.b_ACT_Timers">
+      <LineId Id="2" Count="7" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="C_1_PRG_MainHMI.c_ACT_IO">
+      <LineId Id="2" Count="1" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
